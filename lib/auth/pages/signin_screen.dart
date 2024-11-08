@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:textmarkt/auth/pages/forget_password.dart';
+import 'package:textmarkt/auth/pages/signup_screen.dart';
 import 'package:textmarkt/auth/services/auth_gate.dart';
 import 'package:textmarkt/auth/services/auth_service.dart';
 import 'package:textmarkt/auth/services/error_message.dart';
@@ -67,91 +68,151 @@ class _SignUpScreenState extends State<SigninScreen> {
     final screenWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
       backgroundColor: Colors.white,
-      body: ListView(
-        children: [
-          Image.asset(
-            'assets/app/launcherIcon.png',
-            width: screenWidth * 0.70,
-            height: screenWidth * 0.70,
-          ),
-          const Text(
-            'hello 👋',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const Text(
-            'welcome back, sign in to your account now',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(height: 30),
-          MyTextField(
-            readOnly: false,
-            controller: emailController,
-            hintText: 'Email Address',
-            obscureText: false,
-            errorText: emailErrorText,
-          ),
-          const SizedBox(height: 20),
-          MyTextField(
-            readOnly: false,
-            controller: passwordController,
-            hintText: 'Password',
-            obscureText: true,
-            errorText: passwordErrorText,
-          ),
-          const SizedBox(height: 40),
-          GestureDetector(
-            child: const Padding(
-              padding: EdgeInsets.only(left: 25),
-              child: Text(
-                'Forget Password ?!',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 239, 48, 41),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 30),
+              Image.asset(
+                'assets/images/login_ill.png',
+                width: screenWidth * 0.70,
+                height: screenWidth * 0.70,
+              ),
+              const SizedBox(height: 25),
+              const Row(
+                children: [
+                  Spacer(flex: 1),
+                  Text(
+                    'Log IN',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                    ),
+                  ),
+                  Spacer(flex: 20),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Image.asset(
+                      'assets/images/email.png',
+                    ),
+                  ),
+                  Expanded(
+                    flex: 8,
+                    child: MyTextField(
+                      readOnly: false,
+                      controller: emailController,
+                      hintText: 'Email Address',
+                      obscureText: false,
+                      errorText: emailErrorText,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Image.asset(
+                      'assets/images/password.png',
+                    ),
+                  ),
+                  Expanded(
+                    flex: 8,
+                    child: MyTextField(
+                      readOnly: false,
+                      controller: passwordController,
+                      hintText: 'Password',
+                      obscureText: true,
+                      errorText: passwordErrorText,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 40),
+              Row(
+                children: [
+                  GestureDetector(
+                    child: const Padding(
+                      padding: EdgeInsets.only(left: 25),
+                      child: Text(
+                        'Forget Password ?!',
+                        style: TextStyle(
+                          color: Color(0xff007AFF),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return const ForgetPasswordScreen();
+                        },
+                      ));
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                width: screenWidth * 0.97,
+                child: MyButton(
+                  buttonText: 'Sign in',
+                  onPressed: () {
+                    setState(() {
+                      emailErrorText = auth.checkSigninCredential(
+                        credential: 'email',
+                        emailController: emailController,
+                        passwordController: passwordController,
+                      );
+                      passwordErrorText = auth.checkSigninCredential(
+                        credential: 'password',
+                        emailController: emailController,
+                        passwordController: passwordController,
+                      );
+                    });
+                    if (auth.checkSigninCredential(
+                          credential: 'signin',
+                          emailController: emailController,
+                          passwordController: passwordController,
+                        ) ==
+                        'valid signin') {
+                      SignIn();
+                    }
+                  },
                 ),
               ),
-            ),
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(
-                builder: (context) {
-                  return const ForgetPasswordScreen();
-                },
-              ));
-            },
+              const SizedBox(height: 5),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('don\'t have an account? '),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SignUpScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'sign up',
+                      style: TextStyle(
+                        color: Color(0xff007AFF),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          const SizedBox(height: 70),
-          MyButton(
-            buttonText: 'Sign in',
-            onPressed: () {
-              setState(() {
-                emailErrorText = auth.checkSigninCredential(
-                  credential: 'email',
-                  emailController: emailController,
-                  passwordController: passwordController,
-                );
-                passwordErrorText = auth.checkSigninCredential(
-                  credential: 'password',
-                  emailController: emailController,
-                  passwordController: passwordController,
-                );
-              });
-              if (auth.checkSigninCredential(
-                    credential: 'signin',
-                    emailController: emailController,
-                    passwordController: passwordController,
-                  ) ==
-                  'valid signin') {
-                SignIn();
-              }
-            },
-          )
-        ],
+        ),
       ),
     );
   }

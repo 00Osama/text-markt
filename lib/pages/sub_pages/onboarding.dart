@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:textmarkt/auth/widgets/auth_tab.dart';
+import 'package:textmarkt/auth/pages/signin_screen.dart';
 import 'package:textmarkt/widgets/onboarding_button.dart';
 import 'package:textmarkt/widgets/onboarding_indicator.dart';
 
@@ -18,7 +18,7 @@ class _OnboardingState extends State<Onboarding> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => const AuthTab(),
+        builder: (context) => const SigninScreen(),
       ),
     );
   }
