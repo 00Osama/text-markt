@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:textmarkt/auth/pages/verify_email_checker.dart';
-import 'package:textmarkt/pages/onboarding.dart';
+import 'package:textmarkt/pages/sub_pages/onboarding.dart';
 
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:textmarkt/pages/create_note.dart';
-import 'package:textmarkt/pages/events.dart';
-import 'package:textmarkt/pages/notes.dart';
-import 'package:textmarkt/pages/search.dart';
+import 'package:textmarkt/pages/main_pages/profile.dart';
+import 'package:textmarkt/pages/main_pages/events.dart';
+import 'package:textmarkt/pages/main_pages/notes.dart';
+import 'package:textmarkt/pages/main_pages/search.dart';
 
 class AppController extends StatefulWidget {
   const AppController({super.key});
@@ -16,7 +16,7 @@ class _AppControllerState extends State<AppController> {
     const Notes(),
     const Events(),
     const Search(),
-    const CreateNote(),
+    const Profile(),
   ];
   int myIndex = 0;
 
@@ -68,16 +68,18 @@ class _AppControllerState extends State<AppController> {
             ),
             label: 'Search',
           ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/images/bottomCreateNotes.png',
-              color: const Color(0xff1C2121),
+          const BottomNavigationBarItem(
+            icon: Icon(
+              Icons.person_outline_rounded,
+              size: 31,
+              color: Color(0xff1C2121),
             ),
-            activeIcon: Image.asset(
-              'assets/images/bottomCreateNotes.png',
-              color: const Color(0xff007AFF),
+            activeIcon: Icon(
+              Icons.person_outline_rounded,
+              size: 31,
+              color: Color(0xff007AFF),
             ),
-            label: 'Create Note',
+            label: 'Profile',
           ),
         ],
       ),
