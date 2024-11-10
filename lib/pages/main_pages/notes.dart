@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:textmarkt/bloc/note_cubit.dart';
 import 'package:textmarkt/globals.dart';
 import 'package:textmarkt/models/note.dart';
 import 'package:textmarkt/pages/sub_pages/create_or_update_note.dart';
@@ -38,18 +41,82 @@ class _NotesState extends State<Notes> {
         : "Invalid month";
   }
 
-  Future<List<Note>> getUserNotes() async {
-    if (myNotes.isEmpty) {
-      QuerySnapshot response = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.email)
-          .collection('allNotes')
-          .get();
-      myNotes = response.docs
-          .map((doc) => Note.fromJson(doc.data() as Map<String, dynamic>))
-          .toList();
+  ////////////////////////////
+  Future<List<Note>> getNotes(String notes) async {
+    if (notes == 'AllNotes') {
+      if (allNotes.isEmpty) {
+        QuerySnapshot response = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.email)
+            .collection(notes)
+            .orderBy(
+              'time',
+              descending: true,
+            )
+            .get();
+
+        allNotes = response.docs.map((doc) {
+          var note = Note.fromJson(doc.data() as Map<String, dynamic>);
+          note.id = doc.id;
+          return note;
+        }).toList();
+      }
+      return allNotes;
+    } else if (notes == 'Favourites') {
+      if (favourites.isEmpty) {
+        QuerySnapshot response = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.email)
+            .collection(notes)
+            .orderBy(
+              'time',
+              descending: true,
+            )
+            .get();
+        favourites = response.docs.map((doc) {
+          var note = Note.fromJson(doc.data() as Map<String, dynamic>);
+          note.id = doc.id;
+          return note;
+        }).toList();
+      }
+      return favourites;
+    } else if (notes == 'Hidden') {
+      if (hidden.isEmpty) {
+        QuerySnapshot response = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.email)
+            .collection(notes)
+            .orderBy(
+              'time',
+              descending: true,
+            )
+            .get();
+        hidden = response.docs.map((doc) {
+          var note = Note.fromJson(doc.data() as Map<String, dynamic>);
+          note.id = doc.id;
+          return note;
+        }).toList();
+      }
+      return hidden;
+    } else {
+      if (trash.isEmpty) {
+        QuerySnapshot response = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser!.email)
+            .collection(notes)
+            .orderBy(
+              'time',
+              descending: true,
+            )
+            .get();
+        trash = response.docs.map((doc) {
+          var note = Note.fromJson(doc.data() as Map<String, dynamic>);
+          note.id = doc.id;
+          return note;
+        }).toList();
+      }
+      return trash;
     }
-    return myNotes;
   }
 
   @override
@@ -111,115 +178,162 @@ class _NotesState extends State<Notes> {
           const SizedBox(height: 15),
           const MyearchBar(),
           const SizedBox(height: 19),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                NoteSection(
-                  icon: 'assets/images/allNotesSection.png',
-                  iconBackGround: Color(0xff8E8E92),
-                  section: 'All Notes',
+          BlocBuilder<NoteCubit, NoteState>(
+            builder: (context, state) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    NoteSection(
+                      sectionIcon: FontAwesomeIcons.heart,
+                      iconColor: const Color(0xff8E8E92),
+                      borderColor: state is AllNotes
+                          ? const Color(0xff8E8E92)
+                          : Colors.transparent,
+                      sectionName: 'All Notes',
+                      onPressed: () {
+                        context.read<NoteCubit>().switchNotes('AllNotes');
+                      },
+                    ),
+                    const SizedBox(width: 10),
+                    NoteSection(
+                      sectionIcon: FontAwesomeIcons.heart,
+                      iconColor: const Color(0xffF7CE45),
+                      borderColor: state is Favourites
+                          ? const Color(0xffF7CE45)
+                          : Colors.transparent,
+                      sectionName: 'Favourites',
+                      onPressed: () {
+                        context.read<NoteCubit>().switchNotes('Favourites');
+                      },
+                    ),
+                  ],
                 ),
-                SizedBox(width: 10),
-                NoteSection(
-                  icon: 'assets/images/allNotesSection.png',
-                  iconBackGround: Color(0xffF7CE45),
-                  section: 'Favourites',
-                ),
-              ],
-            ),
+              );
+            },
           ),
           const SizedBox(height: 10),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                NoteSection(
-                  icon: 'assets/images/hiddenSection.png',
-                  iconBackGround: Color(0xff4E94F8),
-                  section: 'Hidden',
+          BlocBuilder<NoteCubit, NoteState>(
+            builder: (context, state) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    NoteSection(
+                      sectionIcon: FontAwesomeIcons.eyeSlash,
+                      iconColor: const Color(0xff4E94F8),
+                      borderColor: state is Hidden
+                          ? const Color(0xff4E94F8)
+                          : Colors.transparent,
+                      sectionName: 'Hidden',
+                      onPressed: () {
+                        context.read<NoteCubit>().switchNotes('Hidden');
+                      },
+                    ),
+                    const SizedBox(width: 10),
+                    NoteSection(
+                      sectionIcon: FontAwesomeIcons.trashCan,
+                      iconColor: const Color(0xffEB4D3D),
+                      borderColor: state is Trash
+                          ? const Color(0xffEB4D3D)
+                          : Colors.transparent,
+                      sectionName: 'Trash',
+                      onPressed: () {
+                        context.read<NoteCubit>().switchNotes('Trash');
+                      },
+                    ),
+                  ],
                 ),
-                SizedBox(width: 10),
-                NoteSection(
-                  icon: 'assets/images/trashSection.png',
-                  iconBackGround: Color(0xffEB4D3D),
-                  section: 'Trash',
-                ),
-              ],
-            ),
+              );
+            },
           ),
           const SizedBox(height: 19),
-          FutureBuilder<List<Note>>(
-            future: getUserNotes(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Expanded(
-                  child: Column(
-                    children: [
-                      const Spacer(flex: 1),
-                      LoadingAnimationWidget.threeRotatingDots(
-                        color: const Color.fromARGB(255, 67, 143, 224),
-                        size: 90,
-                      ),
-                      const Spacer(flex: 1),
-                    ],
-                  ),
-                );
-              } else if (snapshot.hasError) {
-                return Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Spacer(flex: 1),
-                      Image.asset(
-                        'assets/images/error.png',
-                        width: screenHeight * 0.5,
-                        height: screenHeight * 0.25,
-                        fit: BoxFit.contain,
-                      ),
-                      SizedBox(height: screenHeight * 0.04),
-                      Text(
-                        'Unexpected error occurred',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: screenWidth * 0.05,
-                        ),
-                      ),
-                      const Spacer(flex: 1),
-                    ],
-                  ),
-                );
-              } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Spacer(flex: 1),
-                      Image.asset(
-                        'assets/images/no.png',
-                        width: screenHeight * 0.5,
-                        height: screenHeight * 0.25,
-                        fit: BoxFit.contain,
-                      ),
-                      Text(
-                        'No notes found',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: screenWidth * 0.05,
-                        ),
-                      ),
-                      const Spacer(flex: 1),
-                    ],
-                  ),
-                );
+          BlocBuilder<NoteCubit, NoteState>(
+            builder: (context, state) {
+              String? currentState;
+              if (state is AllNotes) {
+                currentState = 'AllNotes';
+              } else if (state is Favourites) {
+                currentState = 'Favourites';
+              } else if (state is Hidden) {
+                currentState = 'Hidden';
+              } else {
+                currentState = 'Trash';
               }
+              return FutureBuilder<List<Note>>(
+                future: getNotes(currentState),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Expanded(
+                      child: Column(
+                        children: [
+                          const Spacer(flex: 1),
+                          LoadingAnimationWidget.threeRotatingDots(
+                            color: const Color.fromARGB(255, 67, 143, 224),
+                            size: 90,
+                          ),
+                          const Spacer(flex: 1),
+                        ],
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Spacer(flex: 1),
+                          Image.asset(
+                            'assets/images/error.png',
+                            width: screenHeight * 0.5,
+                            height: screenHeight * 0.25,
+                            fit: BoxFit.contain,
+                          ),
+                          SizedBox(height: screenHeight * 0.04),
+                          Text(
+                            'Unexpected error occurred',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: screenWidth * 0.05,
+                            ),
+                          ),
+                          const Spacer(flex: 1),
+                        ],
+                      ),
+                    );
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Spacer(flex: 1),
+                          Image.asset(
+                            'assets/images/no.png',
+                            width: screenHeight * 0.5,
+                            height: screenHeight * 0.25,
+                            fit: BoxFit.contain,
+                          ),
+                          Text(
+                            'No notes found',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: screenWidth * 0.05,
+                            ),
+                          ),
+                          const Spacer(flex: 1),
+                        ],
+                      ),
+                    );
+                  }
 
-              return Expanded(
-                child: NotesBuilder(
-                  notes: snapshot.data!,
-                ),
+                  return Expanded(
+                    child: NotesBuilder(
+                      notes: snapshot.data!,
+                      collection: currentState!,
+                    ),
+                  );
+                },
               );
             },
           ),

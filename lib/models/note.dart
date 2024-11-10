@@ -4,11 +4,13 @@ class Note {
   final String title;
   final String note;
   final Timestamp time;
+  String? id;
 
   Note({
     required this.title,
     required this.note,
     required this.time,
+    this.id,
   });
 
   factory Note.fromJson(json) {

@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:textmarkt/auth/services/auth_gate.dart';
+import 'package:textmarkt/bloc/note_cubit.dart';
 import 'package:textmarkt/firebase_options.dart';
 
 void main() async {
@@ -18,9 +20,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: AuthGate(),
+    return BlocProvider(
+      create: (context) => NoteCubit(),
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: AuthGate(),
+      ),
     );
   }
 }
