@@ -77,7 +77,7 @@ class NoteCubit extends Cubit<NoteState> {
       );
       emit(NoteUpdateSuccess());
       emit(AllNotes());
-    } on Exception {
+    } on FirebaseException catch (e) {
       emit(NoteUpdateFail());
     }
   }

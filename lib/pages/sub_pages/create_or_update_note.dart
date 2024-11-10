@@ -164,8 +164,9 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
                       updatedNote = newNote;
 
                       String? id = widget.note?.id;
+                      print('id');
+                      print(id);
 
-                      ////////////////////////////////////
                       context.read<NoteCubit>().updateNote(
                             newNote,
                             newTitle,
@@ -229,13 +230,16 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
               allNotes[widget.index!] = Note(
                 title: updatedTitle,
                 note: updatedNote,
+                id: widget.note!.id,
                 time: Timestamp.now(),
               );
 
               Navigator.pop(context);
               Navigator.pop(context);
             }
-
+            if (state is NoteUpdateFail) {
+              Navigator.pop(context);
+            }
             // Show success or error message
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
