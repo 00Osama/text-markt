@@ -12,7 +12,11 @@ class Hidden extends NoteState {}
 
 class Trash extends NoteState {}
 
-class NoteAddSuccess extends NoteState {}
+class NoteAddSuccess extends NoteState {
+  final String id;
+
+  NoteAddSuccess({required this.id});
+}
 
 class NoteAddFail extends NoteState {}
 
@@ -34,6 +38,7 @@ class NoteMovedSuccess extends NoteState {
   final String oldCollection;
   final String title;
   final String note;
+  final String id;
 
   NoteMovedSuccess({
     required this.index,
@@ -41,6 +46,7 @@ class NoteMovedSuccess extends NoteState {
     required this.oldCollection,
     required this.title,
     required this.note,
+    required this.id,
   });
 }
 
@@ -55,7 +61,9 @@ class NoteMovedFail extends NoteState {
 class NoteDeleteSuccess extends NoteState {
   final int index;
 
-  NoteDeleteSuccess({required this.index});
+  NoteDeleteSuccess({
+    required this.index,
+  });
 }
 
 class NoteDeleteFail extends NoteState {}
@@ -77,7 +85,8 @@ class NoteCubit extends Cubit<NoteState> {
 
   void addNewNote(String? note, String? title) async {
     try {
-      await FirebaseFirestore.instance
+      // Add a new document and get its DocumentReference
+      DocumentReference docRef = await FirebaseFirestore.instance
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.email)
           .collection('AllNotes')
@@ -88,7 +97,12 @@ class NoteCubit extends Cubit<NoteState> {
           'time': Timestamp.now(),
         },
       );
-      emit(NoteAddSuccess());
+
+      // Access the document ID from the DocumentReference
+      String newDocId = docRef.id;
+
+      // Emit the success state with the new document ID
+      emit(NoteAddSuccess(id: newDocId));
       emit(AllNotes());
     } on Exception {
       emit(NoteAddFail());
@@ -158,8 +172,9 @@ class NoteCubit extends Cubit<NoteState> {
     String? docId,
     int index,
   ) async {
-    print('oldCollection' '$oldCollection');
-    print('newCollection' '$newCollection');
+    // print('+++++++++++++++++++++++++++++');
+    // print(docId);
+    // print('+++++++++++++++++++++++++++++');
     try {
       emit(NoteMovedLoading());
       await FirebaseFirestore.instance
@@ -185,6 +200,7 @@ class NoteCubit extends Cubit<NoteState> {
         oldCollection: oldCollection,
         title: title ?? '',
         note: note ?? '',
+        id: docId!,
       ));
 
       if (oldCollection == 'AllNotes') {

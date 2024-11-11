@@ -285,6 +285,7 @@ class _NotesState extends State<Notes> {
                       title: state.title,
                       note: state.note,
                       time: Timestamp.now(),
+                      id: state.id,
                     ),
                   );
                 }
@@ -295,6 +296,7 @@ class _NotesState extends State<Notes> {
                       title: state.title,
                       note: state.note,
                       time: Timestamp.now(),
+                      id: state.id,
                     ),
                   );
                 }
@@ -305,6 +307,7 @@ class _NotesState extends State<Notes> {
                       title: state.title,
                       note: state.note,
                       time: Timestamp.now(),
+                      id: state.id,
                     ),
                   );
                 }

@@ -5,6 +5,7 @@ class Note {
   final String note;
   final Timestamp time;
   String? id;
+  String? noteType;
 
   Note({
     required this.title,

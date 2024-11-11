@@ -196,6 +196,7 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
                   title: titleController.text,
                   note: noteController.text,
                   time: Timestamp.now(),
+                  id: state.id,
                 ),
               );
 
