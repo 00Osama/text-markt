@@ -250,7 +250,126 @@ class _NotesState extends State<Notes> {
             },
           ),
           const SizedBox(height: 19),
-          BlocBuilder<NoteCubit, NoteState>(
+          BlocConsumer<NoteCubit, NoteState>(
+            listener: (context, state) {
+              if (state is NoteMovedSuccess) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'Note added to ${state.newCollection} successfully',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    behavior: SnackBarBehavior.floating,
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                      vertical: 10.0,
+                    ),
+                    backgroundColor: Colors.green,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                );
+
+                if (state.oldCollection == 'AllNotes') {
+                  allNotes.removeAt(state.index);
+                } else if (state.oldCollection == 'Favourites') {
+                  favourites.removeAt(state.index);
+                } else if (state.oldCollection == 'Hidden') {
+                  hidden.removeAt(state.index);
+                }
+                if (state.newCollection == 'Favourites') {
+                  favourites.insert(
+                    0,
+                    Note(
+                      title: state.title,
+                      note: state.note,
+                      time: Timestamp.now(),
+                    ),
+                  );
+                }
+                if (state.newCollection == 'Hidden') {
+                  hidden.insert(
+                    0,
+                    Note(
+                      title: state.title,
+                      note: state.note,
+                      time: Timestamp.now(),
+                    ),
+                  );
+                }
+                if (state.newCollection == 'Trash') {
+                  trash.insert(
+                    0,
+                    Note(
+                      title: state.title,
+                      note: state.note,
+                      time: Timestamp.now(),
+                    ),
+                  );
+                }
+              }
+              if (state is NoteMovedFail) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'failed to add note to ${state.collection}',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    behavior: SnackBarBehavior.floating,
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                      vertical: 10.0,
+                    ),
+                    backgroundColor: Colors.red,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                );
+              }
+              if (state is NoteDeleteSuccess) {
+                trash.removeAt(state.index);
+                // Show success or error message
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text(
+                      'Note deleted successfully',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    behavior: SnackBarBehavior.floating,
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                      vertical: 10.0,
+                    ),
+                    backgroundColor: Colors.green,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                );
+              }
+              if (state is NoteDeleteFail) {
+                // Show success or error message
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text(
+                      'failed to delete note',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    behavior: SnackBarBehavior.floating,
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                      vertical: 10.0,
+                    ),
+                    backgroundColor: Colors.red,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                );
+              }
+            },
             builder: (context, state) {
               String? currentState;
               if (state is AllNotes) {
@@ -259,9 +378,27 @@ class _NotesState extends State<Notes> {
                 currentState = 'Favourites';
               } else if (state is Hidden) {
                 currentState = 'Hidden';
-              } else {
+              } else if (state is Trash) {
                 currentState = 'Trash';
+              } else {
+                currentState = 'AllNotes';
               }
+
+              if (state is NoteMovedLoading) {
+                return Expanded(
+                  child: Column(
+                    children: [
+                      const Spacer(flex: 1),
+                      LoadingAnimationWidget.threeRotatingDots(
+                        color: const Color.fromARGB(255, 67, 143, 224),
+                        size: 90,
+                      ),
+                      const Spacer(flex: 1),
+                    ],
+                  ),
+                );
+              }
+
               return FutureBuilder<List<Note>>(
                 future: getNotes(currentState),
                 builder: (context, snapshot) {
@@ -330,7 +467,7 @@ class _NotesState extends State<Notes> {
                   return Expanded(
                     child: NotesBuilder(
                       notes: snapshot.data!,
-                      collection: currentState!,
+                      currentCollection: currentState!,
                     ),
                   );
                 },

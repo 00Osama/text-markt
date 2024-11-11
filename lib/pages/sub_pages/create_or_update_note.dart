@@ -225,37 +225,76 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
               ),
             );
           }
-          if (state is NoteUpdateSuccess || state is NoteUpdateFail) {
-            if (state is NoteUpdateSuccess) {
+
+          if (state is NoteUpdateSuccess) {
+            if (state.collection == 'AllNotes') {
               allNotes[widget.index!] = Note(
                 title: updatedTitle,
                 note: updatedNote,
                 id: widget.note!.id,
                 time: Timestamp.now(),
               );
+            } else if (state.collection == 'Favourites') {
+              favourites[widget.index!] = Note(
+                title: updatedTitle,
+                note: updatedNote,
+                id: widget.note!.id,
+                time: Timestamp.now(),
+              );
+            } else if (state.collection == 'Hidden') {
+              hidden[widget.index!] = Note(
+                title: updatedTitle,
+                note: updatedNote,
+                id: widget.note!.id,
+                time: Timestamp.now(),
+              );
+            } else {
+              trash[widget.index!] = Note(
+                title: updatedTitle,
+                note: updatedNote,
+                id: widget.note!.id,
+                time: Timestamp.now(),
+              );
+            }
 
-              Navigator.pop(context);
-              Navigator.pop(context);
-            }
-            if (state is NoteUpdateFail) {
-              Navigator.pop(context);
-            }
+            Navigator.pop(context);
+            Navigator.pop(context);
+
             // Show success or error message
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(
-                  state is NoteUpdateSuccess
-                      ? 'Note updated successfully'
-                      : 'Failed to update note',
-                  style: const TextStyle(color: Colors.white),
+                content: const Text(
+                  'Note updated successfully',
+                  style: TextStyle(color: Colors.white),
                 ),
                 behavior: SnackBarBehavior.floating,
                 margin: const EdgeInsets.symmetric(
                   horizontal: 10.0,
                   vertical: 10.0,
                 ),
-                backgroundColor:
-                    state is NoteUpdateSuccess ? Colors.green : Colors.red,
+                backgroundColor: Colors.green,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+              ),
+            );
+          }
+
+          if (state is NoteUpdateFail) {
+            Navigator.pop(context);
+            // Show success or error message
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: const Text(
+                  'Failed to update note',
+                  style: TextStyle(color: Colors.white),
+                ),
+                behavior: SnackBarBehavior.floating,
+                margin: const EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                  vertical: 10.0,
+                ),
+                backgroundColor: Colors.red,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
