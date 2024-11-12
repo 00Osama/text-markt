@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:textmarkt/search/search_bar.dart';
 
 class Search extends StatelessWidget {
   const Search({super.key});
@@ -15,6 +16,14 @@ class Search extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
+        ),
+      ),
+      body: const SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 15),
+            MyearchBar(),
+          ],
         ),
       ),
     );
