@@ -9,7 +9,6 @@ class Searchdelegate extends SearchDelegate {
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
-      // Dropdown to filter notes by collection
       DropdownButton<String>(
         value: myValue,
         items: const [
@@ -33,16 +32,15 @@ class Searchdelegate extends SearchDelegate {
         onChanged: (value) {
           if (value != null) {
             myValue = value;
-            query = ''; // Optional: Clear query when switching categories
-            showSuggestions(context); // Refresh the suggestions
+            query = '';
+            showSuggestions(context);
           }
         },
         hint: const Text('All Notes'),
       ),
-      // Clear the query when the cancel icon is pressed
       IconButton(
         onPressed: () {
-          query = ''; // Clear the search query
+          query = '';
         },
         icon: const Icon(Icons.cancel),
       ),
@@ -53,7 +51,7 @@ class Searchdelegate extends SearchDelegate {
   Widget? buildLeading(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        close(context, null); // Close search when back is pressed
+        close(context, null);
       },
       child: const Padding(
         padding: EdgeInsets.all(17),
@@ -67,12 +65,11 @@ class Searchdelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return const Text(''); // You can customize this to show search results.
+    return const Text('');
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    // Filter notes based on the selected collection
     List<Note> filteredNotes = [];
 
     if (myValue == 'AllNotes') {
@@ -85,7 +82,6 @@ class Searchdelegate extends SearchDelegate {
       filteredNotes = trash;
     }
 
-    // Filter the list based on the search query
     if (query.isNotEmpty) {
       filteredNotes = filteredNotes
           .where(

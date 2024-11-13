@@ -23,6 +23,10 @@ class MyearchBar extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
+            border: Border.all(
+              color: Colors.grey,
+              width: 0.2,
+            ),
           ),
           child: const Row(
             crossAxisAlignment: CrossAxisAlignment.center,

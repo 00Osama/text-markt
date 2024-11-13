@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:textmarkt/models/note.dart';
+import 'package:textmarkt/search/search_cubit.dart';
 import 'package:textmarkt/widgets/notes_builder.dart';
 
-class MySearchController extends StatelessWidget {
+class MySearchController extends StatefulWidget {
   const MySearchController({
     super.key,
     required this.query,
@@ -15,12 +17,19 @@ class MySearchController extends StatelessWidget {
   final String currentCollection;
 
   @override
+  State<MySearchController> createState() => _MySearchControllerState();
+}
+
+class _MySearchControllerState extends State<MySearchController> {
+  @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
     final screenHeight = MediaQuery.sizeOf(context).height;
+    context.read<SearchCubit>().addQuery(widget.query);
+
     return Scaffold(
       backgroundColor: const Color(0xffF2F2F6),
-      body: notes.isEmpty
+      body: widget.notes.isEmpty
           ? Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -44,8 +53,8 @@ class MySearchController extends StatelessWidget {
               ),
             )
           : NotesBuilder(
-              notes: notes,
-              currentCollection: currentCollection,
+              notes: widget.notes,
+              currentCollection: widget.currentCollection,
             ),
     );
   }

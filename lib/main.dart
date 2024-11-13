@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:textmarkt/auth/services/auth_gate.dart';
 import 'package:textmarkt/bloc/note_cubit.dart';
 import 'package:textmarkt/firebase_options.dart';
+import 'package:textmarkt/search/search_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,8 +21,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => NoteCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<NoteCubit>(
+          create: (context) => NoteCubit(),
+        ),
+        BlocProvider<SearchCubit>(
+          create: (context) => SearchCubit(),
+        ),
+      ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: AuthGate(),
