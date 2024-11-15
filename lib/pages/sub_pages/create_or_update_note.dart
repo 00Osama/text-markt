@@ -12,12 +12,18 @@ class CreateOrUpdateNote extends StatefulWidget {
     this.index,
     this.collection,
     this.note,
+    this.currentDay,
+    this.dayName,
+    this.monthName,
   });
 
   final String operation;
   final String? collection;
   final int? index;
   final Note? note;
+  final DateTime? currentDay;
+  final String? dayName;
+  final String? monthName;
 
   @override
   State<CreateOrUpdateNote> createState() => _CreateNoteState();
@@ -75,116 +81,106 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
       appBar: AppBar(
         backgroundColor: const Color(0xffF2F2F6),
         surfaceTintColor: const Color(0xffF2F2F6),
-        actions: [
-          const Spacer(flex: 40),
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.all(
-                const Color(0xff1F2124),
-              ),
-              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(13),
-                ),
-              ),
-            ),
-            onPressed: widget.operation == 'add'
-                ? () async {
-                    if (titleController.text.trim().isEmpty &&
-                        noteController.text.trim().isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: const Text(
-                            'Enter at least a note title',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          behavior: SnackBarBehavior.floating,
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 10.0,
-                            vertical: 10.0,
-                          ),
-                          backgroundColor: Colors.red,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                      );
-                    } else {
-                      showDialog(
-                        barrierDismissible: false,
-                        context: context,
-                        builder: (context) {
-                          return const Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.black,
-                            ),
-                          );
-                        },
-                      );
-
-                      context.read<NoteCubit>().addNewNote(
-                            noteController.text,
-                            titleController.text,
-                          );
-                    }
-                  }
-                : () {
-                    if (newTitle.trim().isEmpty && newNote.trim().isEmpty) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: const Text(
-                            'Enter at least a note title',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          behavior: SnackBarBehavior.floating,
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 10.0,
-                            vertical: 10.0,
-                          ),
-                          backgroundColor: Colors.red,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                      );
-                    } else {
-                      showDialog(
-                        barrierDismissible: false,
-                        context: context,
-                        builder: (context) {
-                          return const Center(
-                            child: CircularProgressIndicator(
-                              color: Colors.black,
-                            ),
-                          );
-                        },
-                      );
-
-                      updatedTitle = newTitle;
-                      updatedNote = newNote;
-
-                      String? id = widget.note?.id;
-                      print('id');
-                      print(id);
-
-                      context.read<NoteCubit>().updateNote(
-                            newNote,
-                            newTitle,
-                            widget.collection!,
-                            id,
-                            widget.note!.time,
-                          );
-                    }
-                  },
-            child: Text(
-              widget.operation == 'add' ? 'Save' : 'Update',
-              style: const TextStyle(
-                color: Colors.white,
-              ),
-            ),
+        centerTitle: true,
+        title: Text(
+          widget.operation == 'add' ? 'add new note' : 'update note',
+          style: const TextStyle(
+            color: Colors.grey,
           ),
-          const Spacer(flex: 1),
-        ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        onPressed: widget.operation == 'add' || widget.operation == 'newEvent'
+            ? () async {
+                if (widget.operation == 'add') {
+                  if (titleController.text.trim().isEmpty &&
+                      noteController.text.trim().isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: const Text(
+                          'Enter at least a note title',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        behavior: SnackBarBehavior.floating,
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 10.0,
+                          vertical: 10.0,
+                        ),
+                        backgroundColor: Colors.red,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
+                    );
+                  } else {
+                    showDialog(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (context) {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.black,
+                          ),
+                        );
+                      },
+                    );
+
+                    context.read<NoteCubit>().addNewNote(
+                          noteController.text,
+                          titleController.text,
+                        );
+                  }
+                } else {
+                  ///////// add new event here
+                }
+              }
+            : () {
+                if (newTitle.trim().isEmpty && newNote.trim().isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: const Text(
+                        'Enter at least a note title',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      behavior: SnackBarBehavior.floating,
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 10.0,
+                        vertical: 10.0,
+                      ),
+                      backgroundColor: Colors.red,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                  );
+                } else {
+                  showDialog(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (context) {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.black,
+                        ),
+                      );
+                    },
+                  );
+                  updatedTitle = newTitle;
+                  updatedNote = newNote;
+                  String? id = widget.note?.id;
+                  context.read<NoteCubit>().updateNote(
+                        newNote,
+                        newTitle,
+                        widget.collection!,
+                        id,
+                        widget.note!.time,
+                      );
+                }
+              },
+        child: widget.operation == 'add'
+            ? const Icon(Icons.save_rounded)
+            : const Icon(Icons.edit_document),
       ),
       body: BlocListener<NoteCubit, NoteState>(
         listener: (context, state) {
@@ -308,6 +304,45 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
             padding: const EdgeInsets.symmetric(horizontal: 13),
             child: Column(
               children: [
+                widget.operation == 'newEvent'
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            (widget.dayName?.isNotEmpty ?? false)
+                                ? 'Event Date'
+                                : 'Select Event Date',
+                            style: TextStyle(
+                              color: (widget.dayName?.isNotEmpty ?? false)
+                                  ? Colors.black
+                                  : Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                widget.dayName ?? '',
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                ' ${widget.currentDay?.day ?? ''} ${widget.monthName ?? ''}'
+                                '${(widget.monthName?.isNotEmpty ?? false) ? ',' : ''} '
+                                '${widget.currentDay?.year ?? ''}',
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                        ],
+                      )
+                    : const SizedBox(),
                 TextField(
                   controller: titleController,
                   maxLines: null,

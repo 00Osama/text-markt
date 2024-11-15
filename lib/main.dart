@@ -5,20 +5,27 @@ import 'package:textmarkt/auth/services/auth_gate.dart';
 import 'package:textmarkt/bloc/note_cubit.dart';
 import 'package:textmarkt/firebase_options.dart';
 import 'package:textmarkt/search/search_cubit.dart';
+import 'package:textmarkt/services/messaging.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await Messaging.initNotification();
   runApp(
     const MyApp(),
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
