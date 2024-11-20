@@ -82,15 +82,23 @@ class _AddNewEventsState extends State<AddNewEvents> {
             },
           );
         } else if (state is EventAddSuccess) {
-          events.insert(
-            0,
-            Event(
-              note: state.note,
-              title: state.title,
-              dateTime: state.dateTime,
-              id: state.id,
-            ),
-          );
+          DateTime addedDateTime = DateTime.parse(state.dateTime);
+          for (int i = 0; i < events.length; i++) {
+            DateTime currentDateTime = DateTime.parse(events[i].dateTime);
+            if (addedDateTime.day >= currentDateTime.day) {
+              events.insert(
+                0,
+                Event(
+                  note: state.note,
+                  title: state.title,
+                  dateTime: state.dateTime,
+                  id: state.id,
+                ),
+              );
+              return;
+            }
+          }
+
           Navigator.pop(context);
           Navigator.pop(context);
 

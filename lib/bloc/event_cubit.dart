@@ -4,7 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EventState {}
 
-class EventIntial extends EventState {}
+class EventIntial extends EventState {
+  final String? firstId;
+
+  EventIntial({this.firstId});
+}
 
 class EventAddLoading extends EventState {}
 
@@ -29,6 +33,18 @@ class EventAddSuccess extends EventState {
 }
 
 class EventAddFail extends EventState {}
+
+class BuildSpecificEvent extends EventState {
+  final String monthName;
+  final int dayNumber;
+  final String dayName;
+
+  BuildSpecificEvent({
+    required this.monthName,
+    required this.dayNumber,
+    required this.dayName,
+  });
+}
 
 class EventCubit extends Cubit<EventState> {
   EventCubit() : super(EventIntial());
@@ -56,7 +72,19 @@ class EventCubit extends Cubit<EventState> {
     }
   }
 
+  void initializeFirstEvent(String? firstId) {
+    emit(EventIntial(firstId: firstId));
+  }
+
   void chooseDay(String id) {
     emit(EventChoose(id: id));
+  }
+
+  void buildSpecificEvent(String monthName, int dayNumber, String dayName) {
+    emit(BuildSpecificEvent(
+      monthName: monthName,
+      dayNumber: dayNumber,
+      dayName: dayName,
+    ));
   }
 }

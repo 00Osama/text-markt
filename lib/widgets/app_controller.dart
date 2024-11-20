@@ -14,7 +14,7 @@ class AppController extends StatefulWidget {
 class _AppControllerState extends State<AppController> {
   List screens = [
     const Notes(),
-    const Events(),
+    // const Events(),
     const Search(),
     const Profile(),
   ];
@@ -46,17 +46,17 @@ class _AppControllerState extends State<AppController> {
             ),
             label: 'Notes',
           ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/images/bottomEvents.png',
-              color: const Color(0xff1C2121),
-            ),
-            activeIcon: Image.asset(
-              'assets/images/bottomEvents.png',
-              color: const Color(0xff007AFF),
-            ),
-            label: 'Events',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Image.asset(
+          //     'assets/images/bottomEvents.png',
+          //     color: const Color(0xff1C2121),
+          //   ),
+          //   activeIcon: Image.asset(
+          //     'assets/images/bottomEvents.png',
+          //     color: const Color(0xff007AFF),
+          //   ),
+          //   label: 'Events',
+          // ),
           BottomNavigationBarItem(
             icon: Image.asset(
               'assets/images/bottomSearch.png',

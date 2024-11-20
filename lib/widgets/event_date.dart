@@ -20,7 +20,8 @@ class EventDate extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<EventCubit, EventState>(
       builder: (context, state) {
-        final isSelected = state is EventChoose && state.id == id;
+        final isSelected = state is EventChoose && state.id == id ||
+            state is EventIntial && state.firstId == id;
 
         return Container(
           width: 65,
