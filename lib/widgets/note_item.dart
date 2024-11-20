@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:textmarkt/models/note.dart';
 
 class NoteItem extends StatelessWidget {
   const NoteItem({
     super.key,
     required this.note,
+    required this.title,
   });
 
-  final Note note;
+  final String note;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class NoteItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                note.title,
+                title,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
@@ -44,7 +45,7 @@ class NoteItem extends StatelessWidget {
                 ),
               ),
               Text(
-                note.note,
+                note,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
               ),

@@ -87,7 +87,8 @@ class _NotesBuilderState extends State<NotesBuilder> {
           ],
         ),
         child: NoteItem(
-          note: widget.notes[index],
+          note: widget.notes[index].note,
+          title: widget.notes[index].title,
         ),
       );
     } else if (widget.currentCollection == 'Favourites' ||
@@ -116,7 +117,8 @@ class _NotesBuilderState extends State<NotesBuilder> {
           ],
         ),
         child: NoteItem(
-          note: widget.notes[index],
+          note: widget.notes[index].note,
+          title: widget.notes[index].title,
         ),
       );
     } else {
@@ -140,7 +142,8 @@ class _NotesBuilderState extends State<NotesBuilder> {
           ],
         ),
         child: NoteItem(
-          note: widget.notes[index],
+          note: widget.notes[index].note,
+          title: widget.notes[index].title,
         ),
       );
     }
