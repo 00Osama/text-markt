@@ -1,5 +1,5 @@
 # Brief
-A new Flutter project.
+notes app with a favorites section, a hidden notes feature, and a search functionality for easy access to notes.
 
 ## OUTPUT
 ![auth](https://github.com/user-attachments/assets/38bc4c1a-5f05-4136-86cf-f3188a699dec)
