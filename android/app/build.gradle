@@ -28,7 +28,10 @@ if (flutterVersionName == null) {
 
 android {
     namespace = "com.example.textmarkt"
-    compileSdk = flutter.compileSdkVersion
+
+    // Updated compileSdkVersion to 35 (or higher) to match Flutter's required version
+    compileSdk = 35  // Or the desired version you need (e.g., 35 or 34)
+
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -39,10 +42,9 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.textmarkt"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdk = 23
-        targetSdk = 23
+        // Updated targetSdkVersion to 35 to match compileSdkVersion
+        targetSdk = 35  // Or the appropriate SDK version
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
     }
