@@ -8,6 +8,7 @@ class EventTextField extends StatelessWidget {
     required this.fieldTitle,
     this.suffixIcon,
     required this.readOnly,
+    this.maxLines,
   });
 
   final TextEditingController controller;
@@ -15,6 +16,7 @@ class EventTextField extends StatelessWidget {
   final String fieldTitle;
   final Widget? suffixIcon;
   final bool readOnly;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +37,7 @@ class EventTextField extends StatelessWidget {
           ),
           const SizedBox(height: 3),
           TextField(
+            maxLines: maxLines,
             controller: controller,
             readOnly: readOnly,
             decoration: InputDecoration(

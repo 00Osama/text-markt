@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NoteItem extends StatelessWidget {
   const NoteItem({
     super.key,
     required this.note,
     required this.title,
+    this.eventTime,
+    this.showeventTime,
   });
 
   final String note;
   final String title;
+  final DateTime? eventTime;
+  final bool? showeventTime;
 
   @override
   Widget build(BuildContext context) {
+    String formattedDate = eventTime != null
+        ? '${DateFormat('dd MMM yyyy').format(eventTime!)}, '
+            '${eventTime!.hour > 12 ? eventTime!.hour - 12 : (eventTime!.hour == 0 ? 12 : eventTime!.hour)} '
+            '${DateFormat('a').format(eventTime!)}'
+        : 'Invalid date';
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -30,13 +41,32 @@ class NoteItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: Text(
+                      title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  if (showeventTime == true && formattedDate.isNotEmpty)
+                    const Spacer(),
+                  if (showeventTime == true && formattedDate.isNotEmpty)
+                    Text(
+                      formattedDate,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.right,
+                    ),
+                ],
               ),
               const Padding(
                 padding: EdgeInsets.all(8.0),

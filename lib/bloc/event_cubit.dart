@@ -12,16 +12,10 @@ class EventIntial extends EventState {
 
 class EventAddLoading extends EventState {}
 
-class EventChoose extends EventState {
-  final String id;
-
-  EventChoose({required this.id});
-}
-
 class EventAddSuccess extends EventState {
   final String title;
   final String note;
-  final String dateTime;
+  final DateTime dateTime;
   final String id;
 
   EventAddSuccess({
@@ -34,17 +28,15 @@ class EventAddSuccess extends EventState {
 
 class EventAddFail extends EventState {}
 
-class BuildSpecificEvent extends EventState {
-  final String monthName;
-  final int dayNumber;
-  final String dayName;
+class EventDeleteLoading extends EventState {}
 
-  BuildSpecificEvent({
-    required this.monthName,
-    required this.dayNumber,
-    required this.dayName,
-  });
+class EventDeleteSuccess extends EventState {
+  final int index;
+
+  EventDeleteSuccess({required this.index});
 }
+
+class EventDeleteFail extends EventState {}
 
 class EventCubit extends Cubit<EventState> {
   EventCubit() : super(EventIntial());
@@ -64,7 +56,7 @@ class EventCubit extends Cubit<EventState> {
       emit(EventAddSuccess(
         title: title,
         note: note,
-        dateTime: dateTime.toString(),
+        dateTime: dateTime,
         id: response.id,
       ));
     } catch (e) {
@@ -72,19 +64,18 @@ class EventCubit extends Cubit<EventState> {
     }
   }
 
-  void initializeFirstEvent(String? firstId) {
-    emit(EventIntial(firstId: firstId));
-  }
-
-  void chooseDay(String id) {
-    emit(EventChoose(id: id));
-  }
-
-  void buildSpecificEvent(String monthName, int dayNumber, String dayName) {
-    emit(BuildSpecificEvent(
-      monthName: monthName,
-      dayNumber: dayNumber,
-      dayName: dayName,
-    ));
+  Future<void> deleteEvent(String? id, int index) async {
+    try {
+      emit(EventDeleteLoading());
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.email)
+          .collection('events')
+          .doc(id)
+          .delete();
+      emit(EventDeleteSuccess(index: index));
+    } catch (e) {
+      emit(EventDeleteFail());
+    }
   }
 }

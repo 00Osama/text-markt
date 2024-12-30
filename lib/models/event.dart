@@ -1,7 +1,7 @@
 class Event {
   final String note;
   final String title;
-  final String dateTime;
+  final DateTime dateTime;
   String? id;
 
   Event({
@@ -11,11 +11,14 @@ class Event {
     this.id,
   });
 
-  factory Event.fromJson(json) {
+  factory Event.fromJson(Map<String, dynamic> json) {
     return Event(
       note: json['note'] ?? '',
       title: json['title'] ?? '',
-      dateTime: json['dateTime'] ?? '',
+      dateTime: json['dateTime'] != null
+          ? DateTime.parse(json['dateTime'])
+          : DateTime.now(),
+      id: json['id'],
     );
   }
 }

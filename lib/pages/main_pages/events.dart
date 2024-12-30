@@ -2,14 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:textmarkt/bloc/event_cubit.dart';
 import 'package:textmarkt/globals.dart';
 import 'package:textmarkt/models/event.dart';
 import 'package:textmarkt/pages/sub_pages/add_new_event.dart';
 import 'package:textmarkt/widgets/event_builder.dart';
-import 'package:textmarkt/widgets/event_date.dart';
 
 class Events extends StatelessWidget {
   const Events({super.key});
@@ -41,7 +39,7 @@ class Events extends StatelessWidget {
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.email)
           .collection('events')
-          .orderBy('dateTime')
+          .orderBy('dateTime', descending: true)
           .get();
 
       events = response.docs.map((doc) {
@@ -98,8 +96,82 @@ class Events extends StatelessWidget {
         backgroundColor: Colors.white,
         child: const Icon(Icons.add),
       ),
-      body: BlocBuilder<EventCubit, EventState>(
+      body: BlocConsumer<EventCubit, EventState>(
+        listener: (context, state) {
+          if (state is EventDeleteSuccess) {
+            events.removeAt(state.index);
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                behavior: SnackBarBehavior.floating,
+                content: Text('Event deleted successfully'),
+                backgroundColor: Colors.green,
+              ),
+            );
+          }
+          if (state is EventAddLoading) {
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) {
+                return const Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.black,
+                  ),
+                );
+              },
+            );
+          }
+          if (state is EventAddFail) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('sorry, failed to add event'),
+                backgroundColor: Colors.red,
+              ),
+            );
+          }
+          if (state is EventAddSuccess) {
+            Navigator.pop(context);
+            Navigator.pop(context);
+
+            events.insert(
+              0,
+              Event(
+                note: state.note,
+                title: state.title,
+                dateTime: state.dateTime,
+                id: state.id,
+              ),
+            );
+
+            // Sort the list in descending order based on the dateTime property
+            events.sort((a, b) => b.dateTime.compareTo(a.dateTime));
+
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                behavior: SnackBarBehavior.floating,
+                content: Text('Event added successfully'),
+                backgroundColor: Colors.green,
+              ),
+            );
+          }
+        },
         builder: (context, state) {
+          if (state is EventDeleteLoading) {
+            return Expanded(
+              child: Center(
+                child: Column(
+                  children: [
+                    const Spacer(flex: 1),
+                    LoadingAnimationWidget.threeRotatingDots(
+                      color: const Color.fromARGB(255, 67, 143, 224),
+                      size: 90,
+                    ),
+                    const Spacer(flex: 1),
+                  ],
+                ),
+              ),
+            );
+          }
           return FutureBuilder<List<Event>>(
             future: fetchEvents(),
             builder: (context, snapshot) {
@@ -145,7 +217,9 @@ class Events extends StatelessWidget {
                 );
               }
 
-              return EventBuilder(events: snapshot.data!);
+              return EventBuilder(
+                events: snapshot.data!,
+              );
             },
           );
         },
