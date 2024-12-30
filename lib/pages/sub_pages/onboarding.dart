@@ -26,6 +26,7 @@ class _OnboardingState extends State<Onboarding> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
+    final screenHeight = MediaQuery.sizeOf(context).height;
 
     List<Widget> screens = [
       Column(
@@ -47,6 +48,8 @@ class _OnboardingState extends State<Onboarding> {
           ),
           Image.asset(
             'assets/onborading/1.png',
+            width: screenWidth * 0.8,
+            height: screenHeight * 0.3,
           ),
           const OnboardingIndicator(index: 0),
           const SizedBox(height: 30),
@@ -85,7 +88,7 @@ class _OnboardingState extends State<Onboarding> {
               controller.nextPage(
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.ease,
-              ); // Navigate to the next page smoothly
+              );
             },
           ),
         ],
@@ -101,7 +104,7 @@ class _OnboardingState extends State<Onboarding> {
                   controller.previousPage(
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.ease,
-                  ); // Go back to the previous page
+                  );
                 },
                 child: const Row(
                   children: [
@@ -131,6 +134,8 @@ class _OnboardingState extends State<Onboarding> {
           ),
           Image.asset(
             'assets/onborading/2.png',
+            width: screenWidth * 0.8,
+            height: screenHeight * 0.3,
           ),
           const OnboardingIndicator(index: 1),
           const SizedBox(height: 30),
@@ -185,7 +190,7 @@ class _OnboardingState extends State<Onboarding> {
                   controller.previousPage(
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.ease,
-                  ); // Go back to the previous page
+                  );
                 },
                 child: const Row(
                   children: [
@@ -206,6 +211,8 @@ class _OnboardingState extends State<Onboarding> {
           ),
           Image.asset(
             'assets/onborading/3.png',
+            width: screenWidth * 0.8,
+            height: screenHeight * 0.3,
           ),
           const OnboardingIndicator(index: 2),
           const SizedBox(height: 30),

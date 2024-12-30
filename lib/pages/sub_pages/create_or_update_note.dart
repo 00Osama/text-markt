@@ -83,13 +83,17 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
         surfaceTintColor: const Color(0xffF2F2F6),
         centerTitle: true,
         title: Text(
-          widget.operation == 'add' ? 'add new note' : 'update note',
-          style: const TextStyle(
+          widget.operation == 'add' ? 'Add New Note' : 'Update Note',
+          style: TextStyle(
             color: Colors.grey,
+            fontSize: MediaQuery.of(context).size.width *
+                0.045, // Responsive font size
           ),
         ),
         leading: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(
+            MediaQuery.of(context).size.width * 0.02,
+          ),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
@@ -103,6 +107,7 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
                 Icons.arrow_back_ios_rounded,
                 color: Colors.white,
               ),
+              iconSize: MediaQuery.of(context).size.width * 0.06,
             ),
           ),
         ),

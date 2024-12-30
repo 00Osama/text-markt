@@ -19,7 +19,7 @@ class MyearchBar extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 18),
         child: Container(
           width: double.infinity,
-          height: 43,
+          height: 44,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
@@ -37,6 +37,7 @@ class MyearchBar extends StatelessWidget {
                 'Search',
                 style: TextStyle(
                   color: Color(0xff1C2121),
+                  fontSize: 14,
                 ),
               ),
               Spacer(flex: 30),

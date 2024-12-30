@@ -18,6 +18,8 @@ class NoteSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Expanded(
       child: GestureDetector(
         onTap: onPressed,
@@ -25,7 +27,7 @@ class NoteSection extends StatelessWidget {
           height: 50,
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(screenWidth * 0.03),
             border: Border.all(
               color: borderColor,
               width: 1,
@@ -33,19 +35,29 @@ class NoteSection extends StatelessWidget {
           ),
           child: Row(
             children: [
-              const SizedBox(width: 5),
+              SizedBox(width: screenWidth * 0.02),
               CircleAvatar(
                 backgroundColor: iconColor,
+                radius: screenWidth * 0.05,
                 child: sectionName == 'All Notes'
-                    ? Image.asset('assets/images/allNotesSection.png')
+                    ? Image.asset(
+                        'assets/images/allNotesSection.png',
+                        width: screenWidth * 0.06,
+                        height: screenWidth * 0.06,
+                      )
                     : Icon(
                         sectionIcon,
                         color: Colors.white,
-                        size: 18,
+                        size: screenWidth * 0.045,
                       ),
               ),
-              const SizedBox(width: 7),
-              Text(sectionName),
+              SizedBox(width: screenWidth * 0.03),
+              Text(
+                sectionName,
+                style: TextStyle(
+                  fontSize: screenWidth * 0.04,
+                ),
+              ),
             ],
           ),
         ),
