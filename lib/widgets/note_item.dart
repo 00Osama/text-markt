@@ -19,7 +19,8 @@ class NoteItem extends StatelessWidget {
   Widget build(BuildContext context) {
     String formattedDate = eventTime != null
         ? '${DateFormat('dd MMM yyyy').format(eventTime!)}, '
-            '${eventTime!.hour > 12 ? eventTime!.hour - 12 : (eventTime!.hour == 0 ? 12 : eventTime!.hour)} '
+            '${eventTime!.hour > 12 ? eventTime!.hour - 12 : (eventTime!.hour == 0 ? 12 : eventTime!.hour)}:'
+            '${eventTime!.minute.toString().padLeft(2, '0')} '
             '${DateFormat('a').format(eventTime!)}'
         : 'Invalid date';
 

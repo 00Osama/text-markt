@@ -98,6 +98,28 @@ class Events extends StatelessWidget {
       ),
       body: BlocConsumer<EventCubit, EventState>(
         listener: (context, state) {
+          if (state is EventAddSuccess) {
+            events.insert(
+              0,
+              Event(
+                note: state.note,
+                title: state.title,
+                dateTime: state.dateTime,
+                id: state.id,
+              ),
+            );
+            events.sort((a, b) => b.dateTime.compareTo(a.dateTime));
+            Navigator.pop(context);
+            Navigator.pop(context);
+
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                behavior: SnackBarBehavior.floating,
+                content: Text('Event added successfully'),
+                backgroundColor: Colors.green,
+              ),
+            );
+          }
           if (state is EventDeleteSuccess) {
             events.removeAt(state.index);
             ScaffoldMessenger.of(context).showSnackBar(
@@ -126,31 +148,6 @@ class Events extends StatelessWidget {
               const SnackBar(
                 content: Text('sorry, failed to add event'),
                 backgroundColor: Colors.red,
-              ),
-            );
-          }
-          if (state is EventAddSuccess) {
-            Navigator.pop(context);
-            Navigator.pop(context);
-
-            events.insert(
-              0,
-              Event(
-                note: state.note,
-                title: state.title,
-                dateTime: state.dateTime,
-                id: state.id,
-              ),
-            );
-
-            // Sort the list in descending order based on the dateTime property
-            events.sort((a, b) => b.dateTime.compareTo(a.dateTime));
-
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                behavior: SnackBarBehavior.floating,
-                content: Text('Event added successfully'),
-                backgroundColor: Colors.green,
               ),
             );
           }
