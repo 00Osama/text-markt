@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:textmarkt/search/search_delegate.dart';
 
-class MyearchBar extends StatelessWidget {
-  const MyearchBar({
+class MySearchBar extends StatelessWidget {
+  const MySearchBar({
     super.key,
   });
 

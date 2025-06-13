@@ -1,27 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class EventPreview extends StatelessWidget {
   const EventPreview({
     super.key,
     required this.title,
     required this.note,
+    required this.dateTime,
   });
 
   final TextEditingController title;
   final TextEditingController note;
+  final DateTime dateTime;
 
   @override
   Widget build(BuildContext context) {
+    String formattedDate = '${DateFormat('dd MMM yyyy').format(dateTime)}, '
+        '${dateTime.hour > 12 ? dateTime.hour - 12 : (dateTime.hour == 0 ? 12 : dateTime.hour)}:'
+        '${dateTime.minute.toString().padLeft(2, '0')} '
+        '${DateFormat('a').format(dateTime)}';
+
     return Scaffold(
       backgroundColor: const Color(0xffF2F2F6),
       appBar: AppBar(
         backgroundColor: const Color(0xffF2F2F6),
         surfaceTintColor: const Color(0xffF2F2F6),
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'Event Preview',
           style: TextStyle(
-            color: Colors.grey,
+            color: Colors.grey[700],
+            fontWeight: FontWeight.w500,
           ),
         ),
         leading: Padding(
@@ -32,11 +41,9 @@ class EventPreview extends StatelessWidget {
               color: Colors.grey[400],
             ),
             child: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
+              onPressed: () => Navigator.pop(context),
               icon: const Icon(
-                Icons.arrow_back_ios_rounded,
+                Icons.close_rounded,
                 color: Colors.white,
               ),
             ),
@@ -45,68 +52,64 @@ class EventPreview extends StatelessWidget {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 13),
-            child: Column(
-              children: [
-                TextField(
-                  controller: title,
-                  maxLines: null,
-                  cursorColor: const Color(0xff007AFF),
-                  style: const TextStyle(
-                    color: Color.fromARGB(255, 80, 78, 78),
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  decoration: const InputDecoration(
-                    hintText: 'Title',
-                    hintStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Color(0xff979797),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                  ),
+          padding: const EdgeInsets.symmetric(horizontal: 13),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 17),
+              Text(
+                'Date',
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
                 ),
-                const SizedBox(height: 20),
-                TextField(
-                  controller: note,
-                  maxLines: null,
-                  cursorColor: const Color(0xff007AFF),
-                  style: const TextStyle(
-                    color: Color.fromARGB(255, 80, 78, 78),
-                    fontSize: 16,
-                  ),
-                  decoration: const InputDecoration(
-                    hintText: 'Note',
-                    hintStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Color(0xff979797),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                  ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                formattedDate,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Color.fromARGB(255, 80, 78, 78),
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'Title',
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                title.text,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromARGB(255, 80, 78, 78),
+                ),
+              ),
+              const SizedBox(height: 24),
+              Text(
+                'Note',
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                note.text,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Color.fromARGB(255, 80, 78, 78),
+                ),
+              ),
+              const SizedBox(height: 24),
+            ],
           ),
         ),
       ),

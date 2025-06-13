@@ -55,6 +55,7 @@ class EventBuilder extends StatelessWidget {
                             note: TextEditingController(
                               text: events[index].note,
                             ),
+                            dateTime: events[index].dateTime,
                           );
                         },
                       ),

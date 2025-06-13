@@ -23,7 +23,7 @@ class Search extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 15),
-            MyearchBar(),
+            MySearchBar(),
             RecentSearches(),
           ],
         ),

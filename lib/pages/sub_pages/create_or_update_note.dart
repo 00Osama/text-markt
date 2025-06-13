@@ -83,11 +83,10 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
         surfaceTintColor: const Color(0xffF2F2F6),
         centerTitle: true,
         title: Text(
-          widget.operation == 'add' ? 'Add New Note' : 'Update Note',
+          widget.operation == 'add' ? 'New Note' : 'Update Note',
           style: TextStyle(
-            color: Colors.grey,
-            fontSize: MediaQuery.of(context).size.width *
-                0.045, // Responsive font size
+            color: Colors.grey[700],
+            fontWeight: FontWeight.w500,
           ),
         ),
         leading: Padding(
@@ -104,106 +103,121 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
                 Navigator.pop(context);
               },
               icon: const Icon(
-                Icons.arrow_back_ios_rounded,
+                Icons.close_rounded,
                 color: Colors.white,
               ),
               iconSize: MediaQuery.of(context).size.width * 0.06,
             ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.white,
-        onPressed: widget.operation == 'add' || widget.operation == 'newEvent'
-            ? () async {
-                if (widget.operation == 'add') {
-                  if (titleController.text.trim().isEmpty &&
-                      noteController.text.trim().isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: const Text(
-                          'Enter at least a note title',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        behavior: SnackBarBehavior.floating,
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: 10.0,
-                          vertical: 10.0,
-                        ),
-                        backgroundColor: Colors.red,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                      ),
-                    );
-                  } else {
-                    showDialog(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (context) {
-                        return const Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.black,
-                          ),
-                        );
-                      },
-                    );
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(
+              MediaQuery.of(context).size.width * 0.02,
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.grey[400],
+              ),
+              child: IconButton(
+                onPressed: widget.operation == 'add' ||
+                        widget.operation == 'newEvent'
+                    ? () async {
+                        if (widget.operation == 'add') {
+                          if (titleController.text.trim().isEmpty &&
+                              noteController.text.trim().isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: const Text(
+                                  'Enter at least a note title',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                behavior: SnackBarBehavior.floating,
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 10.0,
+                                  vertical: 10.0,
+                                ),
+                                backgroundColor: Colors.red,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                              ),
+                            );
+                          } else {
+                            showDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (context) {
+                                return const Center(
+                                  child: CircularProgressIndicator(
+                                    color: Colors.black,
+                                  ),
+                                );
+                              },
+                            );
 
-                    context.read<NoteCubit>().addNewNote(
-                          noteController.text,
-                          titleController.text,
-                        );
-                  }
-                } else {
-                  ///////// add new event here
-                }
-              }
-            : () {
-                if (newTitle.trim().isEmpty && newNote.trim().isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: const Text(
-                        'Enter at least a note title',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      behavior: SnackBarBehavior.floating,
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 10.0,
-                        vertical: 10.0,
-                      ),
-                      backgroundColor: Colors.red,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                  );
-                } else {
-                  showDialog(
-                    barrierDismissible: false,
-                    context: context,
-                    builder: (context) {
-                      return const Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.black,
-                        ),
-                      );
-                    },
-                  );
-                  updatedTitle = newTitle;
-                  updatedNote = newNote;
-                  String? id = widget.note?.id;
-                  context.read<NoteCubit>().updateNote(
-                        newNote,
-                        newTitle,
-                        widget.collection!,
-                        id,
-                        widget.note!.time,
-                      );
-                }
-              },
-        child: widget.operation == 'add'
-            ? const Icon(Icons.save_rounded)
-            : const Icon(Icons.edit_document),
+                            context.read<NoteCubit>().addNewNote(
+                                  noteController.text,
+                                  titleController.text,
+                                );
+                          }
+                        } else {
+                          ///////// add new event here
+                        }
+                      }
+                    : () {
+                        if (newTitle.trim().isEmpty && newNote.trim().isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: const Text(
+                                'Enter at least a note title',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              behavior: SnackBarBehavior.floating,
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 10.0,
+                                vertical: 10.0,
+                              ),
+                              backgroundColor: Colors.red,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
+                          );
+                        } else {
+                          showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (context) {
+                              return const Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.black,
+                                ),
+                              );
+                            },
+                          );
+                          updatedTitle = newTitle;
+                          updatedNote = newNote;
+                          String? id = widget.note?.id;
+                          context.read<NoteCubit>().updateNote(
+                                newNote,
+                                newTitle,
+                                widget.collection!,
+                                id,
+                                widget.note!.time,
+                              );
+                        }
+                      },
+                icon: const Icon(
+                  Icons.done_rounded,
+                  color: Colors.white,
+                ),
+                iconSize: MediaQuery.of(context).size.width * 0.06,
+              ),
+            ),
+          ),
+        ],
       ),
       body: BlocListener<NoteCubit, NoteState>(
         listener: (context, state) {
@@ -366,57 +380,61 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
                         ],
                       )
                     : const SizedBox(),
-                TextField(
-                  controller: titleController,
-                  maxLines: null,
-                  cursorColor: const Color(0xff007AFF),
-                  style: const TextStyle(
-                    color: Color.fromARGB(255, 80, 78, 78),
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  decoration: const InputDecoration(
-                    hintText: 'Title',
-                    hintStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Color(0xff979797),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(height: 14),
+                    TextField(
+                      controller: titleController,
+                      maxLines: null,
+                      cursorColor: const Color(0xff007AFF),
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 80, 78, 78),
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: EdgeInsets.zero,
+                        hintText: 'Title',
+                        hintStyle: TextStyle(
+                          color: Colors.grey[600],
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18,
+                        ),
+                        focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent),
+                        ),
+                        enabledBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent),
+                        ),
                       ),
                     ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
+                    const SizedBox(height: 16),
+                    TextField(
+                      controller: noteController,
+                      cursorColor: const Color(0xff007AFF),
+                      maxLines: null,
+                      decoration: InputDecoration(
+                        isDense: true,
+                        contentPadding: EdgeInsets.zero,
+                        hintText: 'Note',
+                        hintStyle: TextStyle(
+                          color: Colors.grey[600],
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18,
+                        ),
+                        focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent),
+                        ),
+                        enabledBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.transparent),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                TextField(
-                  controller: noteController,
-                  cursorColor: const Color(0xff007AFF),
-                  maxLines: null,
-                  decoration: const InputDecoration(
-                    hintText: 'Note',
-                    hintStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Color(0xff979797),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                      ),
-                    ),
-                  ),
-                ),
+                  ],
+                )
               ],
             ),
           ),

@@ -35,10 +35,11 @@ class _AddNewEventsState extends State<AddNewEvents> {
         backgroundColor: const Color(0xffF2F2F6),
         surfaceTintColor: const Color(0xffF2F2F6),
         centerTitle: true,
-        title: const Text(
-          'add new event',
+        title: Text(
+          'New Event',
           style: TextStyle(
-            color: Colors.grey,
+            color: Colors.grey[700],
+            fontWeight: FontWeight.w500,
           ),
         ),
         leading: Padding(
@@ -53,45 +54,60 @@ class _AddNewEventsState extends State<AddNewEvents> {
                 Navigator.pop(context);
               },
               icon: const Icon(
-                Icons.arrow_back_ios_rounded,
+                Icons.close_rounded,
                 color: Colors.white,
               ),
             ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          if (titleController.text.trim().isEmpty ||
-              noteController.text.trim().isEmpty ||
-              datePickerController.text.isEmpty ||
-              timePickerController.text.isEmpty) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                behavior: SnackBarBehavior.floating,
-                content: Text('Please fill all fields before uploading.'),
-                backgroundColor: Colors.red,
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(
+              MediaQuery.of(context).size.width * 0.02,
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.grey[400],
               ),
-            );
-            return;
-          } else {
-            String selectedDate = datePickerController.text;
-            String selectedTime = timePickerController.text;
-            DateTime dateTime = DateFormat('dd-MM-yyyy HH:mm').parse(
-              '$selectedDate $selectedTime',
-            );
+              child: IconButton(
+                onPressed: () async {
+                  if (titleController.text.trim().isEmpty ||
+                      noteController.text.trim().isEmpty ||
+                      datePickerController.text.isEmpty ||
+                      timePickerController.text.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        behavior: SnackBarBehavior.floating,
+                        content:
+                            Text('Please fill all fields before uploading.'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                    return;
+                  } else {
+                    String selectedDate = datePickerController.text;
+                    String selectedTime = timePickerController.text;
+                    DateTime dateTime = DateFormat('dd-MM-yyyy HH:mm').parse(
+                      '$selectedDate $selectedTime',
+                    );
 
-            context.read<EventCubit>().addNewEvent(
-                  titleController.text,
-                  noteController.text,
-                  dateTime,
-                );
-          }
-        },
-        backgroundColor: Colors.white,
-        child: const Icon(
-          Icons.save_rounded,
-        ),
+                    context.read<EventCubit>().addNewEvent(
+                          titleController.text,
+                          noteController.text,
+                          dateTime,
+                        );
+                  }
+                },
+                icon: const Icon(
+                  Icons.done_rounded,
+                  color: Colors.white,
+                ),
+                iconSize: MediaQuery.of(context).size.width * 0.06,
+              ),
+            ),
+          ),
+        ],
       ),
       body: ListView(
         children: [

@@ -176,7 +176,7 @@ class _NotesState extends State<Notes> {
       body: Column(
         children: [
           const SizedBox(height: 15),
-          const MyearchBar(),
+          const MySearchBar(),
           const SizedBox(height: 19),
           BlocBuilder<NoteCubit, NoteState>(
             builder: (context, state) {

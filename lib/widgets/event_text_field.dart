@@ -29,7 +29,9 @@ class EventTextField extends StatelessWidget {
             children: [
               Text(
                 fieldTitle,
-                style: const TextStyle(
+                style: TextStyle(
+                  color: Colors.grey[700],
+                  fontWeight: FontWeight.w500,
                   fontSize: 18,
                 ),
               ),
