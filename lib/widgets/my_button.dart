@@ -21,16 +21,15 @@ class MyButton extends StatelessWidget {
           horizontal: screenWidth * 0.04,
         ),
         child: ElevatedButton(
-          style: const ButtonStyle(
-            backgroundColor: WidgetStatePropertyAll(
-              Color(0xff007AFF),
-            ),
+          style: ButtonStyle(
+            backgroundColor:
+                Theme.of(context).elevatedButtonTheme.style!.backgroundColor,
           ),
           onPressed: onPressed,
           child: Text(
             buttonText,
             style: const TextStyle(
-              color: Colors.white,
+              //   color: Theme.of(context).primaryColor,
               fontWeight: FontWeight.w600,
             ),
           ),

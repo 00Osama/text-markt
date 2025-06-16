@@ -49,7 +49,7 @@ class _RecentSearchesState extends State<RecentSearches> {
               width: double.infinity,
               height: 220,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: Colors.grey, width: 0.2),
               ),
@@ -79,6 +79,7 @@ class _RecentSearchesState extends State<RecentSearches> {
                                     recentSearches[index],
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(fontSize: 16),
                                   ),
                                 ),
                               ],

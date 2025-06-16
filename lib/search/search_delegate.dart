@@ -57,7 +57,6 @@ class Searchdelegate extends SearchDelegate {
         padding: EdgeInsets.all(17),
         child: Icon(
           Icons.arrow_back_ios_new_rounded,
-          color: Colors.black,
         ),
       ),
     );

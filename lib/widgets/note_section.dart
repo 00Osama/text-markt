@@ -26,7 +26,7 @@ class NoteSection extends StatelessWidget {
         child: Container(
           height: 50,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(screenWidth * 0.03),
             border: Border.all(
               color: borderColor,
@@ -54,9 +54,7 @@ class NoteSection extends StatelessWidget {
               SizedBox(width: screenWidth * 0.03),
               Text(
                 sectionName,
-                style: TextStyle(
-                  fontSize: screenWidth * 0.04,
-                ),
+                style: Theme.of(context).textTheme.bodySmall,
               ),
             ],
           ),

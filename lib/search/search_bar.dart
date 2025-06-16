@@ -21,26 +21,23 @@ class MySearchBar extends StatelessWidget {
           width: double.infinity,
           height: 44,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: Colors.grey,
               width: 0.2,
             ),
           ),
-          child: const Row(
+          child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Spacer(flex: 1),
+              const Spacer(flex: 1),
               Text(
                 'Search',
-                style: TextStyle(
-                  color: Color(0xff1C2121),
-                  fontSize: 14,
-                ),
+                style: Theme.of(context).textTheme.bodySmall,
               ),
-              Spacer(flex: 30),
+              const Spacer(flex: 30),
             ],
           ),
         ),

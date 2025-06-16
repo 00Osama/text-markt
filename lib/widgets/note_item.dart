@@ -30,7 +30,7 @@ class NoteItem extends StatelessWidget {
         width: double.infinity,
         height: 130,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: const Color.fromARGB(139, 184, 176, 176),
@@ -79,6 +79,9 @@ class NoteItem extends StatelessWidget {
                 note,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 14,
+                ),
               ),
             ],
           ),

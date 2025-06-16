@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:textmarkt/auth/services/auth_gate.dart';
 import 'package:textmarkt/bloc/event_cubit.dart';
 import 'package:textmarkt/bloc/note_cubit.dart';
+import 'package:textmarkt/core/theme.dart';
 import 'package:textmarkt/firebase_options.dart';
 import 'package:textmarkt/search/search_cubit.dart';
 import 'package:textmarkt/services/notifications.dart';
@@ -41,9 +42,12 @@ class _MyAppState extends State<MyApp> {
           create: (context) => EventCubit(),
         ),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: AuthGate(),
+        home: const AuthGate(),
+        theme: AppTheme.lightTheme(context),
+        darkTheme: AppTheme.darkTheme(context),
+        themeMode: ThemeMode.system,
       ),
     );
   }

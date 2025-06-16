@@ -57,34 +57,32 @@ class Events extends StatelessWidget {
     final screenHeight = MediaQuery.sizeOf(context).height;
     DateTime today = DateTime.now();
     String monthName = getMonthName(today.month);
-    double responsiveFontSize = MediaQuery.of(context).size.width * 0.05;
 
     return Scaffold(
-      backgroundColor: const Color(0xffF2F2F6),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xffF2F2F6),
-        surfaceTintColor: const Color(0xffF2F2F6),
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        surfaceTintColor: Theme.of(context).appBarTheme.surfaceTintColor,
+        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               '${today.day} $monthName, ${today.year}',
-              style: TextStyle(
-                fontSize: responsiveFontSize,
-                color: const Color.fromARGB(178, 60, 60, 67),
-              ),
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             Text(
               'Events',
-              style: TextStyle(
-                fontSize: MediaQuery.of(context).size.width * 0.07,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor:
+            Theme.of(context).floatingActionButtonTheme.backgroundColor,
+        foregroundColor:
+            Theme.of(context).floatingActionButtonTheme.foregroundColor,
         onPressed: () {
           Navigator.push(
             context,
@@ -93,7 +91,6 @@ class Events extends StatelessWidget {
             ),
           );
         },
-        backgroundColor: Colors.white,
         child: const Icon(Icons.add),
       ),
       body: BlocConsumer<EventCubit, EventState>(

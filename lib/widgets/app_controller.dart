@@ -47,40 +47,63 @@ class _AppControllerState extends State<AppController> {
 
   @override
   Widget build(BuildContext context) {
-    // Get the screen size using MediaQuery
     double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: Colors.grey.shade400,
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+          ? Colors.grey.shade900
+          : Colors.grey.shade400,
       body: screens[_selectedIndex],
       bottomNavigationBar: screenWidth < 600
           ? GNav(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              backgroundColor: Colors.grey.shade400,
-              color: Colors.grey[500],
-              activeColor: Colors.grey[800],
-              tabActiveBorder: Border.all(color: Colors.white),
+              backgroundColor: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.grey.shade900
+                  : Colors.grey.shade400,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.grey[400]
+                  : Colors.grey[500],
+              activeColor: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.grey[100]
+                  : Colors.grey[800],
+              tabActiveBorder: Border.all(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.grey
+                    : Colors.white,
+              ),
               tabBorderRadius: 20,
               padding: const EdgeInsets.all(15),
               tabs: const [
                 GButton(
                   icon: Icons.note_alt_outlined,
                   text: ' Notes',
+                  textStyle: TextStyle(
+                    fontSize: 14,
+                  ),
                   margin: EdgeInsets.all(9),
                 ),
                 GButton(
                   icon: Icons.search,
                   text: ' Search',
+                  textStyle: TextStyle(
+                    fontSize: 14,
+                  ),
                   margin: EdgeInsets.all(9),
                 ),
                 GButton(
                   icon: Icons.event,
                   text: ' Events',
+                  textStyle: TextStyle(
+                    fontSize: 14,
+                  ),
                   margin: EdgeInsets.all(9),
                 ),
                 GButton(
                   icon: Icons.person_outline_rounded,
                   text: ' Profile',
+                  textStyle: TextStyle(
+                    fontSize: 14,
+                  ),
                   margin: EdgeInsets.all(9),
                 ),
               ],
@@ -91,36 +114,33 @@ class _AppControllerState extends State<AppController> {
                 });
               },
             )
-          : Container(
-              // Example of alternative layout for larger screens (tablet/desktop)
-              child: BottomNavigationBar(
-                onTap: (index) {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                },
-                selectedItemColor: const Color(0xff007AFF),
-                unselectedItemColor: const Color(0xff1C2121),
-                currentIndex: _selectedIndex,
-                items: const [
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.note_alt_outlined),
-                    label: 'Notes',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.search),
-                    label: 'Search',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.event),
-                    label: 'Events',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(Icons.person_outline_rounded),
-                    label: 'Profile',
-                  ),
-                ],
-              ),
+          : BottomNavigationBar(
+              onTap: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+              selectedItemColor: const Color(0xff007AFF),
+              unselectedItemColor: const Color(0xff1C2121),
+              currentIndex: _selectedIndex,
+              items: const [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.note_alt_outlined),
+                  label: 'Notes',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.search),
+                  label: 'Search',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.event),
+                  label: 'Events',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person_outline_rounded),
+                  label: 'Profile',
+                ),
+              ],
             ),
     );
   }

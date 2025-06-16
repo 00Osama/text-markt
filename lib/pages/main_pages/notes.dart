@@ -123,25 +123,21 @@ class _NotesState extends State<Notes> {
   Widget build(BuildContext context) {
     DateTime today = DateTime.now();
     String monthName = getMonthName(today.month);
-    double responsiveFontSize = MediaQuery.of(context).size.width * 0.05;
-    final screenWidth = MediaQuery.sizeOf(context).width;
+
     final screenHeight = MediaQuery.sizeOf(context).height;
 
     return Scaffold(
-      backgroundColor: const Color(0xffF2F2F6),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xffF2F2F6),
-        surfaceTintColor: const Color(0xffF2F2F6),
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        surfaceTintColor: Theme.of(context).appBarTheme.surfaceTintColor,
         title: Column(
           children: [
             Row(
               children: [
                 Text(
                   '${today.day} $monthName, ${today.year}',
-                  style: TextStyle(
-                    fontSize: responsiveFontSize,
-                    color: const Color.fromARGB(178, 60, 60, 67),
-                  ),
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
               ],
             ),
@@ -149,10 +145,7 @@ class _NotesState extends State<Notes> {
               children: [
                 Text(
                   'Notes',
-                  style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.07,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: Theme.of(context).textTheme.headlineLarge,
                 ),
               ],
             ),
@@ -160,7 +153,10 @@ class _NotesState extends State<Notes> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.white,
+        backgroundColor:
+            Theme.of(context).floatingActionButtonTheme.backgroundColor,
+        foregroundColor:
+            Theme.of(context).floatingActionButtonTheme.foregroundColor,
         onPressed: () {
           Navigator.push(
             context,
@@ -433,10 +429,7 @@ class _NotesState extends State<Notes> {
                           SizedBox(height: screenHeight * 0.04),
                           Text(
                             'Unexpected error occurred',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: screenWidth * 0.05,
-                            ),
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           const Spacer(flex: 1),
                         ],
@@ -456,10 +449,7 @@ class _NotesState extends State<Notes> {
                           ),
                           Text(
                             'No notes found',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: screenWidth * 0.05,
-                            ),
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           const Spacer(flex: 1),
                         ],

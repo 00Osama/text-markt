@@ -28,7 +28,7 @@ class _MySearchControllerState extends State<MySearchController> {
     context.read<SearchCubit>().addQuery(widget.query);
 
     return Scaffold(
-      backgroundColor: const Color(0xffF2F2F6),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: widget.notes.isEmpty
           ? Expanded(
               child: Column(
