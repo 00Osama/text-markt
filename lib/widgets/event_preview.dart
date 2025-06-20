@@ -21,30 +21,29 @@ class EventPreview extends StatelessWidget {
         '${DateFormat('a').format(dateTime)}';
 
     return Scaffold(
-      backgroundColor: const Color(0xffF2F2F6),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xffF2F2F6),
-        surfaceTintColor: const Color(0xffF2F2F6),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
         centerTitle: true,
         title: Text(
           'Event Preview',
-          style: TextStyle(
-            color: Colors.grey[700],
-            fontWeight: FontWeight.w500,
-          ),
+          style: Theme.of(context).textTheme.headlineLarge?.copyWith(),
         ),
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
-              color: Colors.grey[400],
+              color:
+                  Theme.of(context).floatingActionButtonTheme.backgroundColor,
             ),
             child: IconButton(
               onPressed: () => Navigator.pop(context),
-              icon: const Icon(
+              icon: Icon(
                 Icons.close_rounded,
-                color: Colors.white,
+                color:
+                    Theme.of(context).floatingActionButtonTheme.foregroundColor,
               ),
             ),
           ),
@@ -59,54 +58,32 @@ class EventPreview extends StatelessWidget {
               const SizedBox(height: 17),
               Text(
                 'Date',
-                style: TextStyle(
-                  color: Colors.grey[600],
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(),
               ),
               const SizedBox(height: 4),
               Text(
                 formattedDate,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Color.fromARGB(255, 80, 78, 78),
-                ),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(),
               ),
               const SizedBox(height: 20),
               Text(
                 'Title',
-                style: TextStyle(
-                  color: Colors.grey[600],
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(),
               ),
               const SizedBox(height: 4),
               Text(
                 title.text,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 80, 78, 78),
-                ),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(),
               ),
               const SizedBox(height: 24),
               Text(
-                'Note',
-                style: TextStyle(
-                  color: Colors.grey[600],
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
+                'Event',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(),
               ),
               const SizedBox(height: 4),
               Text(
                 note.text,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Color.fromARGB(255, 80, 78, 78),
-                ),
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(),
               ),
               const SizedBox(height: 24),
             ],

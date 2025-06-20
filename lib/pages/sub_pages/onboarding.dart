@@ -37,11 +37,9 @@ class _OnboardingState extends State<Onboarding> {
             children: [
               TextButton(
                 onPressed: goToAuth,
-                child: const Text(
+                child: Text(
                   'Skip',
-                  style: TextStyle(
-                    color: Color(0xff007AFF),
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(),
                 ),
               ),
             ],
@@ -56,18 +54,12 @@ class _OnboardingState extends State<Onboarding> {
           Text(
             'Manage your',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: screenWidth * 0.08,
-            ),
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(),
           ),
           Text(
             'notes easily',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: screenWidth * 0.08,
-            ),
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(),
           ),
           const SizedBox(height: 25),
           Padding(
@@ -76,9 +68,7 @@ class _OnboardingState extends State<Onboarding> {
               'A completely easy way to manage and customize your notes.',
               textAlign: TextAlign.center,
               softWrap: true,
-              style: TextStyle(
-                fontSize: screenWidth * 0.04,
-              ),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(),
             ),
           ),
           const SizedBox(height: 35),
@@ -106,28 +96,26 @@ class _OnboardingState extends State<Onboarding> {
                     curve: Curves.ease,
                   );
                 },
-                child: const Row(
+                child: Row(
                   children: [
                     Icon(
                       Icons.arrow_back_ios_new_rounded,
-                      color: Color(0xff007AFF),
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
                     ),
                     Text(
                       'Back',
-                      style: TextStyle(
-                        color: Color(0xff007AFF),
-                      ),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(),
                     ),
                   ],
                 ),
               ),
               TextButton(
                 onPressed: goToAuth,
-                child: const Text(
+                child: Text(
                   'Skip',
-                  style: TextStyle(
-                    color: Color(0xff007AFF),
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(),
                 ),
               ),
             ],
@@ -142,18 +130,12 @@ class _OnboardingState extends State<Onboarding> {
           Text(
             'Organize your',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: screenWidth * 0.08,
-            ),
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(),
           ),
           Text(
             'thoughts',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: screenWidth * 0.08,
-            ),
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(),
           ),
           const SizedBox(height: 25),
           Padding(
@@ -162,9 +144,7 @@ class _OnboardingState extends State<Onboarding> {
               'Most beautiful note-taking application.',
               textAlign: TextAlign.center,
               softWrap: true,
-              style: TextStyle(
-                fontSize: screenWidth * 0.04,
-              ),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(),
             ),
           ),
           const SizedBox(height: 35),
@@ -192,17 +172,17 @@ class _OnboardingState extends State<Onboarding> {
                     curve: Curves.ease,
                   );
                 },
-                child: const Row(
+                child: Row(
                   children: [
                     Icon(
                       Icons.arrow_back_ios_new_rounded,
-                      color: Color(0xff007AFF),
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black,
                     ),
                     Text(
                       'Back',
-                      style: TextStyle(
-                        color: Color(0xff007AFF),
-                      ),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(),
                     ),
                   ],
                 ),
@@ -219,18 +199,12 @@ class _OnboardingState extends State<Onboarding> {
           Text(
             'Create cards and',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: screenWidth * 0.08,
-            ),
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(),
           ),
           Text(
             'easy styling',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: screenWidth * 0.08,
-            ),
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(),
           ),
           const SizedBox(height: 25),
           Padding(
@@ -239,9 +213,7 @@ class _OnboardingState extends State<Onboarding> {
               'Making your content legible has never been easier.',
               textAlign: TextAlign.center,
               softWrap: true,
-              style: TextStyle(
-                fontSize: screenWidth * 0.04,
-              ),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(),
             ),
           ),
           const SizedBox(height: 35),
@@ -258,8 +230,13 @@ class _OnboardingState extends State<Onboarding> {
       itemCount: screens.length,
       itemBuilder: (context, index) {
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: screens[index],
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
+            centerTitle: true,
+          ),
         );
       },
       onPageChanged: (int index) {

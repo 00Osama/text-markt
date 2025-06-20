@@ -25,6 +25,7 @@ class MyTextField extends StatelessWidget {
         keyboardType: inputType,
         obscureText: obscureText,
         cursorColor: Colors.grey.shade600,
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(),
         controller: controller,
         decoration: InputDecoration(
           errorText: errorText,
@@ -33,7 +34,7 @@ class MyTextField extends StatelessWidget {
           ),
           border: const UnderlineInputBorder(),
           labelText: hintText,
-          labelStyle: const TextStyle(color: Colors.grey),
+          labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(),
         ),
       ),
     );

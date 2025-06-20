@@ -29,11 +29,7 @@ class EventTextField extends StatelessWidget {
             children: [
               Text(
                 fieldTitle,
-                style: TextStyle(
-                  color: Colors.grey[700],
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18,
-                ),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(),
               ),
             ],
           ),
@@ -42,12 +38,11 @@ class EventTextField extends StatelessWidget {
             maxLines: maxLines,
             controller: controller,
             readOnly: readOnly,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(),
             decoration: InputDecoration(
               suffixIcon: suffixIcon,
               hintText: hintText,
-              hintStyle: const TextStyle(
-                color: Colors.grey,
-              ),
+              hintStyle: Theme.of(context).textTheme.bodySmall?.copyWith(),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey.shade400),
                 borderRadius: BorderRadius.circular(10),

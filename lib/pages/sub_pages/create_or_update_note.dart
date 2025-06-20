@@ -77,17 +77,14 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF2F2F6),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xffF2F2F6),
-        surfaceTintColor: const Color(0xffF2F2F6),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
         centerTitle: true,
         title: Text(
           widget.operation == 'add' ? 'New Note' : 'Update Note',
-          style: TextStyle(
-            color: Colors.grey[700],
-            fontWeight: FontWeight.w500,
-          ),
+          style: Theme.of(context).textTheme.headlineLarge?.copyWith(),
         ),
         leading: Padding(
           padding: EdgeInsets.all(
@@ -96,15 +93,17 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
-              color: Colors.grey[400],
+              color:
+                  Theme.of(context).floatingActionButtonTheme.backgroundColor,
             ),
             child: IconButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: const Icon(
+              icon: Icon(
                 Icons.close_rounded,
-                color: Colors.white,
+                color:
+                    Theme.of(context).floatingActionButtonTheme.foregroundColor,
               ),
               iconSize: MediaQuery.of(context).size.width * 0.06,
             ),
@@ -118,7 +117,8 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
             child: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.grey[400],
+                color:
+                    Theme.of(context).floatingActionButtonTheme.backgroundColor,
               ),
               child: IconButton(
                 onPressed: widget.operation == 'add' ||
@@ -149,9 +149,10 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
                               barrierDismissible: false,
                               context: context,
                               builder: (context) {
-                                return const Center(
+                                return Center(
                                   child: CircularProgressIndicator(
-                                    color: Colors.black,
+                                    color:
+                                        Theme.of(context).dialogBackgroundColor,
                                   ),
                                 );
                               },
@@ -190,9 +191,10 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
                             barrierDismissible: false,
                             context: context,
                             builder: (context) {
-                              return const Center(
+                              return Center(
                                 child: CircularProgressIndicator(
-                                  color: Colors.black,
+                                  color:
+                                      Theme.of(context).dialogBackgroundColor,
                                 ),
                               );
                             },
@@ -209,9 +211,11 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
                               );
                         }
                       },
-                icon: const Icon(
+                icon: Icon(
                   Icons.done_rounded,
-                  color: Colors.white,
+                  color: Theme.of(context)
+                      .floatingActionButtonTheme
+                      .foregroundColor,
                 ),
                 iconSize: MediaQuery.of(context).size.width * 0.06,
               ),
@@ -389,20 +393,13 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
                       controller: titleController,
                       maxLines: null,
                       cursorColor: const Color(0xff007AFF),
-                      style: const TextStyle(
-                        color: Color.fromARGB(255, 80, 78, 78),
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(),
                       decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.zero,
                         hintText: 'Title',
-                        hintStyle: TextStyle(
-                          color: Colors.grey[600],
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                        ),
+                        hintStyle:
+                            Theme.of(context).textTheme.bodyMedium?.copyWith(),
                         focusedBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.transparent),
                         ),
@@ -416,15 +413,13 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
                       controller: noteController,
                       cursorColor: const Color(0xff007AFF),
                       maxLines: null,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(),
                       decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.zero,
                         hintText: 'Note',
-                        hintStyle: TextStyle(
-                          color: Colors.grey[600],
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                        ),
+                        hintStyle:
+                            Theme.of(context).textTheme.bodySmall?.copyWith(),
                         focusedBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.transparent),
                         ),

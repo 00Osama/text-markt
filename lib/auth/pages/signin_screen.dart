@@ -67,7 +67,7 @@ class _SignUpScreenState extends State<SigninScreen> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -99,6 +99,7 @@ class _SignUpScreenState extends State<SigninScreen> {
                     flex: 2,
                     child: Image.asset(
                       'assets/images/email.png',
+                      color: Theme.of(context).textTheme.bodyMedium?.color,
                     ),
                   ),
                   Expanded(
@@ -119,6 +120,7 @@ class _SignUpScreenState extends State<SigninScreen> {
                     flex: 2,
                     child: Image.asset(
                       'assets/images/password.png',
+                      color: Theme.of(context).textTheme.bodyMedium?.color,
                     ),
                   ),
                   Expanded(

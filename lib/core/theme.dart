@@ -11,14 +11,14 @@ class AppTheme {
       ),
       scaffoldBackgroundColor: const Color(0xffF2F2F6),
       textTheme: TextTheme(
+        headlineMedium: TextStyle(
+          fontSize: MediaQuery.of(context).size.width * 0.05,
+          color: Colors.grey[700],
+        ),
         headlineLarge: TextStyle(
           fontSize: MediaQuery.of(context).size.width * 0.07,
           fontWeight: FontWeight.bold,
           color: Colors.black,
-        ),
-        headlineMedium: TextStyle(
-          fontSize: MediaQuery.of(context).size.width * 0.05,
-          color: Colors.grey[700],
         ),
         bodySmall: TextStyle(
           fontSize: MediaQuery.of(context).size.width * 0.04,
@@ -26,6 +26,11 @@ class AppTheme {
         ),
         bodyMedium: TextStyle(
           fontSize: MediaQuery.of(context).size.width * 0.05,
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+        ),
+        bodyLarge: TextStyle(
+          fontSize: MediaQuery.of(context).size.width * 0.06,
           color: Colors.black,
           fontWeight: FontWeight.bold,
         ),
@@ -40,6 +45,7 @@ class AppTheme {
           foregroundColor: Colors.black,
         ),
       ),
+      dialogBackgroundColor: Colors.black,
     );
   }
 
@@ -53,14 +59,14 @@ class AppTheme {
         surfaceTintColor: Color(0xFF000000),
       ),
       textTheme: TextTheme(
+        headlineMedium: TextStyle(
+          fontSize: MediaQuery.of(context).size.width * 0.05,
+          color: Colors.white70,
+        ),
         headlineLarge: TextStyle(
           fontSize: MediaQuery.of(context).size.width * 0.07,
           fontWeight: FontWeight.bold,
           color: Colors.white,
-        ),
-        headlineMedium: TextStyle(
-          fontSize: MediaQuery.of(context).size.width * 0.05,
-          color: Colors.white70,
         ),
         bodySmall: TextStyle(
           fontSize: MediaQuery.of(context).size.width * 0.04,
@@ -68,6 +74,11 @@ class AppTheme {
         ),
         bodyMedium: TextStyle(
           fontSize: MediaQuery.of(context).size.width * 0.05,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+        bodyLarge: TextStyle(
+          fontSize: MediaQuery.of(context).size.width * 0.06,
           color: Colors.white,
           fontWeight: FontWeight.bold,
         ),
@@ -82,6 +93,7 @@ class AppTheme {
           foregroundColor: Colors.white,
         ),
       ),
+      dialogBackgroundColor: Colors.white,
     );
   }
 }

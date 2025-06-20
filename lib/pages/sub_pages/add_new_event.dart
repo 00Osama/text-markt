@@ -30,32 +30,31 @@ class _AddNewEventsState extends State<AddNewEvents> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF2F2F6),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: const Color(0xffF2F2F6),
-        surfaceTintColor: const Color(0xffF2F2F6),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
         centerTitle: true,
         title: Text(
           'New Event',
-          style: TextStyle(
-            color: Colors.grey[700],
-            fontWeight: FontWeight.w500,
-          ),
+          style: Theme.of(context).textTheme.headlineLarge?.copyWith(),
         ),
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
-              color: Colors.grey[400],
+              color:
+                  Theme.of(context).floatingActionButtonTheme.backgroundColor,
             ),
             child: IconButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: const Icon(
+              icon: Icon(
                 Icons.close_rounded,
-                color: Colors.white,
+                color:
+                    Theme.of(context).floatingActionButtonTheme.foregroundColor,
               ),
             ),
           ),
@@ -68,7 +67,8 @@ class _AddNewEventsState extends State<AddNewEvents> {
             child: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.grey[400],
+                color:
+                    Theme.of(context).floatingActionButtonTheme.backgroundColor,
               ),
               child: IconButton(
                 onPressed: () async {
@@ -99,9 +99,11 @@ class _AddNewEventsState extends State<AddNewEvents> {
                         );
                   }
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.done_rounded,
-                  color: Colors.white,
+                  color: Theme.of(context)
+                      .floatingActionButtonTheme
+                      .foregroundColor,
                 ),
                 iconSize: MediaQuery.of(context).size.width * 0.06,
               ),
@@ -113,15 +115,15 @@ class _AddNewEventsState extends State<AddNewEvents> {
         children: [
           EventTextField(
             controller: titleController,
-            hintText: 'type your title here.',
+            hintText: 'title',
             fieldTitle: 'Title',
             readOnly: false,
           ),
           EventTextField(
             maxLines: 5,
             controller: noteController,
-            hintText: 'type your note here.',
-            fieldTitle: 'Note',
+            hintText: 'event',
+            fieldTitle: 'Event',
             readOnly: false,
           ),
           EventTextField(

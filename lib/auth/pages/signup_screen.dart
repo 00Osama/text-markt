@@ -79,7 +79,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final screenWidth = MediaQuery.sizeOf(context).width;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
+      ),
       body: SafeArea(
         child: ListView(
           children: [
@@ -88,17 +92,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
               width: screenWidth * 0.70,
               height: screenWidth * 0.70,
             ),
-            const Row(
+            Row(
               children: [
-                Spacer(flex: 1),
+                const Spacer(flex: 1),
                 Text(
                   'Sign Up',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
-                  ),
+                  style: Theme.of(context).textTheme.headlineLarge?.copyWith(),
                 ),
-                Spacer(flex: 20),
+                const Spacer(flex: 20),
               ],
             ),
             Row(
@@ -107,6 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   flex: 2,
                   child: Image.asset(
                     'assets/images/name.png',
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
                   ),
                 ),
                 Expanded(
@@ -127,6 +129,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   flex: 2,
                   child: Image.asset(
                     'assets/images/email.png',
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
                   ),
                 ),
                 Expanded(
@@ -147,6 +150,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   flex: 2,
                   child: Image.asset(
                     'assets/images/password.png',
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
                   ),
                 ),
                 Expanded(
@@ -167,6 +171,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   flex: 2,
                   child: Image.asset(
                     'assets/images/password.png',
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
                   ),
                 ),
                 Expanded(
@@ -181,7 +186,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 40),
             MyButton(
               buttonText: 'Sign up',
               onPressed: () async {
@@ -277,6 +282,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ],
             ),
+            const SizedBox(height: 20),
           ],
         ),
       ),
