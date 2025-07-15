@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:textmarkt/auth/services/auth_service.dart';
+import 'package:textmarkt/bloc/theme_cubit.dart';
 import 'package:textmarkt/globals.dart';
 import 'package:textmarkt/models/user.dart';
 import 'package:textmarkt/pages/sub_pages/onboarding.dart';
@@ -48,85 +50,180 @@ class Profile extends StatelessWidget {
               ),
             );
           } else {
-            return Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Spacer(flex: 1),
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Spacer(flex: 1),
 
-                  CircleAvatar(
-                    radius: 50, // Larger size for the avatar
-                    backgroundImage: AssetImage(user!.image),
-                    backgroundColor: Colors.grey[200],
+                CircleAvatar(
+                  radius: 50, // Larger size for the avatar
+                  backgroundImage: AssetImage(user!.image),
+                  backgroundColor: Colors.grey[200],
+                ),
+                const SizedBox(height: 16),
+
+                // User Name
+                Text(
+                  user!.name,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const SizedBox(height: 16),
+                ),
+                const SizedBox(height: 8),
 
-                  // User Name
-                  Text(
-                    user!.name,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                Text(
+                  user!.email,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey[600],
                   ),
-                  const SizedBox(height: 8),
-
-                  Text(
-                    user!.email,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey[600],
-                    ),
-                  ),
-                  const Spacer(flex: 8),
-
-                  SizedBox(
+                ),
+                const Spacer(flex: 4),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
                     width: double.infinity,
-                    child: MyButton(
-                      onPressed: () async {
-                        await showDialog<bool>(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text('Sign Out'),
-                              content: const Text(
-                                'Are you sure you want to sign out ?!',
-                              ),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text('Cancel'),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Theme Mode',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        BlocBuilder<ThemeCubit, ThemeState>(
+                          builder: (context, state) {
+                            return SegmentedButton<ThemeState>(
+                              segments: [
+                                ButtonSegment(
+                                  value: ThemeState.system,
+                                  label: Text(
+                                    'System',
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
                                 ),
-                                TextButton(
-                                  onPressed: () async {
-                                    // Perform sign-out
-                                    await AuthService().signOut();
-                                    Navigator.of(context).pop();
-
-                                    // Navigate to the Onboarding screen
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const Onboarding(),
-                                      ),
-                                    );
-                                  },
-                                  child: const Text('Sign Out'),
+                                ButtonSegment(
+                                  value: ThemeState.light,
+                                  label: Text(
+                                    'Light',
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                ),
+                                ButtonSegment(
+                                  value: ThemeState.dark,
+                                  label: Text(
+                                    'Dark',
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
                                 ),
                               ],
+                              selected: {state},
+                              onSelectionChanged: (Set<ThemeState> selected) {
+                                context
+                                    .read<ThemeCubit>()
+                                    .setThemeMode(selected.first);
+                              },
                             );
                           },
-                        );
-                      },
-                      buttonText: 'Sign out',
+                        ),
+                      ],
                     ),
                   ),
-                  const Spacer(flex: 5),
-                ],
-              ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Language',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                        BlocBuilder<ThemeCubit, ThemeState>(
+                          builder: (context, state) {
+                            return SegmentedButton<ThemeState>(
+                              segments: [
+                                ButtonSegment(
+                                  value: ThemeState.light,
+                                  label: Text(
+                                    'Arabic',
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                ),
+                                ButtonSegment(
+                                  value: ThemeState.dark,
+                                  label: Text(
+                                    'English',
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                ),
+                              ],
+                              selected: {state},
+                              onSelectionChanged: (Set<ThemeState> selected) {
+                                context
+                                    .read<ThemeCubit>()
+                                    .setThemeMode(selected.first);
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const Spacer(flex: 4),
+                SizedBox(
+                  width: double.infinity,
+                  child: MyButton(
+                    onPressed: () async {
+                      await showDialog<bool>(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text('Sign Out'),
+                            content: const Text(
+                              'Are you sure you want to sign out ?!',
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () async {
+                                  // Perform sign-out
+                                  await AuthService().signOut();
+                                  Navigator.of(context).pop();
+
+                                  // Navigate to the Onboarding screen
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const Onboarding(),
+                                    ),
+                                  );
+                                },
+                                child: const Text('Sign Out'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    buttonText: 'Sign out',
+                  ),
+                ),
+                const Spacer(flex: 8),
+              ],
             );
           }
         },
