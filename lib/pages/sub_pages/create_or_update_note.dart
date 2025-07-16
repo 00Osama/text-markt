@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:textmarkt/bloc/note_cubit.dart';
+import 'package:textmarkt/generated/l10n.dart';
 import 'package:textmarkt/globals.dart';
 import 'package:textmarkt/models/note.dart';
 
@@ -83,7 +84,9 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
         surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
         centerTitle: true,
         title: Text(
-          widget.operation == 'add' ? 'New Note' : 'Update Note',
+          widget.operation == 'add'
+              ? S.of(context).newNote
+              : S.of(context).updateNote,
           style: Theme.of(context).textTheme.headlineLarge?.copyWith(),
         ),
         leading: Padding(
@@ -129,9 +132,9 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
                               noteController.text.trim().isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: const Text(
-                                  'Enter at least a note title',
-                                  style: TextStyle(color: Colors.white),
+                                content: Text(
+                                  S.of(context).enterAtLeastNoteTitle,
+                                  style: const TextStyle(color: Colors.white),
                                 ),
                                 behavior: SnackBarBehavior.floating,
                                 margin: const EdgeInsets.symmetric(
@@ -171,9 +174,9 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
                         if (newTitle.trim().isEmpty && newNote.trim().isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: const Text(
-                                'Enter at least a note title',
-                                style: TextStyle(color: Colors.white),
+                              content: Text(
+                                S.of(context).enterAtLeastNoteTitle,
+                                style: const TextStyle(color: Colors.white),
                               ),
                               behavior: SnackBarBehavior.floating,
                               margin: const EdgeInsets.symmetric(
@@ -246,8 +249,8 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
               SnackBar(
                 content: Text(
                   state is NoteAddSuccess
-                      ? 'Note added successfully'
-                      : 'Failed to add note',
+                      ? S.of(context).noteAddedSuccessfully
+                      : S.of(context).failedToAddNote,
                   style: const TextStyle(color: Colors.white),
                 ),
                 behavior: SnackBarBehavior.floating,
@@ -301,9 +304,9 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
             // Show success or error message
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: const Text(
-                  'Note updated successfully',
-                  style: TextStyle(color: Colors.white),
+                content: Text(
+                  S.of(context).noteUpdatedSuccessfully,
+                  style: const TextStyle(color: Colors.white),
                 ),
                 behavior: SnackBarBehavior.floating,
                 margin: const EdgeInsets.symmetric(
@@ -323,9 +326,9 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
             // Show success or error message
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: const Text(
-                  'Failed to update note',
-                  style: TextStyle(color: Colors.white),
+                content: Text(
+                  S.of(context).failedToUpdateNote,
+                  style: const TextStyle(color: Colors.white),
                 ),
                 behavior: SnackBarBehavior.floating,
                 margin: const EdgeInsets.symmetric(
@@ -397,7 +400,7 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
                       decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.zero,
-                        hintText: 'Title',
+                        hintText: S.of(context).title,
                         hintStyle:
                             Theme.of(context).textTheme.bodyMedium?.copyWith(),
                         focusedBorder: const UnderlineInputBorder(
@@ -417,7 +420,7 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
                       decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.zero,
-                        hintText: 'Note',
+                        hintText: S.of(context).Note,
                         hintStyle:
                             Theme.of(context).textTheme.bodySmall?.copyWith(),
                         focusedBorder: const UnderlineInputBorder(

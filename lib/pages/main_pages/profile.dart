@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:textmarkt/auth/services/auth_service.dart';
 import 'package:textmarkt/bloc/theme_cubit.dart';
+import 'package:textmarkt/generated/l10n.dart';
 import 'package:textmarkt/globals.dart';
 import 'package:textmarkt/models/user.dart';
 import 'package:textmarkt/pages/sub_pages/onboarding.dart';
@@ -35,7 +36,7 @@ class Profile extends StatelessWidget {
         surfaceTintColor: Theme.of(context).appBarTheme.surfaceTintColor,
         foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
         title: Text(
-          'Profile',
+          S.of(context).profile,
           style: Theme.of(context).textTheme.headlineLarge,
         ),
       ),
@@ -187,16 +188,16 @@ class Profile extends StatelessWidget {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: const Text('Sign Out'),
-                            content: const Text(
-                              'Are you sure you want to sign out ?!',
+                            title: Text(S.of(context).signOut),
+                            content: Text(
+                              S.of(context).areYouSureYouWantToSignOut,
                             ),
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
-                                child: const Text('Cancel'),
+                                child: Text(S.of(context).cancel),
                               ),
                               TextButton(
                                 onPressed: () async {
@@ -212,14 +213,14 @@ class Profile extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                child: const Text('Sign Out'),
+                                child: Text(S.of(context).signOut),
                               ),
                             ],
                           );
                         },
                       );
                     },
-                    buttonText: 'Sign out',
+                    buttonText: S.of(context).signOut,
                   ),
                 ),
                 const Spacer(flex: 8),

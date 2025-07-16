@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:textmarkt/bloc/note_cubit.dart';
+import 'package:textmarkt/generated/l10n.dart';
 import 'package:textmarkt/globals.dart';
 import 'package:textmarkt/models/note.dart';
 import 'package:textmarkt/pages/sub_pages/create_or_update_note.dart';
@@ -144,7 +145,7 @@ class _NotesState extends State<Notes> {
             Row(
               children: [
                 Text(
-                  'Notes',
+                  S.of(context).Notes,
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
               ],
@@ -187,7 +188,7 @@ class _NotesState extends State<Notes> {
                       borderColor: state is AllNotes
                           ? const Color(0xff8E8E92)
                           : Colors.transparent,
-                      sectionName: 'All Notes',
+                      sectionName: S.of(context).allNotes,
                       onPressed: () {
                         context.read<NoteCubit>().switchNotes('AllNotes');
                       },
@@ -199,7 +200,7 @@ class _NotesState extends State<Notes> {
                       borderColor: state is Favourites
                           ? const Color(0xffF7CE45)
                           : Colors.transparent,
-                      sectionName: 'Favourites',
+                      sectionName: S.of(context).favorites,
                       onPressed: () {
                         context.read<NoteCubit>().switchNotes('Favourites');
                       },
@@ -223,7 +224,7 @@ class _NotesState extends State<Notes> {
                       borderColor: state is Hidden
                           ? const Color(0xff4E94F8)
                           : Colors.transparent,
-                      sectionName: 'Hidden',
+                      sectionName: S.of(context).hidden,
                       onPressed: () {
                         context.read<NoteCubit>().switchNotes('Hidden');
                       },
@@ -235,7 +236,7 @@ class _NotesState extends State<Notes> {
                       borderColor: state is Trash
                           ? const Color(0xffEB4D3D)
                           : Colors.transparent,
-                      sectionName: 'Trash',
+                      sectionName: S.of(context).trash,
                       onPressed: () {
                         context.read<NoteCubit>().switchNotes('Trash');
                       },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:textmarkt/generated/l10n.dart';
 import 'package:textmarkt/search/search_delegate.dart';
 
 class MySearchBar extends StatelessWidget {
@@ -34,7 +35,7 @@ class MySearchBar extends StatelessWidget {
             children: [
               const Spacer(flex: 1),
               Text(
-                'Search',
+                S.of(context).searchTitle,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
               const Spacer(flex: 30),

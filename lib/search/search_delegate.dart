@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:textmarkt/generated/l10n.dart';
 import 'package:textmarkt/globals.dart';
 import 'package:textmarkt/search/search_controller.dart';
 import 'package:textmarkt/models/note.dart';
@@ -11,22 +12,22 @@ class Searchdelegate extends SearchDelegate {
     return [
       DropdownButton<String>(
         value: myValue,
-        items: const [
+        items: [
           DropdownMenuItem<String>(
             value: 'AllNotes',
-            child: Text('All Notes'),
+            child: Text(S.of(context).allNotes),
           ),
           DropdownMenuItem<String>(
             value: 'Favourites',
-            child: Text('Favourites'),
+            child: Text(S.of(context).favorites),
           ),
           DropdownMenuItem<String>(
             value: 'Hidden',
-            child: Text('Hidden'),
+            child: Text(S.of(context).hidden),
           ),
           DropdownMenuItem<String>(
             value: 'Trash',
-            child: Text('Trash'),
+            child: Text(S.of(context).trash),
           ),
         ],
         onChanged: (value) {

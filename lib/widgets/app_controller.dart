@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:textmarkt/generated/l10n.dart';
 import 'package:textmarkt/pages/main_pages/events.dart';
 import 'package:textmarkt/pages/main_pages/profile.dart';
 import 'package:textmarkt/pages/main_pages/notes.dart';
@@ -73,38 +74,38 @@ class _AppControllerState extends State<AppController> {
               ),
               tabBorderRadius: 20,
               padding: const EdgeInsets.all(15),
-              tabs: const [
+              tabs: [
                 GButton(
                   icon: Icons.note_alt_outlined,
-                  text: ' Notes',
-                  textStyle: TextStyle(
+                  text: ' ${S.of(context).notesTitle}',
+                  textStyle: const TextStyle(
                     fontSize: 14,
                   ),
-                  margin: EdgeInsets.all(9),
+                  margin: const EdgeInsets.all(9),
                 ),
                 GButton(
                   icon: Icons.search,
-                  text: ' Search',
-                  textStyle: TextStyle(
+                  text: ' ${S.of(context).searchTitle}',
+                  textStyle: const TextStyle(
                     fontSize: 14,
                   ),
-                  margin: EdgeInsets.all(9),
+                  margin: const EdgeInsets.all(9),
                 ),
                 GButton(
                   icon: Icons.event,
-                  text: ' Events',
-                  textStyle: TextStyle(
+                  text: ' ${S.of(context).eventsTitle}',
+                  textStyle: const TextStyle(
                     fontSize: 14,
                   ),
-                  margin: EdgeInsets.all(9),
+                  margin: const EdgeInsets.all(9),
                 ),
                 GButton(
                   icon: Icons.person_outline_rounded,
-                  text: ' Profile',
-                  textStyle: TextStyle(
+                  text: ' ${S.of(context).profileTitle}',
+                  textStyle: const TextStyle(
                     fontSize: 14,
                   ),
-                  margin: EdgeInsets.all(9),
+                  margin: const EdgeInsets.all(9),
                 ),
               ],
               selectedIndex: _selectedIndex,

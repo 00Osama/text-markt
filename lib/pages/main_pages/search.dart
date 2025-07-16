@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:textmarkt/generated/l10n.dart';
 import 'package:textmarkt/search/search_bar.dart';
 import 'package:textmarkt/search/recent_searches.dart';
 
@@ -14,7 +15,7 @@ class Search extends StatelessWidget {
         surfaceTintColor: Theme.of(context).appBarTheme.surfaceTintColor,
         foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
         title: Text(
-          'Search',
+          S.of(context).searchTitle,
           style: Theme.of(context).textTheme.headlineLarge,
         ),
       ),
