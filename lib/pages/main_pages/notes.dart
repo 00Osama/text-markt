@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:textmarkt/bloc/note_cubit.dart';
 import 'package:textmarkt/generated/l10n.dart';
@@ -40,6 +41,21 @@ class _NotesState extends State<Notes> {
     return (monthNumber >= 1 && monthNumber <= 12)
         ? monthNames[monthNumber]
         : "Invalid month";
+  }
+
+  String getCollectionName(String newCollection) {
+    switch (newCollection) {
+      case 'AllNotes':
+        return S.of(context).allNotes;
+      case 'Favourites':
+        return S.of(context).noteAddedToFavorites;
+      case 'Hidden':
+        return S.of(context).noteAddedToHidden;
+      case 'Trash':
+        return S.of(context).noteAddedToTrash;
+      default:
+        return '';
+    }
   }
 
   ////////////////////////////
@@ -122,9 +138,6 @@ class _NotesState extends State<Notes> {
 
   @override
   Widget build(BuildContext context) {
-    DateTime today = DateTime.now();
-    String monthName = getMonthName(today.month);
-
     final screenHeight = MediaQuery.sizeOf(context).height;
 
     return Scaffold(
@@ -137,7 +150,12 @@ class _NotesState extends State<Notes> {
             Row(
               children: [
                 Text(
-                  '${today.day} $monthName, ${today.year}',
+                  DateFormat(
+                    'EEEE, d MMMM y',
+                    Localizations.localeOf(context).toLanguageTag(),
+                  ).format(
+                    DateTime.now(),
+                  ),
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
               ],
@@ -188,7 +206,7 @@ class _NotesState extends State<Notes> {
                       borderColor: state is AllNotes
                           ? const Color(0xff8E8E92)
                           : Colors.transparent,
-                      sectionName: S.of(context).allNotes,
+                      sectionName: 'All Notes',
                       onPressed: () {
                         context.read<NoteCubit>().switchNotes('AllNotes');
                       },
@@ -253,7 +271,7 @@ class _NotesState extends State<Notes> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
-                      'Note added to ${state.newCollection} successfully',
+                      getCollectionName(state.newCollection),
                       style: const TextStyle(color: Colors.white),
                     ),
                     behavior: SnackBarBehavior.floating,
@@ -333,9 +351,9 @@ class _NotesState extends State<Notes> {
                 // Show success or error message
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: const Text(
-                      'Note deleted successfully',
-                      style: TextStyle(color: Colors.white),
+                    content: Text(
+                      S.of(context).noteDeletedSuccessfully,
+                      style: const TextStyle(color: Colors.white),
                     ),
                     behavior: SnackBarBehavior.floating,
                     margin: const EdgeInsets.symmetric(
@@ -353,9 +371,9 @@ class _NotesState extends State<Notes> {
                 // Show success or error message
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: const Text(
-                      'failed to delete note',
-                      style: TextStyle(color: Colors.white),
+                    content: Text(
+                      S.of(context).failedToDeleteNote,
+                      style: const TextStyle(color: Colors.white),
                     ),
                     behavior: SnackBarBehavior.floating,
                     margin: const EdgeInsets.symmetric(
@@ -449,7 +467,7 @@ class _NotesState extends State<Notes> {
                             fit: BoxFit.contain,
                           ),
                           Text(
-                            'No notes found',
+                            S.of(context).noNotes,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           const Spacer(flex: 1),

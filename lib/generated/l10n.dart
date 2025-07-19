@@ -194,6 +194,256 @@ class S {
       args: [],
     );
   }
+
+  /// `Theme Mode`
+  String get themeMode {
+    return Intl.message('Theme Mode', name: 'themeMode', desc: '', args: []);
+  }
+
+  /// `Light`
+  String get lightMode {
+    return Intl.message('Light', name: 'lightMode', desc: '', args: []);
+  }
+
+  /// `Dark`
+  String get darkMode {
+    return Intl.message('Dark', name: 'darkMode', desc: '', args: []);
+  }
+
+  /// `System`
+  String get systemMode {
+    return Intl.message('System', name: 'systemMode', desc: '', args: []);
+  }
+
+  /// `Language`
+  String get language {
+    return Intl.message('Language', name: 'language', desc: '', args: []);
+  }
+
+  /// `English`
+  String get english {
+    return Intl.message('English', name: 'english', desc: '', args: []);
+  }
+
+  /// `Arabic`
+  String get arabic {
+    return Intl.message('Arabic', name: 'arabic', desc: '', args: []);
+  }
+
+  /// `Recent Searches`
+  String get recentSearches {
+    return Intl.message(
+      'Recent Searches',
+      name: 'recentSearches',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No recent searches found.`
+  String get noRecentSearches {
+    return Intl.message(
+      'No recent searches found.',
+      name: 'noRecentSearches',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Event`
+  String get newEvent {
+    return Intl.message('New Event', name: 'newEvent', desc: '', args: []);
+  }
+
+  /// `Title`
+  String get Title {
+    return Intl.message('Title', name: 'Title', desc: '', args: []);
+  }
+
+  /// `title`
+  String get TitleHint {
+    return Intl.message('title', name: 'TitleHint', desc: '', args: []);
+  }
+
+  /// `Event`
+  String get Event {
+    return Intl.message('Event', name: 'Event', desc: '', args: []);
+  }
+
+  /// `event`
+  String get EventHint {
+    return Intl.message('event', name: 'EventHint', desc: '', args: []);
+  }
+
+  /// `Date`
+  String get Date {
+    return Intl.message('Date', name: 'Date', desc: '', args: []);
+  }
+
+  /// `Time`
+  String get Time {
+    return Intl.message('Time', name: 'Time', desc: '', args: []);
+  }
+
+  /// `Please fill all fields before uploading.`
+  String get fillAllFields {
+    return Intl.message(
+      'Please fill all fields before uploading.',
+      name: 'fillAllFields',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Event added successfully`
+  String get eventAddedSuccessfully {
+    return Intl.message(
+      'Event added successfully',
+      name: 'eventAddedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Note deleted successfully`
+  String get noteDeletedSuccessfully {
+    return Intl.message(
+      'Note deleted successfully',
+      name: 'noteDeletedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to add event`
+  String get failedToAddEvent {
+    return Intl.message(
+      'Failed to add event',
+      name: 'failedToAddEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Event deleted successfully`
+  String get eventDeletedSuccessfully {
+    return Intl.message(
+      'Event deleted successfully',
+      name: 'eventDeletedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No events found`
+  String get noEvents {
+    return Intl.message(
+      'No events found',
+      name: 'noEvents',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No notes found`
+  String get noNotes {
+    return Intl.message('No notes found', name: 'noNotes', desc: '', args: []);
+  }
+
+  /// `Event Preview`
+  String get eventPreview {
+    return Intl.message(
+      'Event Preview',
+      name: 'eventPreview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Move to Trash`
+  String get moveToTrash {
+    return Intl.message(
+      'Move to Trash',
+      name: 'moveToTrash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete Event`
+  String get deleteEvent {
+    return Intl.message(
+      'Delete Event',
+      name: 'deleteEvent',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add To Hide`
+  String get addToHidden {
+    return Intl.message('Add To Hide', name: 'addToHidden', desc: '', args: []);
+  }
+
+  /// `Add To Favorites`
+  String get addToFavorites {
+    return Intl.message(
+      'Add To Favorites',
+      name: 'addToFavorites',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Permanently Delete`
+  String get permanentlyDelete {
+    return Intl.message(
+      'Permanently Delete',
+      name: 'permanentlyDelete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Note added to trash successfully`
+  String get noteAddedToTrash {
+    return Intl.message(
+      'Note added to trash successfully',
+      name: 'noteAddedToTrash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Note added to hidden successfully`
+  String get noteAddedToHidden {
+    return Intl.message(
+      'Note added to hidden successfully',
+      name: 'noteAddedToHidden',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Note added to favorites successfully`
+  String get noteAddedToFavorites {
+    return Intl.message(
+      'Note added to favorites successfully',
+      name: 'noteAddedToFavorites',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to delete note`
+  String get failedToDeleteNote {
+    return Intl.message(
+      'Failed to delete note',
+      name: 'failedToDeleteNote',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -203,6 +453,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'ar'),
+      Locale.fromSubtags(languageCode: 'fr'),
     ];
   }
 

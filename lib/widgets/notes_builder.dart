@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:textmarkt/bloc/note_cubit.dart';
+import 'package:textmarkt/generated/l10n.dart';
 import 'package:textmarkt/models/note.dart';
 import 'package:textmarkt/pages/sub_pages/create_or_update_note.dart';
 import 'package:textmarkt/widgets/note_item.dart';
@@ -42,7 +43,7 @@ class _NotesBuilderState extends State<NotesBuilder> {
               backgroundColor: const Color(0xffF7CE45),
               foregroundColor: Colors.white,
               icon: Icons.favorite_outline_rounded,
-              label: 'add to favourites',
+              label: S.of(context).addToFavorites,
               borderRadius: BorderRadius.circular(13),
             ),
             SlidableAction(
@@ -59,7 +60,7 @@ class _NotesBuilderState extends State<NotesBuilder> {
               backgroundColor: const Color(0xff4E94F8),
               foregroundColor: Colors.white,
               icon: FontAwesomeIcons.eyeSlash,
-              label: 'hide',
+              label: S.of(context).addToHidden,
               borderRadius: BorderRadius.circular(13),
             ),
           ],
@@ -81,7 +82,7 @@ class _NotesBuilderState extends State<NotesBuilder> {
               backgroundColor: const Color(0xffEB4D3D),
               foregroundColor: Colors.white,
               icon: Icons.delete,
-              label: 'move to trash',
+              label: S.of(context).moveToTrash,
               borderRadius: BorderRadius.circular(13),
             ),
           ],
@@ -111,7 +112,7 @@ class _NotesBuilderState extends State<NotesBuilder> {
               backgroundColor: const Color(0xffEB4D3D),
               foregroundColor: Colors.white,
               icon: Icons.delete,
-              label: 'move to trash',
+              label: S.of(context).moveToTrash,
               borderRadius: BorderRadius.circular(13),
             ),
           ],
@@ -136,7 +137,7 @@ class _NotesBuilderState extends State<NotesBuilder> {
               backgroundColor: const Color(0xffEB4D3D),
               foregroundColor: Colors.white,
               icon: Icons.delete,
-              label: 'delete',
+              label: S.of(context).permanentlyDelete,
               borderRadius: BorderRadius.circular(13),
             ),
           ],

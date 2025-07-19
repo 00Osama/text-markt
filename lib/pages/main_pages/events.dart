@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:textmarkt/bloc/event_cubit.dart';
+import 'package:textmarkt/generated/l10n.dart';
 import 'package:textmarkt/globals.dart';
 import 'package:textmarkt/models/event.dart';
 import 'package:textmarkt/pages/sub_pages/add_new_event.dart';
@@ -55,8 +57,6 @@ class Events extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
     final screenHeight = MediaQuery.sizeOf(context).height;
-    DateTime today = DateTime.now();
-    String monthName = getMonthName(today.month);
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -68,11 +68,16 @@ class Events extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              '${today.day} $monthName, ${today.year}',
+              DateFormat(
+                'EEEE, d MMMM y',
+                Localizations.localeOf(context).toLanguageTag(),
+              ).format(
+                DateTime.now(),
+              ),
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             Text(
-              'Events',
+              S.of(context).eventsTitle,
               style: Theme.of(context).textTheme.headlineLarge,
             ),
           ],
@@ -107,12 +112,14 @@ class Events extends StatelessWidget {
             );
             events.sort((a, b) => b.dateTime.compareTo(a.dateTime));
             Navigator.pop(context);
-            Navigator.pop(context);
 
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
+              SnackBar(
                 behavior: SnackBarBehavior.floating,
-                content: Text('Event added successfully'),
+                content: Text(
+                  S.of(context).eventAddedSuccessfully,
+                  style: const TextStyle(color: Colors.white),
+                ),
                 backgroundColor: Colors.green,
               ),
             );
@@ -120,30 +127,24 @@ class Events extends StatelessWidget {
           if (state is EventDeleteSuccess) {
             events.removeAt(state.index);
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
+              SnackBar(
                 behavior: SnackBarBehavior.floating,
-                content: Text('Event deleted successfully'),
+                content: Text(
+                  S.of(context).eventDeletedSuccessfully,
+                  style: const TextStyle(color: Colors.white),
+                ),
                 backgroundColor: Colors.green,
               ),
             );
           }
-          if (state is EventAddLoading) {
-            showDialog(
-              barrierDismissible: false,
-              context: context,
-              builder: (context) {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.black,
-                  ),
-                );
-              },
-            );
-          }
+
           if (state is EventAddFail) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('sorry, failed to add event'),
+              SnackBar(
+                content: Text(
+                  S.of(context).failedToAddEvent,
+                  style: const TextStyle(color: Colors.white),
+                ),
                 backgroundColor: Colors.red,
               ),
             );
@@ -199,7 +200,7 @@ class Events extends StatelessWidget {
                         fit: BoxFit.contain,
                       ),
                       Text(
-                        'No events found',
+                        S.of(context).noEvents,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: screenWidth * 0.05,

@@ -22,37 +22,92 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "Date": MessageLookupByLibrary.simpleMessage("Date"),
+    "Event": MessageLookupByLibrary.simpleMessage("Event"),
+    "EventHint": MessageLookupByLibrary.simpleMessage("event"),
     "Note": MessageLookupByLibrary.simpleMessage("Note"),
     "Notes": MessageLookupByLibrary.simpleMessage("Notes"),
+    "Time": MessageLookupByLibrary.simpleMessage("Time"),
+    "Title": MessageLookupByLibrary.simpleMessage("Title"),
+    "TitleHint": MessageLookupByLibrary.simpleMessage("title"),
+    "addToFavorites": MessageLookupByLibrary.simpleMessage("Add To Favorites"),
+    "addToHidden": MessageLookupByLibrary.simpleMessage("Add To Hide"),
     "allNotes": MessageLookupByLibrary.simpleMessage("All Notes"),
+    "arabic": MessageLookupByLibrary.simpleMessage("Arabic"),
     "areYouSureYouWantToSignOut": MessageLookupByLibrary.simpleMessage(
       "Are you sure you want to sign out?",
     ),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+    "darkMode": MessageLookupByLibrary.simpleMessage("Dark"),
+    "deleteEvent": MessageLookupByLibrary.simpleMessage("Delete Event"),
+    "english": MessageLookupByLibrary.simpleMessage("English"),
     "enterAtLeastNoteTitle": MessageLookupByLibrary.simpleMessage(
       "enter at least note title",
     ),
+    "eventAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Event added successfully",
+    ),
+    "eventDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Event deleted successfully",
+    ),
+    "eventPreview": MessageLookupByLibrary.simpleMessage("Event Preview"),
     "eventsTitle": MessageLookupByLibrary.simpleMessage("Events"),
+    "failedToAddEvent": MessageLookupByLibrary.simpleMessage(
+      "Failed to add event",
+    ),
     "failedToAddNote": MessageLookupByLibrary.simpleMessage(
       "Failed to add note",
+    ),
+    "failedToDeleteNote": MessageLookupByLibrary.simpleMessage(
+      "Failed to delete note",
     ),
     "failedToUpdateNote": MessageLookupByLibrary.simpleMessage(
       "Failed to update note",
     ),
     "favorites": MessageLookupByLibrary.simpleMessage("Favorites"),
+    "fillAllFields": MessageLookupByLibrary.simpleMessage(
+      "Please fill all fields before uploading.",
+    ),
     "hidden": MessageLookupByLibrary.simpleMessage("Hidden"),
+    "language": MessageLookupByLibrary.simpleMessage("Language"),
+    "lightMode": MessageLookupByLibrary.simpleMessage("Light"),
+    "moveToTrash": MessageLookupByLibrary.simpleMessage("Move to Trash"),
+    "newEvent": MessageLookupByLibrary.simpleMessage("New Event"),
     "newNote": MessageLookupByLibrary.simpleMessage("New Note"),
+    "noEvents": MessageLookupByLibrary.simpleMessage("No events found"),
+    "noNotes": MessageLookupByLibrary.simpleMessage("No notes found"),
+    "noRecentSearches": MessageLookupByLibrary.simpleMessage(
+      "No recent searches found.",
+    ),
     "noteAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Note added successfully",
+    ),
+    "noteAddedToFavorites": MessageLookupByLibrary.simpleMessage(
+      "Note added to favorites successfully",
+    ),
+    "noteAddedToHidden": MessageLookupByLibrary.simpleMessage(
+      "Note added to hidden successfully",
+    ),
+    "noteAddedToTrash": MessageLookupByLibrary.simpleMessage(
+      "Note added to trash successfully",
+    ),
+    "noteDeletedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Note deleted successfully",
     ),
     "noteUpdatedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Note updated successfully",
     ),
     "notesTitle": MessageLookupByLibrary.simpleMessage("Notes"),
+    "permanentlyDelete": MessageLookupByLibrary.simpleMessage(
+      "Permanently Delete",
+    ),
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
     "profileTitle": MessageLookupByLibrary.simpleMessage("Profile"),
+    "recentSearches": MessageLookupByLibrary.simpleMessage("Recent Searches"),
     "searchTitle": MessageLookupByLibrary.simpleMessage("Search"),
     "signOut": MessageLookupByLibrary.simpleMessage("Sign Out"),
+    "systemMode": MessageLookupByLibrary.simpleMessage("System"),
+    "themeMode": MessageLookupByLibrary.simpleMessage("Theme Mode"),
     "title": MessageLookupByLibrary.simpleMessage("Title"),
     "trash": MessageLookupByLibrary.simpleMessage("Trash"),
     "updateNote": MessageLookupByLibrary.simpleMessage("Update Note"),

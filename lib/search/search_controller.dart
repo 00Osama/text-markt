@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:textmarkt/generated/l10n.dart';
 import 'package:textmarkt/models/note.dart';
 import 'package:textmarkt/search/search_cubit.dart';
 import 'package:textmarkt/widgets/notes_builder.dart';
@@ -42,7 +43,7 @@ class _MySearchControllerState extends State<MySearchController> {
                     fit: BoxFit.contain,
                   ),
                   Text(
-                    'No notes found',
+                    S.of(context).noNotes,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: screenWidth * 0.05,

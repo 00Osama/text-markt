@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:textmarkt/auth/pages/verify_email_checker.dart';
 import 'package:textmarkt/pages/sub_pages/onboarding.dart';
 
@@ -12,8 +13,11 @@ class AuthGate extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return Center(
+            child: LoadingAnimationWidget.threeRotatingDots(
+              color: const Color.fromARGB(255, 67, 143, 224),
+              size: 90,
+            ),
           );
         } else if (snapshot.hasError) {
           return const Center(

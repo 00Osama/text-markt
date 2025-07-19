@@ -67,7 +67,7 @@ class _MyAppState extends State<MyApp> {
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: S.delegate.supportedLocales,
-            locale: const Locale('ar'),
+            locale: const Locale('en'),
             home: StreamBuilder<ConnectivityResult>(
               stream: Connectivity().onConnectivityChanged.map((list) =>
                   list.isNotEmpty ? list.last : ConnectivityResult.none),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:textmarkt/generated/l10n.dart';
 
 class NoteSection extends StatelessWidget {
   const NoteSection({
@@ -53,7 +54,9 @@ class NoteSection extends StatelessWidget {
               ),
               SizedBox(width: screenWidth * 0.03),
               Text(
-                sectionName,
+                sectionName == 'All Notes'
+                    ? S.of(context).allNotes
+                    : sectionName,
                 style: Theme.of(context).textTheme.bodySmall,
               ),
             ],

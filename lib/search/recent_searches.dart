@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:textmarkt/generated/l10n.dart';
 import 'package:textmarkt/search/search_cubit.dart';
 
 class RecentSearches extends StatefulWidget {
@@ -33,7 +34,7 @@ class _RecentSearchesState extends State<RecentSearches> {
           Row(
             children: [
               Text(
-                ' Recent Searches',
+                " ${S.of(context).recentSearches}",
                 style: TextStyle(color: Colors.grey[700]),
               ),
             ],
@@ -56,7 +57,7 @@ class _RecentSearchesState extends State<RecentSearches> {
               child: recentSearches.isEmpty
                   ? Center(
                       child: Text(
-                        'No recent searches to display',
+                        S.of(context).noRecentSearches,
                         style: TextStyle(color: Colors.grey[700], fontSize: 16),
                       ),
                     )

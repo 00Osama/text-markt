@@ -89,7 +89,7 @@ class Profile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Theme Mode',
+                          S.of(context).themeMode,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         BlocBuilder<ThemeCubit, ThemeState>(
@@ -97,9 +97,9 @@ class Profile extends StatelessWidget {
                             return SegmentedButton<ThemeState>(
                               segments: [
                                 ButtonSegment(
-                                  value: ThemeState.system,
+                                  value: ThemeState.dark,
                                   label: Text(
-                                    'System',
+                                    S.of(context).darkMode,
                                     style:
                                         Theme.of(context).textTheme.bodySmall,
                                   ),
@@ -107,15 +107,15 @@ class Profile extends StatelessWidget {
                                 ButtonSegment(
                                   value: ThemeState.light,
                                   label: Text(
-                                    'Light',
+                                    S.of(context).lightMode,
                                     style:
                                         Theme.of(context).textTheme.bodySmall,
                                   ),
                                 ),
                                 ButtonSegment(
-                                  value: ThemeState.dark,
+                                  value: ThemeState.system,
                                   label: Text(
-                                    'Dark',
+                                    S.of(context).systemMode,
                                     style:
                                         Theme.of(context).textTheme.bodySmall,
                                   ),
@@ -142,7 +142,7 @@ class Profile extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Language',
+                          S.of(context).language,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         BlocBuilder<ThemeCubit, ThemeState>(
@@ -152,7 +152,7 @@ class Profile extends StatelessWidget {
                                 ButtonSegment(
                                   value: ThemeState.light,
                                   label: Text(
-                                    'Arabic',
+                                    S.of(context).arabic,
                                     style:
                                         Theme.of(context).textTheme.bodySmall,
                                   ),
@@ -160,7 +160,7 @@ class Profile extends StatelessWidget {
                                 ButtonSegment(
                                   value: ThemeState.dark,
                                   label: Text(
-                                    'English',
+                                    S.of(context).english,
                                     style:
                                         Theme.of(context).textTheme.bodySmall,
                                   ),

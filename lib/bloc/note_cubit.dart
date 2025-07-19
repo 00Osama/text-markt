@@ -12,6 +12,8 @@ class Hidden extends NoteState {}
 
 class Trash extends NoteState {}
 
+class NoteLoading extends NoteState {}
+
 class NoteAddSuccess extends NoteState {
   final String id;
 

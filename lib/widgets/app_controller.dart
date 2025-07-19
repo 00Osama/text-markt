@@ -81,7 +81,7 @@ class _AppControllerState extends State<AppController> {
                   textStyle: const TextStyle(
                     fontSize: 14,
                   ),
-                  margin: const EdgeInsets.all(9),
+                  margin: const EdgeInsets.symmetric(vertical: 9),
                 ),
                 GButton(
                   icon: Icons.search,
@@ -89,7 +89,7 @@ class _AppControllerState extends State<AppController> {
                   textStyle: const TextStyle(
                     fontSize: 14,
                   ),
-                  margin: const EdgeInsets.all(9),
+                  margin: const EdgeInsets.symmetric(vertical: 9),
                 ),
                 GButton(
                   icon: Icons.event,
@@ -97,7 +97,7 @@ class _AppControllerState extends State<AppController> {
                   textStyle: const TextStyle(
                     fontSize: 14,
                   ),
-                  margin: const EdgeInsets.all(9),
+                  margin: const EdgeInsets.symmetric(vertical: 9),
                 ),
                 GButton(
                   icon: Icons.person_outline_rounded,
@@ -105,7 +105,7 @@ class _AppControllerState extends State<AppController> {
                   textStyle: const TextStyle(
                     fontSize: 14,
                   ),
-                  margin: const EdgeInsets.all(9),
+                  margin: const EdgeInsets.symmetric(vertical: 9),
                 ),
               ],
               selectedIndex: _selectedIndex,

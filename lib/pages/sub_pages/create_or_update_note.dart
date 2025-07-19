@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:textmarkt/bloc/note_cubit.dart';
 import 'package:textmarkt/generated/l10n.dart';
 import 'package:textmarkt/globals.dart';
@@ -153,9 +154,11 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
                               context: context,
                               builder: (context) {
                                 return Center(
-                                  child: CircularProgressIndicator(
+                                  child:
+                                      LoadingAnimationWidget.threeRotatingDots(
                                     color:
-                                        Theme.of(context).dialogBackgroundColor,
+                                        const Color.fromARGB(255, 67, 143, 224),
+                                    size: 90,
                                   ),
                                 );
                               },
@@ -194,10 +197,9 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
                             barrierDismissible: false,
                             context: context,
                             builder: (context) {
-                              return Center(
+                              return const Center(
                                 child: CircularProgressIndicator(
-                                  color:
-                                      Theme.of(context).dialogBackgroundColor,
+                                  color: Colors.red,
                                 ),
                               );
                             },

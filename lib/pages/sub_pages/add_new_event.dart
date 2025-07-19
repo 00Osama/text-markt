@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:textmarkt/bloc/event_cubit.dart';
+import 'package:textmarkt/generated/l10n.dart';
 import 'package:textmarkt/widgets/event_text_field.dart';
 
 class AddNewEvents extends StatefulWidget {
@@ -20,11 +22,20 @@ class _AddNewEventsState extends State<AddNewEvents> {
 
   @override
   void initState() {
+    super.initState();
     titleController.clear();
     noteController.clear();
     datePickerController.clear();
     timePickerController.clear();
-    super.initState();
+  }
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    noteController.dispose();
+    datePickerController.dispose();
+    timePickerController.dispose();
+    super.dispose();
   }
 
   @override
@@ -36,8 +47,8 @@ class _AddNewEventsState extends State<AddNewEvents> {
         surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
         centerTitle: true,
         title: Text(
-          'New Event',
-          style: Theme.of(context).textTheme.headlineLarge?.copyWith(),
+          S.of(context).newEvent,
+          style: Theme.of(context).textTheme.headlineLarge,
         ),
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -48,9 +59,7 @@ class _AddNewEventsState extends State<AddNewEvents> {
                   Theme.of(context).floatingActionButtonTheme.backgroundColor,
             ),
             child: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
+              onPressed: () => Navigator.pop(context),
               icon: Icon(
                 Icons.close_rounded,
                 color:
@@ -61,9 +70,7 @@ class _AddNewEventsState extends State<AddNewEvents> {
         ),
         actions: [
           Padding(
-            padding: EdgeInsets.all(
-              MediaQuery.of(context).size.width * 0.02,
-            ),
+            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
             child: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
@@ -77,26 +84,45 @@ class _AddNewEventsState extends State<AddNewEvents> {
                       datePickerController.text.isEmpty ||
                       timePickerController.text.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
+                      SnackBar(
                         behavior: SnackBarBehavior.floating,
-                        content:
-                            Text('Please fill all fields before uploading.'),
+                        content: Text(
+                          S.of(context).fillAllFields,
+                          style: const TextStyle(color: Colors.white),
+                        ),
                         backgroundColor: Colors.red,
                       ),
                     );
                     return;
-                  } else {
-                    String selectedDate = datePickerController.text;
-                    String selectedTime = timePickerController.text;
-                    DateTime dateTime = DateFormat('dd-MM-yyyy HH:mm').parse(
-                      '$selectedDate $selectedTime',
-                    );
+                  }
+
+                  try {
+                    final selectedDate =
+                        datePickerController.text; // dd-MM-yyyy
+                    final selectedTime = timePickerController.text; // HH:mm
+
+                    final formattedDateTime = '$selectedDate $selectedTime';
+
+                    final DateTime dateTime =
+                        DateFormat('dd-MM-yyyy HH:mm', 'en_US')
+                            .parseStrict(formattedDateTime);
 
                     context.read<EventCubit>().addNewEvent(
                           titleController.text,
                           noteController.text,
                           dateTime,
                         );
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        behavior: SnackBarBehavior.floating,
+                        content: Text(
+                          'Invalid date/time format!',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
                   }
                 },
                 icon: Icon(
@@ -111,75 +137,93 @@ class _AddNewEventsState extends State<AddNewEvents> {
           ),
         ],
       ),
-      body: ListView(
-        children: [
-          EventTextField(
-            controller: titleController,
-            hintText: 'title',
-            fieldTitle: 'Title',
-            readOnly: false,
-          ),
-          EventTextField(
-            maxLines: 5,
-            controller: noteController,
-            hintText: 'event',
-            fieldTitle: 'Event',
-            readOnly: false,
-          ),
-          EventTextField(
-            readOnly: true,
-            controller: datePickerController,
-            hintText:
-                '${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
-            fieldTitle: 'Date',
-            suffixIcon: IconButton(
-              onPressed: () async {
-                DateTime? date = await showDatePicker(
-                  context: context,
-                  firstDate: DateTime.now(),
-                  lastDate: DateTime(2035),
-                  initialDate: DateTime.now(),
+      body: BlocListener<EventCubit, EventState>(
+        listener: (context, state) {
+          if (state is EventAddLoading) {
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) {
+                return Center(
+                  child: LoadingAnimationWidget.threeRotatingDots(
+                    color: const Color.fromARGB(255, 67, 143, 224),
+                    size: 90,
+                  ),
                 );
-                if (date != null) {
-                  String formattedDate = DateFormat('dd-MM-yyyy').format(date);
-                  setState(() {
-                    datePickerController.text = formattedDate;
-                  });
-                }
               },
-              icon: FaIcon(
-                FontAwesomeIcons.solidCalendarDays,
-                color: Colors.grey[500],
+            );
+          }
+          if (state is EventAddSuccess) {
+            Navigator.pop(context);
+          }
+        },
+        child: ListView(
+          children: [
+            EventTextField(
+              controller: titleController,
+              hintText: S.of(context).TitleHint,
+              fieldTitle: S.of(context).title,
+              readOnly: false,
+            ),
+            EventTextField(
+              maxLines: 5,
+              controller: noteController,
+              hintText: S.of(context).EventHint,
+              fieldTitle: S.of(context).Event,
+              readOnly: false,
+            ),
+            // 🗓️ Date Picker Field
+            EventTextField(
+              readOnly: true,
+              controller: datePickerController,
+              hintText: DateFormat('dd-MM-yyyy').format(DateTime.now()),
+              fieldTitle: S.of(context).Date,
+              suffixIcon: IconButton(
+                onPressed: () async {
+                  DateTime? date = await showDatePicker(
+                    context: context,
+                    firstDate: DateTime.now(),
+                    lastDate: DateTime(2035),
+                    initialDate: DateTime.now(),
+                  );
+                  if (date != null) {
+                    final formattedDate =
+                        DateFormat('dd-MM-yyyy', 'en_US').format(date);
+                    setState(() => datePickerController.text = formattedDate);
+                  }
+                },
+                icon: FaIcon(
+                  FontAwesomeIcons.solidCalendarDays,
+                  color: Colors.grey[500],
+                ),
               ),
             ),
-          ),
-          EventTextField(
-            readOnly: true,
-            controller: timePickerController,
-            hintText:
-                '${DateTime.now().hour.toString().padLeft(2, '0')}:${DateTime.now().minute.toString().padLeft(2, '0')}',
-            fieldTitle: 'Time',
-            suffixIcon: IconButton(
-              onPressed: () async {
-                TimeOfDay? time = await showTimePicker(
-                  context: context,
-                  initialTime: TimeOfDay.now(),
-                );
-                if (time != null) {
-                  String formattedTime =
-                      '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
-                  setState(() {
-                    timePickerController.text = formattedTime;
-                  });
-                }
-              },
-              icon: FaIcon(
-                FontAwesomeIcons.solidClock,
-                color: Colors.grey[500],
+            // ⏰ Time Picker Field
+            EventTextField(
+              readOnly: true,
+              controller: timePickerController,
+              hintText: DateFormat('HH:mm').format(DateTime.now()),
+              fieldTitle: S.of(context).Time,
+              suffixIcon: IconButton(
+                onPressed: () async {
+                  TimeOfDay? time = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.now(),
+                  );
+                  if (time != null) {
+                    final formattedTime =
+                        '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
+                    setState(() => timePickerController.text = formattedTime);
+                  }
+                },
+                icon: FaIcon(
+                  FontAwesomeIcons.solidClock,
+                  color: Colors.grey[500],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

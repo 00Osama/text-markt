@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:textmarkt/bloc/event_cubit.dart';
+import 'package:textmarkt/generated/l10n.dart';
 import 'package:textmarkt/models/event.dart';
 import 'package:textmarkt/widgets/event_preview.dart';
 import 'package:textmarkt/widgets/note_item.dart';
@@ -37,7 +38,7 @@ class EventBuilder extends StatelessWidget {
                       backgroundColor: const Color(0xffEB4D3D),
                       foregroundColor: Colors.white,
                       icon: Icons.delete,
-                      label: 'Move to Trash',
+                      label: S.of(context).deleteEvent,
                       borderRadius: BorderRadius.circular(13),
                     ),
                   ],
