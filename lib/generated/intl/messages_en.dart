@@ -68,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "fillAllFields": MessageLookupByLibrary.simpleMessage(
       "Please fill all fields before uploading.",
     ),
+    "french": MessageLookupByLibrary.simpleMessage("French"),
     "hidden": MessageLookupByLibrary.simpleMessage("Hidden"),
     "language": MessageLookupByLibrary.simpleMessage("Language"),
     "lightMode": MessageLookupByLibrary.simpleMessage("Light"),
@@ -75,6 +76,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "newEvent": MessageLookupByLibrary.simpleMessage("New Event"),
     "newNote": MessageLookupByLibrary.simpleMessage("New Note"),
     "noEvents": MessageLookupByLibrary.simpleMessage("No events found"),
+    "noInternetConnection": MessageLookupByLibrary.simpleMessage(
+      "No internet connection",
+    ),
     "noNotes": MessageLookupByLibrary.simpleMessage("No notes found"),
     "noRecentSearches": MessageLookupByLibrary.simpleMessage(
       "No recent searches found.",
@@ -106,6 +110,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "recentSearches": MessageLookupByLibrary.simpleMessage("Recent Searches"),
     "searchTitle": MessageLookupByLibrary.simpleMessage("Search"),
     "signOut": MessageLookupByLibrary.simpleMessage("Sign Out"),
+    "swipeForMoreOptions": MessageLookupByLibrary.simpleMessage(
+      "Swipe for more options",
+    ),
     "systemMode": MessageLookupByLibrary.simpleMessage("System"),
     "themeMode": MessageLookupByLibrary.simpleMessage("Theme Mode"),
     "title": MessageLookupByLibrary.simpleMessage("Title"),

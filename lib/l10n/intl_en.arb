@@ -53,6 +53,9 @@
     "noteAddedToTrash" : "Note added to trash successfully",
     "noteAddedToHidden" : "Note added to hidden successfully",
     "noteAddedToFavorites" : "Note added to favorites successfully",
-    "failedToDeleteNote": "Failed to delete note"
+    "failedToDeleteNote": "Failed to delete note",
+    "swipeForMoreOptions": "Swipe for more options",
+    "french": "French",
+    "noInternetConnection": "No internet connection"
 
 }

@@ -444,6 +444,31 @@ class S {
       args: [],
     );
   }
+
+  /// `Swipe for more options`
+  String get swipeForMoreOptions {
+    return Intl.message(
+      'Swipe for more options',
+      name: 'swipeForMoreOptions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `French`
+  String get french {
+    return Intl.message('French', name: 'french', desc: '', args: []);
+  }
+
+  /// `No internet connection`
+  String get noInternetConnection {
+    return Intl.message(
+      'No internet connection',
+      name: 'noInternetConnection',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

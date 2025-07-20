@@ -53,5 +53,8 @@
   "noteAddedToTrash": "Note déplacée à la corbeille avec succès",
   "noteAddedToHidden": "Note ajoutée aux cachées avec succès",
   "noteAddedToFavorites": "Note ajoutée aux favoris avec succès",
-  "failedToDeleteNote": "Échec de la suppression de la note"
+  "failedToDeleteNote": "Échec de la suppression de la note",
+  "swipeForMoreOptions": "Glissez pour plus d'options",
+  "french": "Français",
+  "noInternetConnection": "Pas de connexion Internet"
 }

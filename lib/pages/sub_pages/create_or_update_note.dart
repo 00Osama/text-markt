@@ -197,9 +197,11 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
                             barrierDismissible: false,
                             context: context,
                             builder: (context) {
-                              return const Center(
-                                child: CircularProgressIndicator(
-                                  color: Colors.red,
+                              return Center(
+                                child: LoadingAnimationWidget.threeRotatingDots(
+                                  color:
+                                      const Color.fromARGB(255, 67, 143, 224),
+                                  size: 90,
                                 ),
                               );
                             },

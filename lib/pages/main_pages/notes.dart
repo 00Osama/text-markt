@@ -264,7 +264,7 @@ class _NotesState extends State<Notes> {
               );
             },
           ),
-          const SizedBox(height: 19),
+          const SizedBox(height: 10),
           BlocConsumer<NoteCubit, NoteState>(
             listener: (context, state) {
               if (state is NoteMovedSuccess) {

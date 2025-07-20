@@ -53,5 +53,8 @@
   "noteAddedToTrash": "تمت إضافة الملاحظة إلى المحذوفات بنجاح",
   "noteAddedToHidden": "تمت إضافة الملاحظة إلى المخفية بنجاح",
   "noteAddedToFavorites": "تمت إضافة الملاحظة إلى المفضلة بنجاح",
-  "failedToDeleteNote": "فشل في حذف الملاحظة"
+  "failedToDeleteNote": "فشل في حذف الملاحظة",
+  "swipeForMoreOptions": "اسحب لمزيد من الخيارات",
+  "french": "الفرنسية",
+  "noInternetConnection": "لا يوجد اتصال بالإنترنت"
 }

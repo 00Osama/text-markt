@@ -6,6 +6,7 @@ import 'package:textmarkt/generated/l10n.dart';
 import 'package:textmarkt/models/event.dart';
 import 'package:textmarkt/widgets/event_preview.dart';
 import 'package:textmarkt/widgets/note_item.dart';
+import 'package:textmarkt/widgets/swipe_item.dart';
 
 class EventBuilder extends StatelessWidget {
   const EventBuilder({
@@ -20,6 +21,8 @@ class EventBuilder extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(height: 10),
+        const Swipeitem(),
+        const SizedBox(height: 1),
         Expanded(
           child: ListView.builder(
             itemCount: events.length,

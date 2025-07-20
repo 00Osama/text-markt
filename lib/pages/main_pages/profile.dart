@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:textmarkt/auth/services/auth_service.dart';
+import 'package:textmarkt/bloc/language_cubit.dart';
 import 'package:textmarkt/bloc/theme_cubit.dart';
 import 'package:textmarkt/generated/l10n.dart';
 import 'package:textmarkt/globals.dart';
@@ -145,12 +146,12 @@ class Profile extends StatelessWidget {
                           S.of(context).language,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
-                        BlocBuilder<ThemeCubit, ThemeState>(
+                        BlocBuilder<LanguageCubit, LanguageState>(
                           builder: (context, state) {
-                            return SegmentedButton<ThemeState>(
+                            return SegmentedButton<LanguageState>(
                               segments: [
                                 ButtonSegment(
-                                  value: ThemeState.light,
+                                  value: LanguageState.arabic,
                                   label: Text(
                                     S.of(context).arabic,
                                     style:
@@ -158,19 +159,30 @@ class Profile extends StatelessWidget {
                                   ),
                                 ),
                                 ButtonSegment(
-                                  value: ThemeState.dark,
+                                  value: LanguageState.english,
                                   label: Text(
                                     S.of(context).english,
                                     style:
                                         Theme.of(context).textTheme.bodySmall,
                                   ),
                                 ),
+                                ButtonSegment(
+                                  value: LanguageState.french,
+                                  label: Text(
+                                    S.of(context).french,
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                ),
                               ],
                               selected: {state},
-                              onSelectionChanged: (Set<ThemeState> selected) {
-                                context
-                                    .read<ThemeCubit>()
-                                    .setThemeMode(selected.first);
+                              onSelectionChanged:
+                                  (Set<LanguageState> selected) {
+                                if (selected.isNotEmpty) {
+                                  context
+                                      .read<LanguageCubit>()
+                                      .setLanguage(selected.first);
+                                }
                               },
                             );
                           },

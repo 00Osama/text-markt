@@ -7,6 +7,7 @@ import 'package:textmarkt/generated/l10n.dart';
 import 'package:textmarkt/models/note.dart';
 import 'package:textmarkt/pages/sub_pages/create_or_update_note.dart';
 import 'package:textmarkt/widgets/note_item.dart';
+import 'package:textmarkt/widgets/swipe_item.dart';
 
 class NotesBuilder extends StatefulWidget {
   const NotesBuilder({
@@ -152,27 +153,34 @@ class _NotesBuilderState extends State<NotesBuilder> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget.notes.length,
-      itemBuilder: (context, index) {
-        final note = widget.notes[index];
-        return GestureDetector(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CreateOrUpdateNote(
-                  operation: 'update',
-                  note: note,
-                  collection: widget.currentCollection,
-                  index: index,
-                ),
-              ),
-            );
-          },
-          child: showSlidables(index),
-        );
-      },
+    return Column(
+      children: [
+        const Swipeitem(),
+        Expanded(
+          child: ListView.builder(
+            itemCount: widget.notes.length,
+            itemBuilder: (context, index) {
+              final note = widget.notes[index];
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CreateOrUpdateNote(
+                        operation: 'update',
+                        note: note,
+                        collection: widget.currentCollection,
+                        index: index,
+                      ),
+                    ),
+                  );
+                },
+                child: showSlidables(index),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 }

@@ -68,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "fillAllFields": MessageLookupByLibrary.simpleMessage(
       "يرجى ملء جميع الحقول قبل التحميل.",
     ),
+    "french": MessageLookupByLibrary.simpleMessage("الفرنسية"),
     "hidden": MessageLookupByLibrary.simpleMessage("المخفية"),
     "language": MessageLookupByLibrary.simpleMessage("اللغة"),
     "lightMode": MessageLookupByLibrary.simpleMessage("الوضع الفاتح"),
@@ -75,6 +76,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "newEvent": MessageLookupByLibrary.simpleMessage("حدث جديد"),
     "newNote": MessageLookupByLibrary.simpleMessage("ملاحظة جديدة"),
     "noEvents": MessageLookupByLibrary.simpleMessage("لا توجد أحداث"),
+    "noInternetConnection": MessageLookupByLibrary.simpleMessage(
+      "لا يوجد اتصال بالإنترنت",
+    ),
     "noNotes": MessageLookupByLibrary.simpleMessage("لا توجد ملاحظات"),
     "noRecentSearches": MessageLookupByLibrary.simpleMessage(
       "لا توجد عمليات بحث حديثة.",
@@ -104,6 +108,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "recentSearches": MessageLookupByLibrary.simpleMessage("البحث الأخير"),
     "searchTitle": MessageLookupByLibrary.simpleMessage("بحث"),
     "signOut": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
+    "swipeForMoreOptions": MessageLookupByLibrary.simpleMessage(
+      "اسحب لمزيد من الخيارات",
+    ),
     "systemMode": MessageLookupByLibrary.simpleMessage("النظام"),
     "themeMode": MessageLookupByLibrary.simpleMessage("السمة"),
     "title": MessageLookupByLibrary.simpleMessage("العنوان"),

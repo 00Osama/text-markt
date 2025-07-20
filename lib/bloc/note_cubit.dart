@@ -24,9 +24,11 @@ class NoteAddFail extends NoteState {}
 
 class NoteUpdateSuccess extends NoteState {
   final String collection;
+  final String id;
 
   NoteUpdateSuccess({
     required this.collection,
+    required this.id,
   });
 }
 
@@ -131,7 +133,7 @@ class NoteCubit extends Cubit<NoteState> {
           'time': time,
         },
       );
-      emit(NoteUpdateSuccess(collection: collection));
+      emit(NoteUpdateSuccess(collection: collection, id: docId!));
       if (collection == 'AllNotes') {
         emit(AllNotes());
       } else if (collection == 'Favourites') {
@@ -174,9 +176,6 @@ class NoteCubit extends Cubit<NoteState> {
     String? docId,
     int index,
   ) async {
-    // print('+++++++++++++++++++++++++++++');
-    // print(docId);
-    // print('+++++++++++++++++++++++++++++');
     try {
       emit(NoteMovedLoading());
       await FirebaseFirestore.instance
@@ -185,7 +184,7 @@ class NoteCubit extends Cubit<NoteState> {
           .collection(oldCollection)
           .doc(docId)
           .delete();
-      await FirebaseFirestore.instance
+      DocumentReference docRef = await FirebaseFirestore.instance
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.email)
           .collection(newCollection)
@@ -202,7 +201,7 @@ class NoteCubit extends Cubit<NoteState> {
         oldCollection: oldCollection,
         title: title ?? '',
         note: note ?? '',
-        id: docId!,
+        id: docRef.id,
       ));
 
       if (oldCollection == 'AllNotes') {
