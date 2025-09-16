@@ -47,7 +47,7 @@
     "eventPreview": "Event Preview",
     "moveToTrash": "Move to Trash",
     "deleteEvent": "Delete Event",
-    "addToHidden": "Add To Hide",
+    "addToHidden": "Hide",
     "addToFavorites": "Add To Favorites",
     "permanentlyDelete": "Permanently Delete",
     "noteAddedToTrash" : "Note added to trash successfully",
@@ -103,6 +103,16 @@
   "easyStyling": "easy styling",
   "contentLegibleDesc": "Making your content legible has never been easier.",
   "Next": "Next",
-  "getStarted": "Get Started"
+  "getStarted": "Get Started",
+  "noPinSet": "No PIN set. Please create a PIN in Profile to access hidden notes.",
+  "incorrectPin": "Incorrect PIN",
+  "settings": "Settings",
+  "hiddenNotesPin"  : "Hidden Notes PIN",
+  "setYourPin": "Set your PIN",
+  "setPin": "Set PIN",
+  "Enter4DigitsPIN": "Enter 4-digits PIN",
+  "pinMustBe": "PIN must be 4 digits",
+  "pinSuccessfullySet": "PIN successfully set",
+  "Done": "Done"
 
 }

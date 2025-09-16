@@ -23,6 +23,10 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "Date": MessageLookupByLibrary.simpleMessage("Date"),
+    "Done": MessageLookupByLibrary.simpleMessage("Terminé"),
+    "Enter4DigitsPIN": MessageLookupByLibrary.simpleMessage(
+      "Entrez un code PIN à 4 chiffres",
+    ),
     "Event": MessageLookupByLibrary.simpleMessage("Événement"),
     "EventHint": MessageLookupByLibrary.simpleMessage("Événement"),
     "FullName": MessageLookupByLibrary.simpleMessage("Nom complet"),
@@ -113,6 +117,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "french": MessageLookupByLibrary.simpleMessage("Français"),
     "getStarted": MessageLookupByLibrary.simpleMessage("Commencer"),
     "hidden": MessageLookupByLibrary.simpleMessage("Cachées"),
+    "hiddenNotesPin": MessageLookupByLibrary.simpleMessage(
+      "Code PIN des notes cachées",
+    ),
+    "incorrectPin": MessageLookupByLibrary.simpleMessage("Code PIN incorrect"),
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
       "Adresse e-mail invalide",
     ),
@@ -140,6 +148,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Pas de connexion Internet",
     ),
     "noNotes": MessageLookupByLibrary.simpleMessage("Aucune note"),
+    "noPinSet": MessageLookupByLibrary.simpleMessage(
+      "Aucun code PIN défini. Créez-en un dans Profil pour accéder aux notes cachées.",
+    ),
     "noRecentSearches": MessageLookupByLibrary.simpleMessage(
       "Aucune recherche récente.",
     ),
@@ -176,6 +187,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Supprimer définitivement",
     ),
     "pin": MessageLookupByLibrary.simpleMessage("Entrez le code PIN"),
+    "pinMustBe": MessageLookupByLibrary.simpleMessage(
+      "Le code PIN doit comporter 4 chiffres",
+    ),
+    "pinSuccessfullySet": MessageLookupByLibrary.simpleMessage(
+      "Code PIN défini avec succès",
+    ),
     "profile": MessageLookupByLibrary.simpleMessage("Profil"),
     "profileTitle": MessageLookupByLibrary.simpleMessage("Profil"),
     "recentSearches": MessageLookupByLibrary.simpleMessage(
@@ -186,6 +203,11 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "searchTitle": MessageLookupByLibrary.simpleMessage("Recherche"),
     "sendEmail": MessageLookupByLibrary.simpleMessage("Envoyer l’e-mail"),
+    "setPin": MessageLookupByLibrary.simpleMessage("Définir le code PIN"),
+    "setYourPin": MessageLookupByLibrary.simpleMessage(
+      "Définissez votre code PIN",
+    ),
+    "settings": MessageLookupByLibrary.simpleMessage("Paramètres"),
     "signIn": MessageLookupByLibrary.simpleMessage("Se connecter"),
     "signOut": MessageLookupByLibrary.simpleMessage("Se déconnecter"),
     "signUp": MessageLookupByLibrary.simpleMessage("S\'inscrire"),

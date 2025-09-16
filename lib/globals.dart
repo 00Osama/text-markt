@@ -8,3 +8,4 @@ List<Note> favourites = [];
 List<Note> hidden = [];
 List<Note> trash = [];
 List<Event> events = [];
+String? hiddenNotesPin;

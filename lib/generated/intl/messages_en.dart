@@ -23,6 +23,10 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "Date": MessageLookupByLibrary.simpleMessage("Date"),
+    "Done": MessageLookupByLibrary.simpleMessage("Done"),
+    "Enter4DigitsPIN": MessageLookupByLibrary.simpleMessage(
+      "Enter 4-digits PIN",
+    ),
     "Event": MessageLookupByLibrary.simpleMessage("Event"),
     "EventHint": MessageLookupByLibrary.simpleMessage("event"),
     "FullName": MessageLookupByLibrary.simpleMessage("Full Name"),
@@ -42,7 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "\'Type your email address",
     ),
     "addToFavorites": MessageLookupByLibrary.simpleMessage("Add To Favorites"),
-    "addToHidden": MessageLookupByLibrary.simpleMessage("Add To Hide"),
+    "addToHidden": MessageLookupByLibrary.simpleMessage("Hide"),
     "allNotes": MessageLookupByLibrary.simpleMessage("All Notes"),
     "alreadyHaveAnAccount": MessageLookupByLibrary.simpleMessage(
       "Already have an account? ",
@@ -102,6 +106,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "french": MessageLookupByLibrary.simpleMessage("French"),
     "getStarted": MessageLookupByLibrary.simpleMessage("Get Started"),
     "hidden": MessageLookupByLibrary.simpleMessage("Hidden"),
+    "hiddenNotesPin": MessageLookupByLibrary.simpleMessage("Hidden Notes PIN"),
+    "incorrectPin": MessageLookupByLibrary.simpleMessage("Incorrect PIN"),
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
       "Invalid email address",
     ),
@@ -125,6 +131,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "No internet connection",
     ),
     "noNotes": MessageLookupByLibrary.simpleMessage("No notes found"),
+    "noPinSet": MessageLookupByLibrary.simpleMessage(
+      "No PIN set. Please create a PIN in Profile to access hidden notes.",
+    ),
     "noRecentSearches": MessageLookupByLibrary.simpleMessage(
       "No recent searches found.",
     ),
@@ -161,12 +170,19 @@ class MessageLookup extends MessageLookupByLibrary {
       "Permanently Delete",
     ),
     "pin": MessageLookupByLibrary.simpleMessage("Enter PIN"),
+    "pinMustBe": MessageLookupByLibrary.simpleMessage("PIN must be 4 digits"),
+    "pinSuccessfullySet": MessageLookupByLibrary.simpleMessage(
+      "PIN successfully set",
+    ),
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
     "profileTitle": MessageLookupByLibrary.simpleMessage("Profile"),
     "recentSearches": MessageLookupByLibrary.simpleMessage("Recent Searches"),
     "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
     "searchTitle": MessageLookupByLibrary.simpleMessage("Search"),
     "sendEmail": MessageLookupByLibrary.simpleMessage("Send Email "),
+    "setPin": MessageLookupByLibrary.simpleMessage("Set PIN"),
+    "setYourPin": MessageLookupByLibrary.simpleMessage("Set your PIN"),
+    "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
     "signOut": MessageLookupByLibrary.simpleMessage("Sign Out"),
     "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),

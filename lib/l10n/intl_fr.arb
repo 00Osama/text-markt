@@ -103,5 +103,15 @@
   "easyStyling": "style facile",
   "contentLegibleDesc": "Rendre votre contenu lisible n'a jamais été aussi facile.",
   "getStarted": "Commencer",
-  "next": "Suivant"
+  "next": "Suivant",
+  "noPinSet": "Aucun code PIN défini. Créez-en un dans Profil pour accéder aux notes cachées.",
+  "incorrectPin": "Code PIN incorrect",
+  "settings": "Paramètres",
+  "hiddenNotesPin": "Code PIN des notes cachées",
+  "setYourPin": "Définissez votre code PIN",
+  "setPin": "Définir le code PIN",
+  "Enter4DigitsPIN": "Entrez un code PIN à 4 chiffres",
+  "pinMustBe": "Le code PIN doit comporter 4 chiffres",
+  "pinSuccessfullySet": "Code PIN défini avec succès",
+  "Done": "Terminé"
 }

@@ -1,15 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:text_markt/auth/services/auth_service.dart';
-import 'package:text_markt/bloc/language_cubit.dart';
-import 'package:text_markt/bloc/theme_cubit.dart';
+
 import 'package:text_markt/generated/l10n.dart';
 import 'package:text_markt/globals.dart';
 import 'package:text_markt/models/user.dart';
 import 'package:text_markt/pages/sub_pages/onboarding.dart';
+import 'package:text_markt/pages/sub_pages/settings.dart';
 import 'package:text_markt/widgets/my_button.dart';
 
 class Profile extends StatelessWidget {
@@ -74,129 +73,52 @@ class Profile extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 8),
-
                 Text(
                   user!.email,
                   style: TextStyle(fontSize: 16, color: Colors.grey[600]),
                 ),
-                const Spacer(flex: 4),
+                const Spacer(flex: 1),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          S.of(context).themeMode,
-                          style: Theme.of(context).textTheme.bodyLarge,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: Theme.of(
+                        context,
+                      ).elevatedButtonTheme.style!.backgroundColor,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MySettings(),
                         ),
-                        BlocBuilder<ThemeCubit, ThemeState>(
-                          builder: (context, state) {
-                            return SegmentedButton<ThemeState>(
-                              segments: [
-                                ButtonSegment(
-                                  value: ThemeState.dark,
-                                  label: Text(
-                                    S.of(context).darkMode,
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodySmall,
-                                  ),
-                                ),
-                                ButtonSegment(
-                                  value: ThemeState.light,
-                                  label: Text(
-                                    S.of(context).lightMode,
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodySmall,
-                                  ),
-                                ),
-                                ButtonSegment(
-                                  value: ThemeState.system,
-                                  label: Text(
-                                    S.of(context).systemMode,
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodySmall,
-                                  ),
-                                ),
-                              ],
-                              selected: {state},
-                              onSelectionChanged: (Set<ThemeState> selected) {
-                                context.read<ThemeCubit>().setThemeMode(
-                                  selected.first,
-                                );
-                              },
-                            );
-                          },
+                      );
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.settings,
+                          color: isDark ? Colors.white : Colors.black,
+                        ),
+                        const SizedBox(width: 10),
+                        Text(
+                          S.of(context).settings,
+                          style: TextStyle(
+                            color: isDark ? Colors.white : Colors.black,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const Spacer(),
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          color: isDark ? Colors.white : Colors.black,
+                          size: 16,
                         ),
                       ],
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          S.of(context).language,
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        BlocBuilder<LanguageCubit, LanguageState>(
-                          builder: (context, state) {
-                            return SegmentedButton<LanguageState>(
-                              segments: [
-                                ButtonSegment(
-                                  value: LanguageState.arabic,
-                                  label: Text(
-                                    S.of(context).arabic,
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodySmall,
-                                  ),
-                                ),
-                                ButtonSegment(
-                                  value: LanguageState.english,
-                                  label: Text(
-                                    S.of(context).english,
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodySmall,
-                                  ),
-                                ),
-                                ButtonSegment(
-                                  value: LanguageState.french,
-                                  label: Text(
-                                    S.of(context).french,
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodySmall,
-                                  ),
-                                ),
-                              ],
-                              selected: {state},
-                              onSelectionChanged:
-                                  (Set<LanguageState> selected) {
-                                    if (selected.isNotEmpty) {
-                                      context.read<LanguageCubit>().setLanguage(
-                                        selected.first,
-                                      );
-                                    }
-                                  },
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const Spacer(flex: 4),
+                const Spacer(flex: 3),
                 SizedBox(
                   width: double.infinity,
                   child: MyButton(
@@ -270,7 +192,7 @@ class Profile extends StatelessWidget {
                     buttonText: S.of(context).signOut,
                   ),
                 ),
-                const Spacer(flex: 8),
+                const Spacer(flex: 2),
               ],
             );
           }

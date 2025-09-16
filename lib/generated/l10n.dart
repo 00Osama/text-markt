@@ -379,9 +379,9 @@ class S {
     );
   }
 
-  /// `Add To Hide`
+  /// `Hide`
   String get addToHidden {
-    return Intl.message('Add To Hide', name: 'addToHidden', desc: '', args: []);
+    return Intl.message('Hide', name: 'addToHidden', desc: '', args: []);
   }
 
   /// `Add To Favorites`
@@ -852,6 +852,86 @@ class S {
   /// `Get Started`
   String get getStarted {
     return Intl.message('Get Started', name: 'getStarted', desc: '', args: []);
+  }
+
+  /// `No PIN set. Please create a PIN in Profile to access hidden notes.`
+  String get noPinSet {
+    return Intl.message(
+      'No PIN set. Please create a PIN in Profile to access hidden notes.',
+      name: 'noPinSet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Incorrect PIN`
+  String get incorrectPin {
+    return Intl.message(
+      'Incorrect PIN',
+      name: 'incorrectPin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message('Settings', name: 'settings', desc: '', args: []);
+  }
+
+  /// `Hidden Notes PIN`
+  String get hiddenNotesPin {
+    return Intl.message(
+      'Hidden Notes PIN',
+      name: 'hiddenNotesPin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set your PIN`
+  String get setYourPin {
+    return Intl.message('Set your PIN', name: 'setYourPin', desc: '', args: []);
+  }
+
+  /// `Set PIN`
+  String get setPin {
+    return Intl.message('Set PIN', name: 'setPin', desc: '', args: []);
+  }
+
+  /// `Enter 4-digits PIN`
+  String get Enter4DigitsPIN {
+    return Intl.message(
+      'Enter 4-digits PIN',
+      name: 'Enter4DigitsPIN',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PIN must be 4 digits`
+  String get pinMustBe {
+    return Intl.message(
+      'PIN must be 4 digits',
+      name: 'pinMustBe',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PIN successfully set`
+  String get pinSuccessfullySet {
+    return Intl.message(
+      'PIN successfully set',
+      name: 'pinSuccessfullySet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Done`
+  String get Done {
+    return Intl.message('Done', name: 'Done', desc: '', args: []);
   }
 }
 

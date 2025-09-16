@@ -56,7 +56,6 @@ class _MySearchControllerState extends State<MySearchController> {
           : NotesBuilder(
               notes: widget.notes,
               currentCollection: widget.currentCollection,
-              pin: '1111',
             ),
     );
   }
