@@ -30,7 +30,7 @@ class NotesBuilder extends StatefulWidget {
 
 class _NotesBuilderState extends State<NotesBuilder> {
   final TextEditingController _passwordController = TextEditingController();
-  bool _isUnlocked = false; // حالة فتح النوتس المخفية
+  bool _isUnlocked = false;
 
   Future<String?> getHiddenNotesPin() async {
     final snapshot = await FirebaseFirestore.instance
@@ -241,6 +241,115 @@ class _NotesBuilderState extends State<NotesBuilder> {
                 ),
               ],
             );
+          } else if (!_isUnlocked) {
+            return Column(
+              children: [
+                const Swipeitem(),
+                Expanded(
+                  child: Stack(
+                    children: [
+                      ListView.builder(
+                        itemCount: widget.notes.length,
+                        itemBuilder: (context, index) {
+                          return NoteItem(
+                            note: widget.notes[index].note,
+                            title: widget.notes[index].title,
+                          );
+                        },
+                      ),
+                      BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                        child: Center(
+                          child: Container(
+                            height: 150,
+                            color: Colors.transparent,
+                            padding: const EdgeInsets.symmetric(horizontal: 30),
+                            child: TextField(
+                              controller: _passwordController,
+                              cursorColor:
+                                  Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Colors.grey[200]
+                                  : Colors.grey[500],
+                              onChanged: (value) {
+                                if (value.length == 4) {
+                                  if (value == snapshot.data) {
+                                    FocusScope.of(context).unfocus();
+                                    _passwordController.clear();
+                                    setState(() {
+                                      _isUnlocked = true;
+                                    });
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        behavior: SnackBarBehavior.floating,
+                                        content: Text(
+                                          S.of(context).incorrectPin,
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        backgroundColor: Colors.red,
+                                        duration: const Duration(seconds: 2),
+                                      ),
+                                    );
+                                    _passwordController.clear();
+                                  }
+                                }
+                              },
+                              obscureText: true,
+                              maxLength: 4,
+                              keyboardType: TextInputType.number,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 24,
+                                color:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.grey[300]
+                                    : Colors.grey[600],
+                                letterSpacing: 3,
+                              ),
+                              decoration: InputDecoration(
+                                counterText: "",
+                                filled: true,
+                                fillColor: Theme.of(
+                                  context,
+                                ).inputDecorationTheme.fillColor,
+                                hintText: S.of(context).pin,
+                                hintStyle: Theme.of(
+                                  context,
+                                ).inputDecorationTheme.hintStyle,
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  borderSide: BorderSide(
+                                    color:
+                                        Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.grey[300]!
+                                        : Colors.grey[600]!,
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  borderSide: BorderSide(
+                                    color:
+                                        Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.grey[300]!
+                                        : Colors.grey[600]!,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            );
           } else {
             return Column(
               children: [
@@ -270,98 +379,6 @@ class _NotesBuilderState extends State<NotesBuilder> {
                           );
                         },
                       ),
-                      if (!_isUnlocked)
-                        BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                          child: Center(
-                            child: Container(
-                              height: 150,
-                              color: Colors.transparent,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 30,
-                              ),
-                              child: TextField(
-                                controller: _passwordController,
-                                cursorColor:
-                                    Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? Colors.grey[200]
-                                    : Colors.grey[500],
-                                onChanged: (value) {
-                                  if (value.length == 4) {
-                                    if (value == snapshot.data) {
-                                      FocusScope.of(context).unfocus();
-                                      _passwordController.clear();
-                                      setState(() {
-                                        _isUnlocked = true;
-                                      });
-                                    } else {
-                                      ScaffoldMessenger.of(
-                                        context,
-                                      ).showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            S.of(context).incorrectPin,
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                          backgroundColor: Colors.red,
-                                          duration: const Duration(seconds: 2),
-                                        ),
-                                      );
-                                      _passwordController.clear();
-                                    }
-                                  }
-                                },
-                                obscureText: true,
-                                maxLength: 4,
-                                keyboardType: TextInputType.number,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  color:
-                                      Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.grey[300]
-                                      : Colors.grey[600],
-                                  letterSpacing: 3,
-                                ),
-                                decoration: InputDecoration(
-                                  counterText: "",
-                                  filled: true,
-                                  fillColor: Theme.of(
-                                    context,
-                                  ).inputDecorationTheme.fillColor,
-                                  hintText: S.of(context).pin,
-                                  hintStyle: Theme.of(
-                                    context,
-                                  ).inputDecorationTheme.hintStyle,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: BorderSide(
-                                      color:
-                                          Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? Colors.grey[300]!
-                                          : Colors.grey[600]!,
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: BorderSide(
-                                      color:
-                                          Theme.of(context).brightness ==
-                                              Brightness.dark
-                                          ? Colors.grey[300]!
-                                          : Colors.grey[600]!,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
                     ],
                   ),
                 ),

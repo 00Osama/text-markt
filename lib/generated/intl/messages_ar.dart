@@ -178,6 +178,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "permanentlyDelete": MessageLookupByLibrary.simpleMessage("حذف نهائيا"),
     "pin": MessageLookupByLibrary.simpleMessage("أدخل الرقم السري"),
+    "pinError": MessageLookupByLibrary.simpleMessage(
+      "حدث خطأ أثناء تعيين الرقم السري",
+    ),
     "pinMustBe": MessageLookupByLibrary.simpleMessage(
       "يجب أن يكون الرقم السري مكونًا من 4 أرقام",
     ),
@@ -199,6 +202,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
     "signIn": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "signOut": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
+    "signOutAndReset": MessageLookupByLibrary.simpleMessage(
+      "يجب عليك تسجيل الخروج وإعادة تعيين كلمة المرور",
+    ),
     "signUp": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
     "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
     "success": MessageLookupByLibrary.simpleMessage("نجاح"),

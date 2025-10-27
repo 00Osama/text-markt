@@ -50,6 +50,7 @@ class _SignUpScreenState extends State<SigninScreen> {
         (route) => false,
       );
     } catch (e) {
+      Navigator.pop(context);
       if (e.toString().contains('user-not-found')) {
         emailErrorText = loc.userNotFound;
         setState(() {});
@@ -67,7 +68,6 @@ class _SignUpScreenState extends State<SigninScreen> {
           },
         );
       }
-      Navigator.pop(context);
     }
   }
 

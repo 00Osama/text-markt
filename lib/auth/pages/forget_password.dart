@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:text_markt/auth/services/error_message.dart';
 import 'package:text_markt/generated/l10n.dart';
 import 'package:text_markt/widgets/my_text_field.dart';
@@ -26,6 +27,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
       await FirebaseAuth.instance.sendPasswordResetEmail(
         email: emailController.text.trim(),
       );
+      Navigator.pop(context);
       message(
         context,
         title: S().success,
@@ -36,6 +38,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         },
       );
     } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
       message(
         context,
         title: S().error,
@@ -127,6 +130,21 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                         emailErrorText = S().ThisFieldIsRequired;
                         setState(() {});
                       } else {
+                        emailController.clear();
+                        emailErrorText = null;
+                        setState(() {});
+                        showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (context) {
+                            return Center(
+                              child: LoadingAnimationWidget.threeRotatingDots(
+                                color: const Color.fromARGB(255, 67, 143, 224),
+                                size: 90,
+                              ),
+                            );
+                          },
+                        );
                         sendPasswordReset(context);
                       }
                     },

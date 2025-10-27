@@ -187,6 +187,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Supprimer définitivement",
     ),
     "pin": MessageLookupByLibrary.simpleMessage("Entrez le code PIN"),
+    "pinError": MessageLookupByLibrary.simpleMessage(
+      "Une erreur s\'est produite lors de la définition du code PIN",
+    ),
     "pinMustBe": MessageLookupByLibrary.simpleMessage(
       "Le code PIN doit comporter 4 chiffres",
     ),
@@ -210,6 +213,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "settings": MessageLookupByLibrary.simpleMessage("Paramètres"),
     "signIn": MessageLookupByLibrary.simpleMessage("Se connecter"),
     "signOut": MessageLookupByLibrary.simpleMessage("Se déconnecter"),
+    "signOutAndReset": MessageLookupByLibrary.simpleMessage(
+      "Vous devez vous déconnecter et réinitialiser votre mot de passe",
+    ),
     "signUp": MessageLookupByLibrary.simpleMessage("S\'inscrire"),
     "skip": MessageLookupByLibrary.simpleMessage("Passer"),
     "success": MessageLookupByLibrary.simpleMessage("Succès"),

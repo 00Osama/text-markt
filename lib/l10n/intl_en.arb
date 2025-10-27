@@ -113,6 +113,8 @@
   "Enter4DigitsPIN": "Enter 4-digits PIN",
   "pinMustBe": "PIN must be 4 digits",
   "pinSuccessfullySet": "PIN successfully set",
+  "pinError": "An error occurred while setting the PIN",
+  "signOutAndReset": "You must sign out and reset your password",
   "Done": "Done"
 
 }

@@ -2,13 +2,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:text_markt/bloc/language_cubit.dart';
 import 'package:text_markt/bloc/theme_cubit.dart';
 import 'package:text_markt/generated/l10n.dart';
 
-class MySettings extends StatelessWidget {
+class MySettings extends StatefulWidget {
   const MySettings({super.key});
 
+  @override
+  State<MySettings> createState() => _MySettingsState();
+}
+
+class _MySettingsState extends State<MySettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +29,7 @@ class MySettings extends StatelessWidget {
       ),
       body: Column(
         children: [
-          const SizedBox(height: 40),
+          const SizedBox(height: 15),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
@@ -122,7 +128,7 @@ class MySettings extends StatelessWidget {
                       );
                     },
                   ),
-                  const SizedBox(height: 17),
+                  const SizedBox(height: 20),
                   Text(
                     S.of(context).hiddenNotesPin,
                     style: Theme.of(context).textTheme.bodyLarge,
@@ -147,18 +153,35 @@ class PinSetupButton extends StatefulWidget {
 
 class _PinSetupButtonState extends State<PinSetupButton> {
   final TextEditingController _pinController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   String? _errorText;
+  String? passwordErrorText;
 
   Future<void> _savePin(String pin) async {
     final user = FirebaseAuth.instance.currentUser;
     if (user == null) return;
 
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(user.email)
-        .collection('Hidden')
-        .doc('hiddenNotesPin')
-        .set({'pin': pin});
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.email)
+          .collection('Hidden')
+          .doc('hiddenNotesPin')
+          .set({'pin': pin});
+      if (mounted) Navigator.pop(context);
+    } on Exception {
+      if (mounted) Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          content: Text(S().pinError, style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+    if (mounted) Navigator.pop(context);
+    _pinController.clear();
+    passwordController.clear();
   }
 
   void _showPinBottomSheet() {
@@ -186,6 +209,8 @@ class _PinSetupButtonState extends State<PinSetupButton> {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(height: 20),
+
+                    // حقل إدخال الـ PIN
                     TextField(
                       controller: _pinController,
                       keyboardType: TextInputType.number,
@@ -204,7 +229,47 @@ class _PinSetupButtonState extends State<PinSetupButton> {
                         setModalState(() => _errorText = null);
                       },
                     ),
-                    const SizedBox(height: 20),
+
+                    const SizedBox(height: 15),
+
+                    TextField(
+                      controller: passwordController,
+                      obscureText: true,
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                        errorText: passwordErrorText,
+                        hintText: S().password,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+
+                    TextButton(
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all(
+                          Colors.transparent,
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            behavior: SnackBarBehavior.floating,
+                            content: Text(
+                              S().signOutAndReset,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            backgroundColor: Colors.yellow[700],
+                          ),
+                        );
+                      },
+                      child: Text(
+                        S().forgetPassword,
+                        style: TextStyle(fontSize: 16, color: Colors.blue),
+                      ),
+                    ),
+
                     SizedBox(
                       width: 150,
                       child: ElevatedButton(
@@ -216,23 +281,65 @@ class _PinSetupButtonState extends State<PinSetupButton> {
                         ),
                         onPressed: () async {
                           final pin = _pinController.text.trim();
+                          final password = passwordController.text.trim();
+
                           if (pin.length != 4) {
                             setModalState(() {
                               _errorText = S().pinMustBe;
                             });
-                            return;
                           }
 
-                          await _savePin(pin);
-                          if (mounted) Navigator.pop(context);
-                          _pinController.clear();
+                          if (passwordController.text.isEmpty) {
+                            setModalState(() {
+                              passwordErrorText = S().thisFieldIsRequired;
+                            });
+                          }
 
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(S().pinSuccessfullySet),
-                              backgroundColor: Colors.green,
-                            ),
+                          if (passwordController.text.trim().isNotEmpty) {
+                            setModalState(() {
+                              passwordErrorText = null;
+                            });
+                          }
+
+                          final user = FirebaseAuth.instance.currentUser;
+                          if (user == null ||
+                              passwordController.text.isEmpty ||
+                              pin.length != 4) {
+                            return;
+                          }
+                          showDialog(
+                            barrierDismissible: false,
+                            context: context,
+                            builder: (context) {
+                              return Center(
+                                child: LoadingAnimationWidget.threeRotatingDots(
+                                  color: const Color.fromARGB(
+                                    255,
+                                    67,
+                                    143,
+                                    224,
+                                  ),
+                                  size: 90,
+                                ),
+                              );
+                            },
                           );
+                          try {
+                            final cred = EmailAuthProvider.credential(
+                              email: user.email!,
+                              password: password,
+                            );
+                            await user.reauthenticateWithCredential(cred);
+                          } on FirebaseAuthException {
+                            setModalState(() {
+                              passwordErrorText = S().wrongPassword;
+                            });
+                            if (mounted) {
+                              Navigator.pop(context);
+                            }
+                            return;
+                          }
+                          await _savePin(pin);
                         },
                         child: Text(S().Done),
                       ),

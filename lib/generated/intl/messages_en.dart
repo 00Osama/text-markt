@@ -170,6 +170,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Permanently Delete",
     ),
     "pin": MessageLookupByLibrary.simpleMessage("Enter PIN"),
+    "pinError": MessageLookupByLibrary.simpleMessage(
+      "An error occurred while setting the PIN",
+    ),
     "pinMustBe": MessageLookupByLibrary.simpleMessage("PIN must be 4 digits"),
     "pinSuccessfullySet": MessageLookupByLibrary.simpleMessage(
       "PIN successfully set",
@@ -185,6 +188,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
     "signOut": MessageLookupByLibrary.simpleMessage("Sign Out"),
+    "signOutAndReset": MessageLookupByLibrary.simpleMessage(
+      "You must sign out and reset your password",
+    ),
     "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "skip": MessageLookupByLibrary.simpleMessage("Skip"),
     "success": MessageLookupByLibrary.simpleMessage("Success"),

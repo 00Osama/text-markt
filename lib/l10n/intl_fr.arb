@@ -113,5 +113,7 @@
   "Enter4DigitsPIN": "Entrez un code PIN à 4 chiffres",
   "pinMustBe": "Le code PIN doit comporter 4 chiffres",
   "pinSuccessfullySet": "Code PIN défini avec succès",
+  "pinError": "Une erreur s'est produite lors de la définition du code PIN",
+  "signOutAndReset": "Vous devez vous déconnecter et réinitialiser votre mot de passe",
   "Done": "Terminé"
 }

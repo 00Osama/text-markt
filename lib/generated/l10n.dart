@@ -929,6 +929,26 @@ class S {
     );
   }
 
+  /// `An error occurred while setting the PIN`
+  String get pinError {
+    return Intl.message(
+      'An error occurred while setting the PIN',
+      name: 'pinError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You must sign out and reset your password`
+  String get signOutAndReset {
+    return Intl.message(
+      'You must sign out and reset your password',
+      name: 'signOutAndReset',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Done`
   String get Done {
     return Intl.message('Done', name: 'Done', desc: '', args: []);
