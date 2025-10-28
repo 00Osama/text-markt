@@ -169,6 +169,16 @@ class _PinSetupButtonState extends State<PinSetupButton> {
           .doc('hiddenNotesPin')
           .set({'pin': pin});
       if (mounted) Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          behavior: SnackBarBehavior.floating,
+          content: Text(
+            S().pinSuccessfullySet,
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.green,
+        ),
+      );
     } on Exception {
       if (mounted) Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -210,7 +220,6 @@ class _PinSetupButtonState extends State<PinSetupButton> {
                     ),
                     const SizedBox(height: 20),
 
-                    // حقل إدخال الـ PIN
                     TextField(
                       controller: _pinController,
                       keyboardType: TextInputType.number,
