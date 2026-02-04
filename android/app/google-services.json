@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "240557146007",
+    "project_id": "text-markt-7c6f4",
+    "storage_bucket": "text-markt-7c6f4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240557146007:android:f502c241b1b35d239d0ed2",
+        "android_client_info": {
+          "package_name": "com.example.text_markt"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8VTr69DOkNNegKY87YRGg3Dd1xz6AXw0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:240557146007:android:9bc387f6841e86669d0ed2",
+        "android_client_info": {
+          "package_name": "com.example.textma"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8VTr69DOkNNegKY87YRGg3Dd1xz6AXw0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

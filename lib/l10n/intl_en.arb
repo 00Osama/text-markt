@@ -1,0 +1,134 @@
+{
+    "notesTitle": "Notes",
+    "searchTitle": "Search",
+    "eventsTitle": "Events",
+    "profileTitle": "Profile",
+    "newNote": "New Note",
+    "title": "Title",
+    "Note": "Note",
+    "Notes": "Notes",
+    "updateNote": "Update Note",
+    "allNotes": "All Notes",
+    "favorites": "Favorites",
+    "hidden": "Hidden",
+    "trash": "Trash",
+    "enterAtLeastNoteTitle": "enter at least note title",
+    "noteAddedSuccessfully": "Note added successfully",
+    "failedToAddNote": "Failed to add note",
+    "noteUpdatedSuccessfully": "Note updated successfully",
+    "failedToUpdateNote": "Failed to update note",
+    "profile": "Profile",
+    "signOut": "Sign Out",
+    "cancel": "Cancel",
+    "areYouSureYouWantToSignOut": "Are you sure you want to sign out?",
+    "themeMode": "Theme Mode",
+    "lightMode": "Light",
+    "darkMode": "Dark",
+    "systemMode": "System",
+    "language": "Language",
+    "english": "English",
+    "arabic": "Arabic",
+    "recentSearches": "Recent Searches",
+    "noRecentSearches": "No recent searches found.",
+    "newEvent": "New Event",
+    "Title": "Title",
+    "TitleHint": "title",
+    "Event": "Event",
+    "EventHint": "event",
+    "Date": "Date",
+    "Time": "Time",
+    "fillAllFields": "Please fill all fields before uploading.",
+    "eventAddedSuccessfully": "Event added successfully",
+    "noteDeletedSuccessfully": "Note deleted successfully",
+    "failedToAddEvent": "Failed to add event",
+    "eventDeletedSuccessfully": "Event deleted successfully",
+    "noEvents": "No events found",
+    "noNotes": "No notes found", 
+    "eventPreview": "Event Preview",
+    "moveToTrash": "Move to Trash",
+    "deleteEvent": "Delete Event",
+    "addToHidden": "Add To Hide",
+    "addToFavorites": "Add To Favorites",
+    "permanentlyDelete": "Permanently Delete",
+    "noteAddedToTrash" : "Note added to trash successfully",
+    "noteAddedToHidden" : "Note added to hidden successfully",
+    "noteAddedToFavorites" : "Note added to favorites successfully",
+    "failedToDeleteNote": "Failed to delete note",
+    "swipeForMoreOptions": "Swipe for more options",
+    "french": "French",
+    "noInternetConnection": "No internet connection",
+    "pin": "Enter PIN",
+    "signIn": "Sign In",
+    "emailAddress": "Email Address",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "signUp": "Sign Up",
+    "dontHaveAnAccount": "Don't have an account ?! ",
+    "alreadyHaveAnAccount": "Already have an account ?! ",
+    "confirmPassword": "Confirm Password",
+    "fullName": "Full Name",
+
+    
+  "skip": "Skip",
+  "back": "Back",
+
+  "onboarding1TitleLine1": "Manage your",
+  "onboarding1TitleLine2": "notes easily",
+  "onboarding1Description": "A completely easy way to manage and customize your notes.",
+
+  "onboarding2TitleLine1": "Organize your",
+  "onboarding2TitleLine2": "thoughts",
+  "onboarding2Description": "Most beautiful note-taking application.",
+
+  "onboarding3TitleLine1": "Create cards and",
+  "onboarding3TitleLine2": "easy styling",
+  "onboarding3Description": "Making your content legible has never been easier.",
+  "next": "Next",
+  "getStarted": "Get Started",
+  "somethingWentWrong": "Something went wrong",
+  
+  "passwordMinLength": "Password must be at least 7 characters",
+  "usernameMinLength": "Username must be at least 4 characters",
+  "passwordsNotMatch": "Passwords don't match",
+  "validSignin": "Valid sign in",
+  "invalidSignin": "Invalid sign in",
+  "validSignup": "Valid sign up",
+  "invalidSignup": "Invalid sign up",
+
+   "resetPasswordTitle": "Reset Password",
+  "typeYourEmail": "Type your email address",
+  "resetPasswordHint": "We will send a password reset link for you.",
+  "sendEmail": "Send Email",
+
+  "successTitle": "Success",
+  "resetLinkSent": "Password reset link sent! Check your email.",
+  "ok": "Ok",
+
+  "tryAgain": "Try again",
+
+  "invalidEmail": "Invalid email address",
+  "fieldRequired": "This field is required",
+
+   "verifyEmailTitle": "Verify Email",
+  "checkYourEmail": "Check your email",
+  "verificationHint": "We sent a verification link to verify your account.",
+
+  "resendEmail": "Re-send Email",
+  "resendInSeconds": "Re-send in {seconds} seconds",
+
+
+  "errorTitle": "Error",
+  "tryAgainLater": "Try again later"
+
+
+
+  
+
+
+
+
+
+
+}
+
+
