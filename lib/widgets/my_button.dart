@@ -5,10 +5,12 @@ class MyButton extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.buttonText,
+    this.icon,
   });
 
   final VoidCallback onPressed;
   final String buttonText;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class MyButton extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: screenWidth * 75 / 1000),
       child: SizedBox(
-        height: screenHeight * 0.06,
+        height: screenHeight * 7 / 100,
         width: 70,
         child: ElevatedButton(
           style: ButtonStyle(
@@ -29,10 +31,28 @@ class MyButton extends StatelessWidget {
             ).elevatedButtonTheme.style!.backgroundColor,
           ),
           onPressed: onPressed,
-          child: Text(
-            buttonText,
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: fontSize),
-          ),
+          child: icon != null
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(icon, size: isTablet ? 30 : 20),
+                    const SizedBox(width: 8),
+                    Text(
+                      buttonText,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: fontSize,
+                      ),
+                    ),
+                  ],
+                )
+              : Text(
+                  buttonText,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: fontSize,
+                  ),
+                ),
         ),
       ),
     );

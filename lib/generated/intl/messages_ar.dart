@@ -44,7 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "arabic": MessageLookupByLibrary.simpleMessage("العربية"),
     "areYouSureYouWantToSignOut": MessageLookupByLibrary.simpleMessage(
-      "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+      "هل أنت متأكد أنك تريد تسجيل الخروج ؟!",
     ),
     "back": MessageLookupByLibrary.simpleMessage("رجوع"),
     "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
@@ -66,6 +66,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterAtLeastNoteTitle": MessageLookupByLibrary.simpleMessage(
       "أدخل عنوان الملاحظة على الأقل",
     ),
+    "error": MessageLookupByLibrary.simpleMessage("خطأ"),
     "errorTitle": MessageLookupByLibrary.simpleMessage("خطأ"),
     "eventAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "تمت إضافة الحدث بنجاح",
@@ -199,7 +200,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "إعادة تعيين كلمة المرور",
     ),
     "searchTitle": MessageLookupByLibrary.simpleMessage("بحث"),
-    "sendEmail": MessageLookupByLibrary.simpleMessage("إرسال البريد"),
+    "sendLink": MessageLookupByLibrary.simpleMessage("إرسال الرابط"),
     "setPin": MessageLookupByLibrary.simpleMessage("تعيين الرقم السري"),
     "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
     "signIn": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
@@ -226,6 +227,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "اكتب عنوان بريدك الإلكتروني",
     ),
     "updateNote": MessageLookupByLibrary.simpleMessage("تحديث الملاحظة"),
+    "userNotFound": MessageLookupByLibrary.simpleMessage("المستخدم غير موجود"),
     "usernameMinLength": MessageLookupByLibrary.simpleMessage(
       "اسم المستخدم يجب أن يكون 4 أحرف على الأقل",
     ),

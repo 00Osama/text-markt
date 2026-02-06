@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:text_markt/generated/l10n.dart';
+import 'package:text_markt/globals.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -49,7 +50,7 @@ class AuthService {
           passwordController.text.length >= 7 &&
           emailController.text.isNotEmpty &&
           passwordController.text.isNotEmpty) {
-        return loc.validSignin;
+        return "valid signin";
       } else {
         return loc.invalidSignin;
       }
@@ -158,6 +159,13 @@ class AuthService {
   }
 
   Future<void> signOut() async {
+    allNotes = [];
+    favourites = [];
+    hidden = [];
+    trash = [];
+    events = [];
+    user = null;
+    hiddenNotesPin = null;
     try {
       await _auth.signOut();
     } on FirebaseAuthException catch (e) {

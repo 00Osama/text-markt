@@ -6,6 +6,7 @@ import 'package:text_markt/auth/services/auth_gate.dart';
 import 'package:text_markt/auth/services/auth_service.dart';
 import 'package:text_markt/auth/services/error_message.dart';
 import 'package:text_markt/generated/l10n.dart';
+import 'package:text_markt/globals.dart';
 import 'package:text_markt/widgets/my_button.dart';
 import 'package:text_markt/widgets/my_text_field.dart';
 
@@ -32,6 +33,13 @@ class _SignUpScreenState extends State<SigninScreen> {
       ),
     );
     try {
+      allNotes = [];
+      favourites = [];
+      hidden = [];
+      trash = [];
+      events = [];
+      user = null;
+      hiddenNotesPin = null;
       await auth.signIn(
         emailController.text.trim(),
         passwordController.text.trim(),
@@ -44,17 +52,17 @@ class _SignUpScreenState extends State<SigninScreen> {
       );
     } catch (e) {
       if (e.toString().contains('user-not-found')) {
-        emailErrorText = 'user not found';
+        emailErrorText = S().userNotFound;
         setState(() {});
       } else if (e.toString().contains('wrong-password')) {
-        passwordErrorText = 'wrong password';
+        passwordErrorText = S().wrongPassword;
         setState(() {});
       } else {
         message(
           context,
-          title: 'error',
+          title: S().error,
           content: e.toString(),
-          buttonText: 'Ok',
+          buttonText: S().ok,
           onPressed: () {
             Navigator.pop(context);
           },
@@ -71,7 +79,6 @@ class _SignUpScreenState extends State<SigninScreen> {
     final isTablet = screenWidth > 600;
     final isLandscape = screenWidth > screenHeight;
 
-    final imageSize = isTablet ? screenWidth * 0.50 : screenWidth * 0.70;
     final forgetPasswordFontSize = isTablet ? 50.0 : 19.0;
     final signUpTextFontSize = isTablet ? 50.0 : 19.0;
     final topPadding = isLandscape ? 10.0 : 30.0;
@@ -85,8 +92,9 @@ class _SignUpScreenState extends State<SigninScreen> {
             SizedBox(height: topPadding),
             Image.asset(
               'assets/images/login_ill.png',
-              width: imageSize,
-              height: imageSize,
+              width: double.infinity,
+              height: isTablet ? screenHeight * 0.35 : screenHeight * 0.25,
+              fit: BoxFit.contain,
             ),
             SizedBox(height: spaceBetweenElements),
             Row(
@@ -100,18 +108,21 @@ class _SignUpScreenState extends State<SigninScreen> {
               ],
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: isTablet ? 40.0 : 0.0),
+              padding: EdgeInsets.symmetric(horizontal: isTablet ? 40.0 : 10),
               child: Row(
                 children: [
-                  Expanded(
-                    flex: 2,
+                  Container(
+                    width: isTablet ? 60 : 40,
+                    height: isTablet ? 60 : 40,
+                    padding: EdgeInsets.all(8),
                     child: Image.asset(
                       'assets/images/email.png',
                       color: Theme.of(context).textTheme.bodyMedium?.color,
+                      fit: BoxFit.contain,
                     ),
                   ),
+                  SizedBox(width: isTablet ? 20.0 : 0),
                   Expanded(
-                    flex: 8,
                     child: MyTextField(
                       readOnly: false,
                       controller: emailController,
@@ -124,18 +135,21 @@ class _SignUpScreenState extends State<SigninScreen> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: isTablet ? 40.0 : 0.0),
+              padding: EdgeInsets.symmetric(horizontal: isTablet ? 40.0 : 10),
               child: Row(
                 children: [
-                  Expanded(
-                    flex: 2,
+                  Container(
+                    width: isTablet ? 60 : 40,
+                    height: isTablet ? 60 : 40,
+                    padding: EdgeInsets.all(8),
                     child: Image.asset(
                       'assets/images/password.png',
                       color: Theme.of(context).textTheme.bodyMedium?.color,
+                      fit: BoxFit.contain,
                     ),
                   ),
+                  SizedBox(width: isTablet ? 20.0 : 0),
                   Expanded(
-                    flex: 8,
                     child: MyTextField(
                       readOnly: false,
                       controller: passwordController,

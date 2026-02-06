@@ -71,7 +71,7 @@ class _MyAppState extends State<MyApp> {
                 theme: AppTheme.lightTheme(context),
                 darkTheme: AppTheme.darkTheme(context),
                 themeMode: context.watch<ThemeCubit>().themeMode,
-                home: const InternetConnectivity(),
+                home: InternetConnectivity(),
               );
             },
           );

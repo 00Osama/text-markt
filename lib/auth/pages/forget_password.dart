@@ -48,6 +48,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
         },
       );
     } on FirebaseAuthException catch (e) {
+      print(e.message);
       message(
         context,
         title: S().errorTitle,
@@ -63,17 +64,24 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final screenHeight = MediaQuery.sizeOf(context).height;
+    final isTablet = screenWidth > 600;
+
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      appBar: AppBar(
-        title: Text(
-          S().resetPasswordTitle,
-          style: TextStyle(
-            fontFamily: 'Ubuntu',
-            fontSize: MediaQuery.sizeOf(context).width < 600 ? 18 : 40,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(isTablet ? 80 : 40),
+        child: AppBar(
+          title: Text(
+            S().resetPasswordTitle,
+            style: TextStyle(
+              fontFamily: 'Ubuntu',
+              fontSize: isTablet ? 55 : 18,
+            ),
           ),
+          backgroundColor: Theme.of(context).primaryColor,
         ),
-        backgroundColor: Theme.of(context).primaryColor,
       ),
 
       body: SafeArea(
@@ -100,87 +108,104 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     ),
                   ),
                   const SizedBox(height: 40),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Image.asset(
-                          'assets/images/email.png',
-                          color: Theme.of(context).textTheme.bodyMedium?.color,
-                        ),
-                      ),
-                      Expanded(
-                        flex: 8,
-                        child: MyTextField(
-                          readOnly: false,
-                          controller: emailController,
-                          hintText: S().emailAddress,
-                          obscureText: false,
-                          errorText: emailErrorText,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 45),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(
-                        Theme.of(context).primaryColor,
-                      ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isTablet ? 40.0 : 10,
                     ),
-                    onPressed: () {
-                      if (!isValidEmail(emailController.text) &&
-                          emailController.text.isNotEmpty) {
-                        emailErrorText = S().invalidEmail;
-                        setState(() {});
-                      } else if (emailController.text.isEmpty) {
-                        emailErrorText = S().fieldRequired;
-                        setState(() {});
-                      } else {
-                        sendPasswordReset(context);
-                      }
-                    },
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.email_rounded, color: Colors.white),
-                        Text(
-                          ' ${S().sendEmail}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: MediaQuery.sizeOf(context).width < 600
-                                ? 18
-                                : 40,
+                        Container(
+                          width: isTablet ? 60 : 40,
+                          height: isTablet ? 60 : 40,
+                          padding: EdgeInsets.all(8),
+                          child: Image.asset(
+                            'assets/images/email.png',
+                            color: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium?.color,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        SizedBox(width: isTablet ? 20.0 : 0),
+                        Expanded(
+                          child: MyTextField(
+                            readOnly: false,
+                            controller: emailController,
+                            hintText: S().emailAddress,
+                            obscureText: false,
+                            errorText: emailErrorText,
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                  const SizedBox(height: 45),
+                  SizedBox(
+                    height: screenHeight * 7 / 100,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStatePropertyAll(
+                          Theme.of(context).primaryColor,
+                        ),
+                      ),
+                      onPressed: () {
+                        if (!isValidEmail(emailController.text) &&
+                            emailController.text.isNotEmpty) {
+                          emailErrorText = S().invalidEmail;
+                          setState(() {});
+                        } else if (emailController.text.isEmpty) {
+                          emailErrorText = S().fieldRequired;
+                          setState(() {});
+                        } else {
+                          emailErrorText = null;
+                          setState(() {});
+                          sendPasswordReset(context);
+                        }
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.email_rounded),
+                          Text(
+                            ' ${S().sendLink}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: MediaQuery.sizeOf(context).width < 600
+                                  ? 18
+                                  : 40,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(height: 10),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll(
-                        Theme.of(context).colorScheme.error,
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          S().cancel,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: MediaQuery.sizeOf(context).width < 600
-                                ? 18
-                                : 40,
-                          ),
+                  SizedBox(
+                    height: screenHeight * 7 / 100,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: WidgetStatePropertyAll(
+                          Theme.of(context).colorScheme.error,
                         ),
-                      ],
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            S().cancel,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: MediaQuery.sizeOf(context).width < 600
+                                  ? 18
+                                  : 40,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

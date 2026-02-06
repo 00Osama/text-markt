@@ -184,10 +184,10 @@ class S {
     return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
   }
 
-  /// `Are you sure you want to sign out?`
+  /// `Are you sure you want to sign out ?!`
   String get areYouSureYouWantToSignOut {
     return Intl.message(
-      'Are you sure you want to sign out?',
+      'Are you sure you want to sign out ?!',
       name: 'areYouSureYouWantToSignOut',
       desc: '',
       args: [],
@@ -764,9 +764,9 @@ class S {
     );
   }
 
-  /// `Send Email`
-  String get sendEmail {
-    return Intl.message('Send Email', name: 'sendEmail', desc: '', args: []);
+  /// `Send Link`
+  String get sendLink {
+    return Intl.message('Send Link', name: 'sendLink', desc: '', args: []);
   }
 
   /// `Success`
@@ -977,6 +977,21 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `User not found`
+  String get userNotFound {
+    return Intl.message(
+      'User not found',
+      name: 'userNotFound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error`
+  String get error {
+    return Intl.message('Error', name: 'error', desc: '', args: []);
   }
 }
 

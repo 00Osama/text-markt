@@ -58,7 +58,7 @@ class _RecentSearchesState extends State<RecentSearches> {
                   ? Center(
                       child: Text(
                         S.of(context).noRecentSearches,
-                        style: TextStyle(color: Colors.grey[700], fontSize: 16),
+                        style: TextStyle(color: Colors.grey[700]),
                       ),
                     )
                   : Padding(

@@ -20,7 +20,7 @@
     "profile": "Profile",
     "signOut": "Sign Out",
     "cancel": "Cancel",
-    "areYouSureYouWantToSignOut": "Are you sure you want to sign out?",
+    "areYouSureYouWantToSignOut": "Are you sure you want to sign out ?!",
     "themeMode": "Theme Mode",
     "lightMode": "Light",
     "darkMode": "Dark",
@@ -98,7 +98,7 @@
    "resetPasswordTitle": "Reset Password",
   "typeYourEmail": "Type your email address",
   "resetPasswordHint": "We will send a password reset link for you.",
-  "sendEmail": "Send Email",
+  "sendLink": "Send Link",
 
   "successTitle": "Success",
   "resetLinkSent": "Password reset link sent! Check your email.",
@@ -131,7 +131,9 @@
   "pinMustBe": "PIN must be 4 digits",
   "hiddenNotesPin": "Hidden Notes PIN",
   "noPinSet": "No PIN set",
-  "incorrectPin": "Incorrect PIN"
+  "incorrectPin": "Incorrect PIN",
+  "userNotFound": "User not found",
+  "error": "Error"
 
 
 

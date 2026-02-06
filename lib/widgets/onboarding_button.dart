@@ -19,7 +19,7 @@ class OnboardingButton extends StatelessWidget {
 
     // Responsive dimensions
     final buttonWidth = isMobile ? screenWidth * 0.90 : screenWidth * 0.85;
-    final buttonHeight = isMobile ? 50.0 : screenHeight * 0.06;
+    final buttonHeight = screenHeight * 7 / 100;
     final buttonPadding = isMobile
         ? const EdgeInsets.symmetric(vertical: 12, horizontal: 16)
         : EdgeInsets.symmetric(vertical: screenHeight * 0.015, horizontal: 20);

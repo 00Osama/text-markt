@@ -81,32 +81,37 @@ class _VerifyEmailCheckerState extends State<VerifyEmailChecker> {
   @override
   Widget build(BuildContext context) {
     final isTablet = MediaQuery.sizeOf(context).width > 600;
+    final screenHeight = MediaQuery.sizeOf(context).height;
     final fontSize = isTablet ? 50.0 : 14.0;
     return isVerifyedEmail
         ? const AppController()
         : Scaffold(
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            appBar: AppBar(
-              title: Text(
-                S().verifyEmailTitle,
-                style: TextStyle(
-                  fontSize: MediaQuery.sizeOf(context).width < 600 ? 18 : 40,
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(isTablet ? 80 : 40),
+              child: AppBar(
+                title: Text(
+                  S().verifyEmailTitle,
+                  style: TextStyle(fontSize: isTablet ? 55 : 18),
                 ),
+                backgroundColor: Theme.of(context).primaryColor,
               ),
-              backgroundColor: Theme.of(context).primaryColor,
             ),
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('assets/auth/verify-email.png'),
+                  Image.asset(
+                    'assets/auth/verify-email.png',
+                    width: isTablet ? 700 : 400,
+                    height: isTablet ? 700 : 400,
+                  ),
                   Text(
                     S().checkYourEmail,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Ubuntu',
                       color: Theme.of(context).textTheme.bodyLarge?.color,
-                      fontSize: fontSize,
                     ),
                   ),
                   Text(
@@ -116,62 +121,70 @@ class _VerifyEmailCheckerState extends State<VerifyEmailChecker> {
                       color: Theme.of(context).textTheme.bodyMedium?.color,
                     ),
                   ),
-                  const SizedBox(height: 22),
+                  const SizedBox(height: 15),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                      ),
-                      onPressed: canResendEmail ? sendVerificationEmail : null,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(Icons.email_rounded),
-                          const SizedBox(width: 8),
-                          canResendEmail
-                              ? Text(
-                                  S().resendEmail,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Ubuntu',
-                                    fontSize: fontSize,
+                    child: SizedBox(
+                      height: screenHeight * 0.07,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).primaryColor,
+                        ),
+                        onPressed: canResendEmail
+                            ? sendVerificationEmail
+                            : null,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.email_rounded),
+                            const SizedBox(width: 8),
+                            canResendEmail
+                                ? Text(
+                                    S().resendEmail,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Ubuntu',
+                                      fontSize: fontSize,
+                                    ),
+                                  )
+                                : Text(
+                                    S().resendInSeconds(remainingTime),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Ubuntu',
+                                      fontSize: fontSize,
+                                    ),
                                   ),
-                                )
-                              : Text(
-                                  S().resendInSeconds(remainingTime),
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Ubuntu',
-                                    fontSize: fontSize,
-                                  ),
-                                ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
                   const SizedBox(height: 10),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).colorScheme.error,
-                      ),
-                      onPressed: () {
-                        AuthService().signOut();
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            S().cancel,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Ubuntu',
-                              fontSize: fontSize,
+                    child: SizedBox(
+                      height: screenHeight * 0.07,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).colorScheme.error,
+                        ),
+                        onPressed: () {
+                          AuthService().signOut();
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              S().cancel,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Ubuntu',
+                                fontSize: fontSize,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),

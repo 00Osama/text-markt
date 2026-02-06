@@ -20,7 +20,7 @@
   "profile": "Profil",
   "signOut": "Se déconnecter",
   "cancel": "Annuler",
-  "areYouSureYouWantToSignOut": "Êtes-vous sûr de vouloir vous déconnecter ?",
+  "areYouSureYouWantToSignOut": "Êtes-vous sûr de vouloir vous déconnecter ?!",
   "themeMode": "Thème",
   "lightMode": "Mode clair",
   "darkMode": "Mode sombre",
@@ -101,7 +101,7 @@
   "resetPasswordTitle": "Réinitialiser le mot de passe",
   "typeYourEmail": "Entrez votre adresse e-mail",
   "resetPasswordHint": "Nous vous enverrons un lien de réinitialisation du mot de passe.",
-  "sendEmail": "Envoyer l’e-mail",
+  "sendLink": "Envoyer le lien",
 
   "successTitle": "Succès",
   "resetLinkSent": "Lien de réinitialisation envoyé ! Vérifiez votre e-mail.",
@@ -131,7 +131,9 @@
 "pinMustBe": "Le code PIN doit contenir 4 chiffres",
 "hiddenNotesPin": "Code PIN des notes cachées",
 "noPinSet": "Aucun code PIN défini",
-"incorrectPin": "Code PIN incorrect"
+"incorrectPin": "Code PIN incorrect",
+"userNotFound": "Utilisateur non trouvé",
+"error": "Erreur"
 
  
   

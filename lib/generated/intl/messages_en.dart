@@ -44,7 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "arabic": MessageLookupByLibrary.simpleMessage("Arabic"),
     "areYouSureYouWantToSignOut": MessageLookupByLibrary.simpleMessage(
-      "Are you sure you want to sign out?",
+      "Are you sure you want to sign out ?!",
     ),
     "back": MessageLookupByLibrary.simpleMessage("Back"),
     "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
@@ -60,6 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterAtLeastNoteTitle": MessageLookupByLibrary.simpleMessage(
       "enter at least note title",
     ),
+    "error": MessageLookupByLibrary.simpleMessage("Error"),
     "errorTitle": MessageLookupByLibrary.simpleMessage("Error"),
     "eventAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Event added successfully",
@@ -191,7 +192,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Reset Password",
     ),
     "searchTitle": MessageLookupByLibrary.simpleMessage("Search"),
-    "sendEmail": MessageLookupByLibrary.simpleMessage("Send Email"),
+    "sendLink": MessageLookupByLibrary.simpleMessage("Send Link"),
     "setPin": MessageLookupByLibrary.simpleMessage("Set PIN"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
@@ -218,6 +219,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Type your email address",
     ),
     "updateNote": MessageLookupByLibrary.simpleMessage("Update Note"),
+    "userNotFound": MessageLookupByLibrary.simpleMessage("User not found"),
     "usernameMinLength": MessageLookupByLibrary.simpleMessage(
       "Username must be at least 4 characters",
     ),

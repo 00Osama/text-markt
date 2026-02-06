@@ -17,8 +17,11 @@ class MySettings extends StatefulWidget {
 class _MySettingsState extends State<MySettings> {
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final isTablet = screenWidth > 600;
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: isTablet ? 100 : kToolbarHeight,
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         surfaceTintColor: Theme.of(context).appBarTheme.surfaceTintColor,
         foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
@@ -194,175 +197,6 @@ class _PinSetupButtonState extends State<PinSetupButton> {
     passwordController.clear();
   }
 
-  void _showPinBottomSheet() {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Theme.of(context).brightness == Brightness.dark
-          ? Colors.grey[900]
-          : Colors.grey[200],
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) {
-        return Padding(
-          padding: MediaQuery.of(context).viewInsets,
-          child: StatefulBuilder(
-            builder: (context, setModalState) {
-              return Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      S().setPin,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: 20),
-
-                    TextField(
-                      controller: _pinController,
-                      keyboardType: TextInputType.number,
-                      obscureText: true,
-                      maxLength: 4,
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        counterText: "",
-                        hintText: S().Enter4DigitsPIN,
-                        errorText: _errorText,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      onChanged: (_) {
-                        setModalState(() => _errorText = null);
-                      },
-                    ),
-
-                    const SizedBox(height: 15),
-
-                    TextField(
-                      controller: passwordController,
-                      obscureText: true,
-                      textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        errorText: passwordErrorText,
-                        hintText: S().password,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ),
-
-                    TextButton(
-                      style: ButtonStyle(
-                        backgroundColor: WidgetStateProperty.all(
-                          Colors.transparent,
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.pop(context);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            behavior: SnackBarBehavior.floating,
-                            content: Text(
-                              S().signOutAndResetPin,
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            backgroundColor: Colors.yellow[700],
-                          ),
-                        );
-                      },
-                      child: Text(
-                        S().forgotPassword,
-                        style: TextStyle(fontSize: 16, color: Colors.blue),
-                      ),
-                    ),
-
-                    SizedBox(
-                      width: 150,
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              Theme.of(context).brightness == Brightness.dark
-                              ? WidgetStateProperty.all(Colors.grey[800])
-                              : WidgetStateProperty.all(Colors.grey[300]),
-                        ),
-                        onPressed: () async {
-                          final pin = _pinController.text.trim();
-                          final password = passwordController.text.trim();
-
-                          if (pin.length != 4) {
-                            setModalState(() {
-                              _errorText = S().pinMustBe;
-                            });
-                          }
-
-                          if (passwordController.text.isEmpty) {
-                            setModalState(() {
-                              passwordErrorText = S().fieldRequired;
-                            });
-                          }
-
-                          if (passwordController.text.trim().isNotEmpty) {
-                            setModalState(() {
-                              passwordErrorText = null;
-                            });
-                          }
-
-                          final user = FirebaseAuth.instance.currentUser;
-                          if (user == null ||
-                              passwordController.text.isEmpty ||
-                              pin.length != 4) {
-                            return;
-                          }
-                          showDialog(
-                            barrierDismissible: false,
-                            context: context,
-                            builder: (context) {
-                              return Center(
-                                child: LoadingAnimationWidget.threeRotatingDots(
-                                  color: const Color.fromARGB(
-                                    255,
-                                    67,
-                                    143,
-                                    224,
-                                  ),
-                                  size: 90,
-                                ),
-                              );
-                            },
-                          );
-                          try {
-                            final cred = EmailAuthProvider.credential(
-                              email: user.email!,
-                              password: password,
-                            );
-                            await user.reauthenticateWithCredential(cred);
-                          } on FirebaseAuthException {
-                            setModalState(() {
-                              passwordErrorText = S().wrongPassword;
-                            });
-                            if (mounted) {
-                              Navigator.pop(context);
-                            }
-                            return;
-                          }
-                          await _savePin(pin);
-                        },
-                        child: Text(S().Done),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        );
-      },
-    );
-  }
-
   @override
   void dispose() {
     _pinController.dispose();
@@ -371,11 +205,214 @@ class _PinSetupButtonState extends State<PinSetupButton> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final screenHeight = MediaQuery.sizeOf(context).height;
+    final isTablet = screenWidth > 600;
+
+    void showPinBottomSheet() {
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Theme.of(context).brightness == Brightness.dark
+            ? Colors.grey[900]
+            : Colors.grey[200],
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        builder: (context) {
+          return Padding(
+            padding: MediaQuery.of(context).viewInsets,
+            child: StatefulBuilder(
+              builder: (context, setModalState) {
+                return Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        S().setPin,
+                        style: TextStyle(
+                          fontSize: isTablet ? 50.0 : 14.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+
+                      TextField(
+                        controller: _pinController,
+                        keyboardType: TextInputType.number,
+                        obscureText: true,
+                        maxLength: 4,
+                        textAlign: TextAlign.center,
+
+                        decoration: InputDecoration(
+                          hintStyle: TextStyle(
+                            fontSize: isTablet ? 50.0 : 14.0,
+                          ),
+                          counterText: "",
+                          hintText: S().Enter4DigitsPIN,
+                          errorText: _errorText,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        onChanged: (_) {
+                          setModalState(() => _errorText = null);
+                        },
+                      ),
+
+                      const SizedBox(height: 15),
+
+                      TextField(
+                        controller: passwordController,
+                        obscureText: true,
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          hintStyle: TextStyle(
+                            fontSize: isTablet ? 50.0 : 14.0,
+                          ),
+                          errorText: passwordErrorText,
+                          hintText: S().password,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+
+                      TextButton(
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStateProperty.all(
+                            Colors.transparent,
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              behavior: SnackBarBehavior.floating,
+                              content: Text(
+                                S().signOutAndResetPin,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: isTablet ? 30 : 14,
+                                ),
+                              ),
+                              backgroundColor: Colors.yellow[700],
+                            ),
+                          );
+                        },
+                        child: Text(
+                          S().forgotPassword,
+                          style: TextStyle(
+                            fontSize: isTablet ? 34 : 14,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(
+                        width: 150,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                Theme.of(context).brightness == Brightness.dark
+                                ? WidgetStateProperty.all(Colors.grey[800])
+                                : WidgetStateProperty.all(Colors.grey[300]),
+                          ),
+                          onPressed: () async {
+                            final pin = _pinController.text.trim();
+                            final password = passwordController.text.trim();
+
+                            if (pin.length != 4) {
+                              setModalState(() {
+                                _errorText = S().pinMustBe;
+                              });
+                            }
+
+                            if (passwordController.text.isEmpty) {
+                              setModalState(() {
+                                passwordErrorText = S().fieldRequired;
+                              });
+                            }
+
+                            if (passwordController.text.trim().isNotEmpty) {
+                              setModalState(() {
+                                passwordErrorText = null;
+                              });
+                            }
+
+                            final user = FirebaseAuth.instance.currentUser;
+                            if (user == null ||
+                                passwordController.text.isEmpty ||
+                                pin.length != 4) {
+                              return;
+                            }
+                            showDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (context) {
+                                return Center(
+                                  child:
+                                      LoadingAnimationWidget.threeRotatingDots(
+                                        color: const Color.fromARGB(
+                                          255,
+                                          67,
+                                          143,
+                                          224,
+                                        ),
+                                        size: 90,
+                                      ),
+                                );
+                              },
+                            );
+                            try {
+                              final cred = EmailAuthProvider.credential(
+                                email: user.email!,
+                                password: password,
+                              );
+                              await user.reauthenticateWithCredential(cred);
+                            } on FirebaseAuthException {
+                              setModalState(() {
+                                passwordErrorText = S().wrongPassword;
+                              });
+                              if (mounted) {
+                                Navigator.pop(context);
+                              }
+                              return;
+                            }
+                            await _savePin(pin);
+                          },
+                          child: Text(
+                            S().Done,
+                            style: TextStyle(fontSize: isTablet ? 30 : 14),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          );
+        },
+      );
+    }
+
     return SizedBox(
+      height: screenHeight * 7 / 100,
       width: double.infinity,
-      child: ElevatedButton(
-        onPressed: _showPinBottomSheet,
-        child: Text(S().setPin, style: TextStyle(fontWeight: FontWeight.w600)),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: isTablet ? 60.0 : 0.0),
+        child: ElevatedButton(
+          onPressed: showPinBottomSheet,
+          child: Text(
+            S().setPin,
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: isTablet ? 50.0 : 14.0,
+            ),
+          ),
+        ),
       ),
     );
   }

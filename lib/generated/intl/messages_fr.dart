@@ -46,7 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "arabic": MessageLookupByLibrary.simpleMessage("Arabe"),
     "areYouSureYouWantToSignOut": MessageLookupByLibrary.simpleMessage(
-      "Êtes-vous sûr de vouloir vous déconnecter ?",
+      "Êtes-vous sûr de vouloir vous déconnecter ?!",
     ),
     "back": MessageLookupByLibrary.simpleMessage("Retour"),
     "cancel": MessageLookupByLibrary.simpleMessage("Annuler"),
@@ -68,6 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "enterAtLeastNoteTitle": MessageLookupByLibrary.simpleMessage(
       "Entrez au moins un titre pour la note",
     ),
+    "error": MessageLookupByLibrary.simpleMessage("Erreur"),
     "errorTitle": MessageLookupByLibrary.simpleMessage("Erreur"),
     "eventAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Événement ajouté avec succès",
@@ -213,7 +214,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Réinitialiser le mot de passe",
     ),
     "searchTitle": MessageLookupByLibrary.simpleMessage("Recherche"),
-    "sendEmail": MessageLookupByLibrary.simpleMessage("Envoyer l’e-mail"),
+    "sendLink": MessageLookupByLibrary.simpleMessage("Envoyer le lien"),
     "setPin": MessageLookupByLibrary.simpleMessage("Définir le code PIN"),
     "settings": MessageLookupByLibrary.simpleMessage("Paramètres"),
     "signIn": MessageLookupByLibrary.simpleMessage("Se connecter"),
@@ -242,6 +243,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Entrez votre adresse e-mail",
     ),
     "updateNote": MessageLookupByLibrary.simpleMessage("Mettre à jour la note"),
+    "userNotFound": MessageLookupByLibrary.simpleMessage(
+      "Utilisateur non trouvé",
+    ),
     "usernameMinLength": MessageLookupByLibrary.simpleMessage(
       "Le nom d\'utilisateur doit contenir au moins 4 caractères",
     ),

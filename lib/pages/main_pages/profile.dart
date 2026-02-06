@@ -1,15 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:text_markt/auth/services/auth_service.dart';
-import 'package:text_markt/bloc/language_cubit.dart';
-import 'package:text_markt/bloc/theme_cubit.dart';
 import 'package:text_markt/generated/l10n.dart';
 import 'package:text_markt/globals.dart';
 import 'package:text_markt/models/user.dart';
 import 'package:text_markt/pages/sub_pages/onboarding.dart';
+import 'package:text_markt/pages/sub_pages/settings.dart';
 import 'package:text_markt/widgets/my_button.dart';
 
 class Profile extends StatelessWidget {
@@ -30,9 +28,13 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final isTablet = screenWidth > 600;
+
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
+        toolbarHeight: isTablet ? 100 : kToolbarHeight,
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         surfaceTintColor: Theme.of(context).appBarTheme.surfaceTintColor,
         foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
@@ -55,172 +57,103 @@ class Profile extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Spacer(flex: 1),
-
+                // user image
+                Spacer(flex: isTablet ? 3 : 1),
                 CircleAvatar(
-                  radius: 50, // Larger size for the avatar
+                  radius: isTablet ? 150 : 75,
                   backgroundImage: AssetImage(user!.image),
                   backgroundColor: Colors.grey[200],
                 ),
                 const SizedBox(height: 16),
 
-                // User Name
+                // User Name and Email
                 Text(
                   user!.name,
-                  style: const TextStyle(
-                    fontSize: 24,
+                  style: TextStyle(
+                    fontSize: isTablet ? 75 : 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 8),
-
+                const SizedBox(height: 6),
                 Text(
                   user!.email,
-                  style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                  style: TextStyle(
+                    fontSize: isTablet ? 45 : 16,
+                    color: Colors.grey[600],
+                  ),
                 ),
-                const Spacer(flex: 4),
+
+                // settings
+                const Spacer(flex: 8),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
                     width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          S.of(context).themeMode,
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        BlocBuilder<ThemeCubit, ThemeState>(
-                          builder: (context, state) {
-                            return SegmentedButton<ThemeState>(
-                              segments: [
-                                ButtonSegment(
-                                  value: ThemeState.dark,
-                                  label: Text(
-                                    S.of(context).darkMode,
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodySmall,
-                                  ),
-                                ),
-                                ButtonSegment(
-                                  value: ThemeState.light,
-                                  label: Text(
-                                    S.of(context).lightMode,
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodySmall,
-                                  ),
-                                ),
-                                ButtonSegment(
-                                  value: ThemeState.system,
-                                  label: Text(
-                                    S.of(context).systemMode,
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodySmall,
-                                  ),
-                                ),
-                              ],
-                              selected: {state},
-                              onSelectionChanged: (Set<ThemeState> selected) {
-                                context.read<ThemeCubit>().setThemeMode(
-                                  selected.first,
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      ],
+                    child: MyButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MySettings()),
+                        );
+                      },
+                      buttonText: S.of(context).settings,
+                      icon: (Icons.settings),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          S.of(context).language,
-                          style: Theme.of(context).textTheme.bodyLarge,
-                        ),
-                        BlocBuilder<LanguageCubit, LanguageState>(
-                          builder: (context, state) {
-                            return SegmentedButton<LanguageState>(
-                              segments: [
-                                ButtonSegment(
-                                  value: LanguageState.arabic,
-                                  label: Text(
-                                    S.of(context).arabic,
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodySmall,
-                                  ),
-                                ),
-                                ButtonSegment(
-                                  value: LanguageState.english,
-                                  label: Text(
-                                    S.of(context).english,
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodySmall,
-                                  ),
-                                ),
-                                ButtonSegment(
-                                  value: LanguageState.french,
-                                  label: Text(
-                                    S.of(context).french,
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.bodySmall,
-                                  ),
-                                ),
-                              ],
-                              selected: {state},
-                              onSelectionChanged:
-                                  (Set<LanguageState> selected) {
-                                    if (selected.isNotEmpty) {
-                                      context.read<LanguageCubit>().setLanguage(
-                                        selected.first,
-                                      );
-                                    }
-                                  },
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const Spacer(flex: 4),
+
+                // sign out
+                const SizedBox(height: 10),
                 SizedBox(
                   width: double.infinity,
                   child: MyButton(
+                    icon: Icons.logout,
                     onPressed: () async {
                       await showDialog<bool>(
                         context: context,
                         builder: (BuildContext context) {
+                          final theme = Theme.of(context); // جلب Theme الحالي
+                          final isDark = theme.brightness == Brightness.dark;
+
                           return AlertDialog(
-                            title: Text(S.of(context).signOut),
+                            backgroundColor: isDark
+                                ? Colors.grey[900]
+                                : Colors.white,
+                            title: Text(
+                              S.of(context).signOut,
+                              style: TextStyle(
+                                color: isDark ? Colors.white : Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: isTablet ? 35 : 16,
+                              ),
+                            ),
                             content: Text(
                               S.of(context).areYouSureYouWantToSignOut,
+                              style: TextStyle(
+                                color: isDark ? Colors.white70 : Colors.black87,
+                                fontSize: isTablet ? 50 : 16,
+                              ),
                             ),
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () {
-                                  Navigator.of(context).pop();
+                                  Navigator.of(context).pop(false);
                                 },
-                                child: Text(S.of(context).cancel),
+                                child: Text(
+                                  S.of(context).cancel,
+                                  style: TextStyle(
+                                    color: isDark
+                                        ? Colors.blue[200]
+                                        : Colors.blue,
+                                    fontSize: isTablet ? 35 : 16,
+                                  ),
+                                ),
                               ),
                               TextButton(
                                 onPressed: () async {
-                                  // Perform sign-out
                                   await AuthService().signOut();
                                   Navigator.of(context).pop();
 
-                                  // Navigate to the Onboarding screen
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
@@ -228,7 +161,16 @@ class Profile extends StatelessWidget {
                                     ),
                                   );
                                 },
-                                child: Text(S.of(context).signOut),
+                                child: Text(
+                                  S.of(context).signOut,
+                                  style: TextStyle(
+                                    color: isDark
+                                        ? Colors.red[300]
+                                        : Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: isTablet ? 35 : 16,
+                                  ),
+                                ),
                               ),
                             ],
                           );

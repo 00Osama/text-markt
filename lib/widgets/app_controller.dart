@@ -14,7 +14,7 @@ class AppController extends StatefulWidget {
 }
 
 class _AppControllerState extends State<AppController> {
-  List screens = [
+  final List<Widget> screens = [
     const ClipRRect(
       borderRadius: BorderRadius.only(
         bottomLeft: Radius.circular(25),
@@ -44,97 +44,76 @@ class _AppControllerState extends State<AppController> {
       child: Profile(),
     ),
   ];
+
   int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    bool isDark = Theme.of(context).brightness == Brightness.dark;
+
+    // Colors fixed for both mobile and tablet
+    Color backgroundColor = isDark
+        ? Colors.grey.shade900
+        : Colors.grey.shade400;
+    Color iconColor = isDark ? Colors.grey[400]! : Colors.grey[500]!;
+    Color activeColor = isDark ? Colors.grey[100]! : Colors.grey[800]!;
+    Color tabBorderColor = isDark ? Colors.grey : Colors.white;
+
+    // Responsive sizes
+    double navPadding = screenWidth < 600 ? 15 : 30; // bigger on tablet
+    double tabBorderRadius = screenWidth < 600 ? 20 : 35; // bigger on tablet
+    double textFontSize = screenWidth < 600 ? 14 : 37; // bigger on tablet
+    double iconSize = screenWidth < 600 ? 24 : 33; // bigger on tablet
 
     return Scaffold(
-      backgroundColor: Theme.of(context).brightness == Brightness.dark
-          ? Colors.grey.shade900
-          : Colors.grey.shade400,
+      backgroundColor: backgroundColor,
       body: screens[_selectedIndex],
-      bottomNavigationBar: screenWidth < 600
-          ? GNav(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              backgroundColor: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.grey.shade900
-                  : Colors.grey.shade400,
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.grey[400]
-                  : Colors.grey[500],
-              activeColor: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.grey[100]
-                  : Colors.grey[800],
-              tabActiveBorder: Border.all(
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? Colors.grey
-                    : Colors.white,
-              ),
-              tabBorderRadius: 20,
-              padding: const EdgeInsets.all(15),
-              tabs: [
-                GButton(
-                  icon: Icons.note_alt_outlined,
-                  text: ' ${S.of(context).notesTitle}',
-                  textStyle: const TextStyle(fontSize: 14),
-                  margin: const EdgeInsets.symmetric(vertical: 9),
-                ),
-                GButton(
-                  icon: Icons.search,
-                  text: ' ${S.of(context).searchTitle}',
-                  textStyle: const TextStyle(fontSize: 14),
-                  margin: const EdgeInsets.symmetric(vertical: 9),
-                ),
-                GButton(
-                  icon: Icons.event,
-                  text: ' ${S.of(context).eventsTitle}',
-                  textStyle: const TextStyle(fontSize: 14),
-                  margin: const EdgeInsets.symmetric(vertical: 9),
-                ),
-                GButton(
-                  icon: Icons.person_outline_rounded,
-                  text: ' ${S.of(context).profileTitle}',
-                  textStyle: const TextStyle(fontSize: 14),
-                  margin: const EdgeInsets.symmetric(vertical: 9),
-                ),
-              ],
-              selectedIndex: _selectedIndex,
-              onTabChange: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-            )
-          : BottomNavigationBar(
-              onTap: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
-              selectedItemColor: const Color(0xff007AFF),
-              unselectedItemColor: const Color(0xff1C2121),
-              currentIndex: _selectedIndex,
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.note_alt_outlined),
-                  label: 'Notes',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.search),
-                  label: 'Search',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.event),
-                  label: 'Events',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.person_outline_rounded),
-                  label: 'Profile',
-                ),
-              ],
-            ),
+      bottomNavigationBar: GNav(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        backgroundColor: backgroundColor,
+        color: iconColor,
+        activeColor: activeColor,
+        tabActiveBorder: Border.all(color: tabBorderColor),
+        tabBorderRadius: tabBorderRadius,
+        padding: EdgeInsets.all(navPadding),
+        tabs: [
+          GButton(
+            icon: Icons.note_alt_outlined,
+            iconSize: iconSize,
+            text: ' ${S.of(context).notesTitle}',
+            textStyle: TextStyle(fontSize: textFontSize),
+            margin: EdgeInsets.symmetric(vertical: navPadding / 2),
+          ),
+          GButton(
+            icon: Icons.search,
+            iconSize: iconSize,
+            text: ' ${S.of(context).searchTitle}',
+            textStyle: TextStyle(fontSize: textFontSize),
+            margin: EdgeInsets.symmetric(vertical: navPadding / 2),
+          ),
+          GButton(
+            icon: Icons.event,
+            iconSize: iconSize,
+            text: ' ${S.of(context).eventsTitle}',
+            textStyle: TextStyle(fontSize: textFontSize),
+            margin: EdgeInsets.symmetric(vertical: navPadding / 2),
+          ),
+          GButton(
+            icon: Icons.person_outline_rounded,
+            iconSize: iconSize,
+            text: ' ${S.of(context).profileTitle}',
+            textStyle: TextStyle(fontSize: textFontSize),
+            margin: EdgeInsets.symmetric(vertical: navPadding / 2),
+          ),
+        ],
+        selectedIndex: _selectedIndex,
+        onTabChange: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+      ),
     );
   }
 }

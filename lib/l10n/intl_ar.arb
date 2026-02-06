@@ -20,7 +20,7 @@
     "profile": "الملف الشخصي",
   "signOut": "تسجيل الخروج",
     "cancel": "إلغاء",
-    "areYouSureYouWantToSignOut": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+    "areYouSureYouWantToSignOut": "هل أنت متأكد أنك تريد تسجيل الخروج ؟!",
     "themeMode": "السمة",
     "lightMode": "الوضع الفاتح",
     "darkMode": "الوضع الداكن",
@@ -102,7 +102,7 @@
   "resetPasswordTitle": "إعادة تعيين كلمة المرور",
   "typeYourEmail": "اكتب عنوان بريدك الإلكتروني",
   "resetPasswordHint": "سنرسل لك رابط إعادة تعيين كلمة المرور.",
-  "sendEmail": "إرسال البريد",
+  "sendLink": "إرسال الرابط",
 
   "successTitle": "تم بنجاح",
   "resetLinkSent": "تم إرسال رابط إعادة تعيين كلمة المرور، تحقق من بريدك الإلكتروني.",
@@ -130,7 +130,9 @@
   "pinMustBe": "الرقم السري يجب أن يكون مكون من 4 أرقام",
   "hiddenNotesPin": "ملاحظات مخفية",
   "incorrectPin": "الرقم السري غير صحيح",
-  "noPinSet": "لم يتم تعيين رقم سري"
+  "noPinSet": "لم يتم تعيين رقم سري",
+  "userNotFound": "المستخدم غير موجود",
+  "error": "خطأ"
 
   
 
