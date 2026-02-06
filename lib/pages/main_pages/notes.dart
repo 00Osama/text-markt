@@ -59,7 +59,7 @@ class _NotesState extends State<Notes> {
   }
 
   ////////////////////////////
-  Future<List<Note>> getNotes(String notes) async {
+  Future<List<Note>> getNotesData(String notes) async {
     if (notes == 'AllNotes') {
       if (allNotes.isEmpty) {
         QuerySnapshot response = await FirebaseFirestore.instance
@@ -409,7 +409,7 @@ class _NotesState extends State<Notes> {
               }
 
               return FutureBuilder<List<Note>>(
-                future: getNotes(currentState),
+                future: getNotesData(currentState),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Expanded(
@@ -471,7 +471,6 @@ class _NotesState extends State<Notes> {
                     child: NotesBuilder(
                       notes: snapshot.data!,
                       currentCollection: currentState,
-                      pin: '1111',
                     ),
                   );
                 },

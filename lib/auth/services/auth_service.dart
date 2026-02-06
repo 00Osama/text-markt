@@ -8,38 +8,51 @@ class AuthService {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   bool isValidEmail(String email) {
-    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    return emailRegex.hasMatch(email);
+    String emailRegex = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
+    RegExp regExp = RegExp(emailRegex);
+    if (regExp.hasMatch(email)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   String? checkSigninCredential({
+    required BuildContext context,
     required String credential,
     required TextEditingController emailController,
     required TextEditingController passwordController,
   }) {
+    final loc = S();
+
     if (credential == 'email') {
       if (emailController.text.isEmpty) {
-        return S().fieldRequired;
-      } else if (!isValidEmail(emailController.text)) {
-        return S().invalidEmail;
+        return loc.fieldRequired;
+      } else if (!isValidEmail(emailController.text) &&
+          emailController.text.isNotEmpty) {
+        return loc.invalidEmail;
+      } else {
+        return null;
       }
-      return null;
-    }
-
-    if (credential == 'password') {
+    } else if (credential == 'password') {
       if (passwordController.text.isEmpty) {
-        return S().fieldRequired;
-      } else if (passwordController.text.length < 7) {
-        return S().passwordMinLength;
+        return loc.fieldRequired;
+      } else if ((passwordController.text.length < 7 &&
+              passwordController.text.isNotEmpty) &&
+          emailController.text.isNotEmpty) {
+        return loc.passwordMinLength;
+      } else {
+        return null;
       }
-      return null;
-    }
-
-    if (isValidEmail(emailController.text) &&
-        passwordController.text.length >= 7) {
-      return "valid signin";
     } else {
-      return "invalid signin";
+      if (isValidEmail(emailController.text) &&
+          passwordController.text.length >= 7 &&
+          emailController.text.isNotEmpty &&
+          passwordController.text.isNotEmpty) {
+        return loc.validSignin;
+      } else {
+        return loc.invalidSignin;
+      }
     }
   }
 
@@ -53,46 +66,56 @@ class AuthService {
     if (credential == 'email') {
       if (emailController.text.isEmpty) {
         return S().fieldRequired;
-      } else if (!isValidEmail(emailController.text)) {
+      } else if (!isValidEmail(emailController.text) &&
+          emailController.text.isNotEmpty) {
         return S().invalidEmail;
+      } else {
+        return null;
       }
-      return null;
-    }
-
-    if (credential == 'fullname') {
+    } else if (credential == 'fullname') {
       if (fullNameController.text.isEmpty) {
         return S().fieldRequired;
-      } else if (fullNameController.text.length < 4) {
+      } else if (fullNameController.text.length < 4 &&
+          fullNameController.text.isNotEmpty) {
         return S().usernameMinLength;
+      } else {
+        return null;
       }
-      return null;
-    }
-
-    if (credential == 'password') {
+    } else if (credential == 'password') {
       if (passwordController.text.isEmpty) {
         return S().fieldRequired;
-      } else if (passwordController.text.length < 7) {
+      } else if ((passwordController.text.length < 7 &&
+              passwordController.text.isNotEmpty) &&
+          emailController.text.isNotEmpty) {
         return S().passwordMinLength;
+      } else {
+        return null;
       }
-      return null;
-    }
-
-    if (credential == 'confirmPassword') {
+    } else if (credential == 'confirmPassword') {
       if (confirmPasswordController.text.isEmpty) {
         return S().fieldRequired;
-      } else if (passwordController.text != confirmPasswordController.text) {
-        return S().passwordsNotMatch;
       }
-      return null;
-    }
-
-    if (fullNameController.text.length >= 4 &&
-        passwordController.text.length >= 7 &&
-        passwordController.text == confirmPasswordController.text &&
-        isValidEmail(emailController.text)) {
-      return "valid signup";
+      if (passwordController.text != confirmPasswordController.text &&
+          passwordController.text.length >= 7 &&
+          passwordController.text.isNotEmpty &&
+          confirmPasswordController.text.isNotEmpty) {
+        return S().passwordsNotMatch;
+      } else {
+        return null;
+      }
     } else {
-      return "invalid signup";
+      if (fullNameController.text.length >= 4 &&
+          passwordController.text == confirmPasswordController.text &&
+          passwordController.text.length >= 7 &&
+          isValidEmail(emailController.text) &&
+          passwordController.text.isNotEmpty &&
+          confirmPasswordController.text.isNotEmpty &&
+          emailController.text.isNotEmpty &&
+          fullNameController.text.length >= 4) {
+        return 'valid signup';
+      } else {
+        return 'invalid signup';
+      }
     }
   }
 
@@ -102,10 +125,11 @@ class AuthService {
 
   Future<UserCredential> signIn(String email, String password) async {
     try {
-      return await _auth.signInWithEmailAndPassword(
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+      return userCredential;
     } on FirebaseAuthException catch (e) {
       throw Exception(e.code);
     }
@@ -117,17 +141,16 @@ class AuthService {
     String fullName,
   ) async {
     try {
-      final userCredential = await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      UserCredential userCredential = await _auth
+          .createUserWithEmailAndPassword(email: email, password: password);
 
-      await firestore.collection("users").doc(userCredential.user!.uid).set({
+      FirebaseFirestore.instance.collection('users');
+
+      firestore.collection("users").doc(userCredential.user!.email).set({
         'email': email.trim(),
-        'fullName': fullName.trim(),
+        'FullName': fullName.trim(),
         'uid': userCredential.user!.uid,
       });
-
       return userCredential;
     } on FirebaseAuthException catch (e) {
       throw Exception(e.code);
@@ -135,6 +158,10 @@ class AuthService {
   }
 
   Future<void> signOut() async {
-    await _auth.signOut();
+    try {
+      await _auth.signOut();
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e.code);
+    }
   }
 }

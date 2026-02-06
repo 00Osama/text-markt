@@ -19,9 +19,9 @@ class NoteItem extends StatelessWidget {
   Widget build(BuildContext context) {
     String formattedDate = eventTime != null
         ? '${DateFormat('EEEE, dd MMM yyyy').format(eventTime!)}, '
-            '${eventTime!.hour > 12 ? eventTime!.hour - 12 : (eventTime!.hour == 0 ? 12 : eventTime!.hour)}:'
-            '${eventTime!.minute.toString().padLeft(2, '0')} '
-            '${DateFormat('a').format(eventTime!)}'
+              '${eventTime!.hour > 12 ? eventTime!.hour - 12 : (eventTime!.hour == 0 ? 12 : eventTime!.hour)}:'
+              '${eventTime!.minute.toString().padLeft(2, '0')} '
+              '${DateFormat('a').format(eventTime!)}'
         : 'Invalid date';
 
     return Padding(
@@ -38,7 +38,12 @@ class NoteItem extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 4),
+          padding: const EdgeInsets.only(
+            left: 11,
+            right: 11,
+            top: 6,
+            bottom: 6,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -50,9 +55,7 @@ class NoteItem extends StatelessWidget {
                       title,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
                   if (showeventTime == true && formattedDate.isNotEmpty)
@@ -62,8 +65,12 @@ class NoteItem extends StatelessWidget {
                       formattedDate,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? Color.fromARGB(255, 104, 99, 99) // Light mode
+                            : Color.fromARGB(255, 180, 180, 180), // Dark mode
                       ),
                       textAlign: TextAlign.right,
                     ),
@@ -71,17 +78,13 @@ class NoteItem extends StatelessWidget {
               ),
               const Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Divider(
-                  color: Color.fromARGB(139, 184, 176, 176),
-                ),
+                child: Divider(color: Color.fromARGB(139, 184, 176, 176)),
               ),
               Text(
                 note,
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontSize: 14,
-                ),
+                style: const TextStyle(fontSize: 14),
               ),
             ],
           ),

@@ -25,6 +25,10 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "Date": MessageLookupByLibrary.simpleMessage("Date"),
+    "Done": MessageLookupByLibrary.simpleMessage("Terminé"),
+    "Enter4DigitsPIN": MessageLookupByLibrary.simpleMessage(
+      "Entrez un code PIN à 4 chiffres",
+    ),
     "Event": MessageLookupByLibrary.simpleMessage("Événement"),
     "EventHint": MessageLookupByLibrary.simpleMessage("Événement"),
     "Note": MessageLookupByLibrary.simpleMessage("Note"),
@@ -101,6 +105,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "fullName": MessageLookupByLibrary.simpleMessage("Nom complet"),
     "getStarted": MessageLookupByLibrary.simpleMessage("Commencer"),
     "hidden": MessageLookupByLibrary.simpleMessage("Cachées"),
+    "hiddenNotesPin": MessageLookupByLibrary.simpleMessage(
+      "Code PIN des notes cachées",
+    ),
+    "incorrectPin": MessageLookupByLibrary.simpleMessage("Code PIN incorrect"),
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
       "Adresse e-mail invalide",
     ),
@@ -121,6 +129,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Pas de connexion Internet",
     ),
     "noNotes": MessageLookupByLibrary.simpleMessage("Aucune note"),
+    "noPinSet": MessageLookupByLibrary.simpleMessage("Aucun code PIN défini"),
     "noRecentSearches": MessageLookupByLibrary.simpleMessage(
       "Aucune recherche récente.",
     ),
@@ -178,6 +187,15 @@ class MessageLookup extends MessageLookupByLibrary {
       "Supprimer définitivement",
     ),
     "pin": MessageLookupByLibrary.simpleMessage("Entrez le code PIN"),
+    "pinError": MessageLookupByLibrary.simpleMessage(
+      "Échec de la définition du code PIN",
+    ),
+    "pinMustBe": MessageLookupByLibrary.simpleMessage(
+      "Le code PIN doit contenir 4 chiffres",
+    ),
+    "pinSuccessfullySet": MessageLookupByLibrary.simpleMessage(
+      "Code PIN défini avec succès",
+    ),
     "profile": MessageLookupByLibrary.simpleMessage("Profil"),
     "profileTitle": MessageLookupByLibrary.simpleMessage("Profil"),
     "recentSearches": MessageLookupByLibrary.simpleMessage(
@@ -196,8 +214,13 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "searchTitle": MessageLookupByLibrary.simpleMessage("Recherche"),
     "sendEmail": MessageLookupByLibrary.simpleMessage("Envoyer l’e-mail"),
+    "setPin": MessageLookupByLibrary.simpleMessage("Définir le code PIN"),
+    "settings": MessageLookupByLibrary.simpleMessage("Paramètres"),
     "signIn": MessageLookupByLibrary.simpleMessage("Se connecter"),
     "signOut": MessageLookupByLibrary.simpleMessage("Se déconnecter"),
+    "signOutAndResetPin": MessageLookupByLibrary.simpleMessage(
+      "Veuillez vous déconnecter et réinitialiser votre code PIN",
+    ),
     "signUp": MessageLookupByLibrary.simpleMessage("S\'inscrire"),
     "skip": MessageLookupByLibrary.simpleMessage("Ignorer"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
@@ -229,6 +252,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "verifyEmailTitle": MessageLookupByLibrary.simpleMessage(
       "Vérifier l’e-mail",
+    ),
+    "wrongPassword": MessageLookupByLibrary.simpleMessage(
+      "Mot de passe incorrect",
     ),
   };
 }

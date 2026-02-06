@@ -45,11 +45,11 @@ class AppTheme {
           foregroundColor: Colors.black,
         ),
       ),
-      dialogBackgroundColor: Colors.black,
       inputDecorationTheme: InputDecorationTheme(
         fillColor: Colors.white.withOpacity(0.9),
         hintStyle: const TextStyle(color: Colors.black54),
       ),
+      dialogTheme: DialogThemeData(backgroundColor: Colors.black),
     );
   }
 
@@ -97,11 +97,11 @@ class AppTheme {
           foregroundColor: Colors.white,
         ),
       ),
-      dialogBackgroundColor: Colors.white,
       inputDecorationTheme: InputDecorationTheme(
         fillColor: Colors.black.withOpacity(0.5),
         hintStyle: const TextStyle(color: Colors.white70),
       ),
+      dialogTheme: DialogThemeData(backgroundColor: Colors.white),
     );
   }
 }

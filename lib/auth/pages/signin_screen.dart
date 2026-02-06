@@ -183,17 +183,20 @@ class _SignUpScreenState extends State<SigninScreen> {
               onPressed: () {
                 setState(() {
                   emailErrorText = auth.checkSigninCredential(
+                    context: context,
                     credential: 'email',
                     emailController: emailController,
                     passwordController: passwordController,
                   );
                   passwordErrorText = auth.checkSigninCredential(
+                    context: context,
                     credential: 'password',
                     emailController: emailController,
                     passwordController: passwordController,
                   );
                 });
                 if (auth.checkSigninCredential(
+                      context: context,
                       credential: 'signin',
                       emailController: emailController,
                       passwordController: passwordController,

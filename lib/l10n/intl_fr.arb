@@ -118,7 +118,20 @@
 
 
   "errorTitle": "Erreur",
-  "tryAgainLater": "Réessayer plus tard"
+  "tryAgainLater": "Réessayer plus tard",
+
+  "settings": "Paramètres",
+"pinSuccessfullySet": "Code PIN défini avec succès",
+"pinError": "Échec de la définition du code PIN",
+"setPin": "Définir le code PIN",
+"Enter4DigitsPIN": "Entrez un code PIN à 4 chiffres",
+"signOutAndResetPin": "Veuillez vous déconnecter et réinitialiser votre code PIN",
+"wrongPassword": "Mot de passe incorrect",
+"Done": "Terminé",
+"pinMustBe": "Le code PIN doit contenir 4 chiffres",
+"hiddenNotesPin": "Code PIN des notes cachées",
+"noPinSet": "Aucun code PIN défini",
+"incorrectPin": "Code PIN incorrect"
 
  
   

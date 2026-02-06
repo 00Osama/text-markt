@@ -25,6 +25,10 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "Date": MessageLookupByLibrary.simpleMessage("التاريخ"),
+    "Done": MessageLookupByLibrary.simpleMessage("تم"),
+    "Enter4DigitsPIN": MessageLookupByLibrary.simpleMessage(
+      "أدخل رقم سري مكون من 4 أرقام",
+    ),
     "Event": MessageLookupByLibrary.simpleMessage("الحدث"),
     "EventHint": MessageLookupByLibrary.simpleMessage("الحدث"),
     "Note": MessageLookupByLibrary.simpleMessage("الملاحظة"),
@@ -95,6 +99,10 @@ class MessageLookup extends MessageLookupByLibrary {
     "fullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
     "getStarted": MessageLookupByLibrary.simpleMessage("البدء"),
     "hidden": MessageLookupByLibrary.simpleMessage("المخفية"),
+    "hiddenNotesPin": MessageLookupByLibrary.simpleMessage("ملاحظات مخفية"),
+    "incorrectPin": MessageLookupByLibrary.simpleMessage(
+      "الرقم السري غير صحيح",
+    ),
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
       "البريد الإلكتروني غير صحيح",
     ),
@@ -115,6 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "لا يوجد اتصال بالإنترنت",
     ),
     "noNotes": MessageLookupByLibrary.simpleMessage("لا توجد ملاحظات"),
+    "noPinSet": MessageLookupByLibrary.simpleMessage("لم يتم تعيين رقم سري"),
     "noRecentSearches": MessageLookupByLibrary.simpleMessage(
       "لا توجد عمليات بحث حديثة.",
     ),
@@ -166,6 +175,15 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "permanentlyDelete": MessageLookupByLibrary.simpleMessage("حذف نهائيا"),
     "pin": MessageLookupByLibrary.simpleMessage("أدخل الرقم السري"),
+    "pinError": MessageLookupByLibrary.simpleMessage(
+      "فشل في تعيين الرقم السري",
+    ),
+    "pinMustBe": MessageLookupByLibrary.simpleMessage(
+      "الرقم السري يجب أن يكون مكون من 4 أرقام",
+    ),
+    "pinSuccessfullySet": MessageLookupByLibrary.simpleMessage(
+      "تم تعيين الرقم السري بنجاح",
+    ),
     "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
     "profileTitle": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
     "recentSearches": MessageLookupByLibrary.simpleMessage("البحث الأخير"),
@@ -182,8 +200,13 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "searchTitle": MessageLookupByLibrary.simpleMessage("بحث"),
     "sendEmail": MessageLookupByLibrary.simpleMessage("إرسال البريد"),
+    "setPin": MessageLookupByLibrary.simpleMessage("تعيين الرقم السري"),
+    "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
     "signIn": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
     "signOut": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
+    "signOutAndResetPin": MessageLookupByLibrary.simpleMessage(
+      "يرجي تسجيل الخروج وإعادة تعيين الرقم السري",
+    ),
     "signUp": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
     "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage("حدث خطأ ما"),
@@ -213,6 +236,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "verifyEmailTitle": MessageLookupByLibrary.simpleMessage(
       "تأكيد البريد الإلكتروني",
+    ),
+    "wrongPassword": MessageLookupByLibrary.simpleMessage(
+      "كلمة المرور غير صحيحة",
     ),
   };
 }

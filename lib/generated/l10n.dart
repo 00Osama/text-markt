@@ -878,6 +878,106 @@ class S {
       args: [],
     );
   }
+
+  /// `Settings`
+  String get settings {
+    return Intl.message('Settings', name: 'settings', desc: '', args: []);
+  }
+
+  /// `PIN set successfully`
+  String get pinSuccessfullySet {
+    return Intl.message(
+      'PIN set successfully',
+      name: 'pinSuccessfullySet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed to set PIN`
+  String get pinError {
+    return Intl.message(
+      'Failed to set PIN',
+      name: 'pinError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set PIN`
+  String get setPin {
+    return Intl.message('Set PIN', name: 'setPin', desc: '', args: []);
+  }
+
+  /// `Enter a 4-digit PIN`
+  String get Enter4DigitsPIN {
+    return Intl.message(
+      'Enter a 4-digit PIN',
+      name: 'Enter4DigitsPIN',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please sign out and reset your PIN`
+  String get signOutAndResetPin {
+    return Intl.message(
+      'Please sign out and reset your PIN',
+      name: 'signOutAndResetPin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wrong password`
+  String get wrongPassword {
+    return Intl.message(
+      'Wrong password',
+      name: 'wrongPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Done`
+  String get Done {
+    return Intl.message('Done', name: 'Done', desc: '', args: []);
+  }
+
+  /// `PIN must be 4 digits`
+  String get pinMustBe {
+    return Intl.message(
+      'PIN must be 4 digits',
+      name: 'pinMustBe',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hidden Notes PIN`
+  String get hiddenNotesPin {
+    return Intl.message(
+      'Hidden Notes PIN',
+      name: 'hiddenNotesPin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No PIN set`
+  String get noPinSet {
+    return Intl.message('No PIN set', name: 'noPinSet', desc: '', args: []);
+  }
+
+  /// `Incorrect PIN`
+  String get incorrectPin {
+    return Intl.message(
+      'Incorrect PIN',
+      name: 'incorrectPin',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

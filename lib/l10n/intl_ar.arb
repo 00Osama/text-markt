@@ -117,9 +117,20 @@
   "resendEmail": "إعادة إرسال البريد",
   "resendInSeconds": "إعادة الإرسال خلال {seconds} ثانية",
 
-
   "errorTitle": "خطأ",
-  "tryAgainLater": "حاول مرة أخرى لاحقًا"
+  "tryAgainLater": "حاول مرة أخرى لاحقًا",
+  "settings": "الإعدادات",
+  "pinSuccessfullySet": "تم تعيين الرقم السري بنجاح",
+  "pinError": "فشل في تعيين الرقم السري",
+  "setPin": "تعيين الرقم السري",
+  "Enter4DigitsPIN": "أدخل رقم سري مكون من 4 أرقام",
+  "signOutAndResetPin": "يرجي تسجيل الخروج وإعادة تعيين الرقم السري",
+  "wrongPassword": "كلمة المرور غير صحيحة",
+  "Done": "تم",
+  "pinMustBe": "الرقم السري يجب أن يكون مكون من 4 أرقام",
+  "hiddenNotesPin": "ملاحظات مخفية",
+  "incorrectPin": "الرقم السري غير صحيح",
+  "noPinSet": "لم يتم تعيين رقم سري"
 
   
 

@@ -118,7 +118,20 @@
 
 
   "errorTitle": "Error",
-  "tryAgainLater": "Try again later"
+  "tryAgainLater": "Try again later",
+
+  "settings": "Settings",
+  "pinSuccessfullySet": "PIN set successfully",
+  "pinError": "Failed to set PIN",
+  "setPin": "Set PIN",
+  "Enter4DigitsPIN": "Enter a 4-digit PIN",
+  "signOutAndResetPin": "Please sign out and reset your PIN",
+  "wrongPassword": "Wrong password",
+  "Done": "Done",
+  "pinMustBe": "PIN must be 4 digits",
+  "hiddenNotesPin": "Hidden Notes PIN",
+  "noPinSet": "No PIN set",
+  "incorrectPin": "Incorrect PIN"
 
 
 

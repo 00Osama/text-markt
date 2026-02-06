@@ -25,6 +25,10 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "Date": MessageLookupByLibrary.simpleMessage("Date"),
+    "Done": MessageLookupByLibrary.simpleMessage("Done"),
+    "Enter4DigitsPIN": MessageLookupByLibrary.simpleMessage(
+      "Enter a 4-digit PIN",
+    ),
     "Event": MessageLookupByLibrary.simpleMessage("Event"),
     "EventHint": MessageLookupByLibrary.simpleMessage("event"),
     "Note": MessageLookupByLibrary.simpleMessage("Note"),
@@ -89,6 +93,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
     "getStarted": MessageLookupByLibrary.simpleMessage("Get Started"),
     "hidden": MessageLookupByLibrary.simpleMessage("Hidden"),
+    "hiddenNotesPin": MessageLookupByLibrary.simpleMessage("Hidden Notes PIN"),
+    "incorrectPin": MessageLookupByLibrary.simpleMessage("Incorrect PIN"),
     "invalidEmail": MessageLookupByLibrary.simpleMessage(
       "Invalid email address",
     ),
@@ -105,6 +111,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "No internet connection",
     ),
     "noNotes": MessageLookupByLibrary.simpleMessage("No notes found"),
+    "noPinSet": MessageLookupByLibrary.simpleMessage("No PIN set"),
     "noRecentSearches": MessageLookupByLibrary.simpleMessage(
       "No recent searches found.",
     ),
@@ -164,6 +171,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "Permanently Delete",
     ),
     "pin": MessageLookupByLibrary.simpleMessage("Enter PIN"),
+    "pinError": MessageLookupByLibrary.simpleMessage("Failed to set PIN"),
+    "pinMustBe": MessageLookupByLibrary.simpleMessage("PIN must be 4 digits"),
+    "pinSuccessfullySet": MessageLookupByLibrary.simpleMessage(
+      "PIN set successfully",
+    ),
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
     "profileTitle": MessageLookupByLibrary.simpleMessage("Profile"),
     "recentSearches": MessageLookupByLibrary.simpleMessage("Recent Searches"),
@@ -180,8 +192,13 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "searchTitle": MessageLookupByLibrary.simpleMessage("Search"),
     "sendEmail": MessageLookupByLibrary.simpleMessage("Send Email"),
+    "setPin": MessageLookupByLibrary.simpleMessage("Set PIN"),
+    "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
     "signOut": MessageLookupByLibrary.simpleMessage("Sign Out"),
+    "signOutAndResetPin": MessageLookupByLibrary.simpleMessage(
+      "Please sign out and reset your PIN",
+    ),
     "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
     "skip": MessageLookupByLibrary.simpleMessage("Skip"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
@@ -210,5 +227,6 @@ class MessageLookup extends MessageLookupByLibrary {
       "We sent a verification link to verify your account.",
     ),
     "verifyEmailTitle": MessageLookupByLibrary.simpleMessage("Verify Email"),
+    "wrongPassword": MessageLookupByLibrary.simpleMessage("Wrong password"),
   };
 }
