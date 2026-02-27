@@ -29,6 +29,10 @@ class _MySettingsState extends State<MySettings> {
           S.of(context).settings,
           style: Theme.of(context).textTheme.headlineLarge,
         ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_rounded, size: isTablet ? 47 : 24),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: Column(
         children: [

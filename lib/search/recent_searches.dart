@@ -26,6 +26,8 @@ class _RecentSearchesState extends State<RecentSearches> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final isTablet = screenWidth > 600;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18),
       child: Column(
@@ -48,7 +50,7 @@ class _RecentSearchesState extends State<RecentSearches> {
             },
             child: Container(
               width: double.infinity,
-              height: 220,
+              height: isTablet ? 400 : 220,
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(12),
@@ -81,7 +83,6 @@ class _RecentSearchesState extends State<RecentSearches> {
                                     recentSearches[index],
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(fontSize: 16),
                                   ),
                                 ),
                               ],

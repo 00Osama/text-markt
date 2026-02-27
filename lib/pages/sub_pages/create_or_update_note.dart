@@ -78,6 +78,14 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final isTablet = screenWidth > 600;
+    final fabBgColor = Theme.of(
+      context,
+    ).floatingActionButtonTheme.backgroundColor;
+    final fabFgColor = Theme.of(
+      context,
+    ).floatingActionButtonTheme.foregroundColor;
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
@@ -90,33 +98,35 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
               : S.of(context).updateNote,
           style: Theme.of(context).textTheme.headlineLarge?.copyWith(),
         ),
+        leadingWidth: isTablet ? 70 : 56,
         leading: Padding(
-          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
+          padding: EdgeInsets.all(isTablet ? 8 : 4),
           child: Container(
+            width: isTablet ? 60 : 40,
+            height: isTablet ? 60 : 40,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: Theme.of(
-                context,
-              ).floatingActionButtonTheme.backgroundColor,
+              shape: BoxShape.circle,
+              color: fabBgColor,
             ),
             child: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
+              constraints: const BoxConstraints(),
+              padding: EdgeInsets.zero,
+              onPressed: () => Navigator.pop(context),
               icon: Icon(
                 Icons.close_rounded,
-                color: Theme.of(
-                  context,
-                ).floatingActionButtonTheme.foregroundColor,
+                size: isTablet ? 28 : 24,
+                color: fabFgColor,
               ),
-              iconSize: MediaQuery.of(context).size.width * 0.06,
             ),
           ),
         ),
         actions: [
           Padding(
-            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
+            padding: EdgeInsets.all(isTablet ? 8 : 4),
             child: Container(
+              width: isTablet ? 60 : 40,
+              height: isTablet ? 60 : 40,
+
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Theme.of(
@@ -227,6 +237,7 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
                       },
                 icon: Icon(
                   Icons.done_rounded,
+                  size: isTablet ? 28 : 24,
                   color: Theme.of(
                     context,
                   ).floatingActionButtonTheme.foregroundColor,

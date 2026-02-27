@@ -19,16 +19,16 @@ class NoteSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final isTablet = screenWidth > 600;
     return Expanded(
       child: GestureDetector(
         onTap: onPressed,
         child: Container(
-          height: 50,
+          height: isTablet ? 80 : 50,
           decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.circular(screenWidth * 0.03),
+            borderRadius: BorderRadius.circular(isTablet ? 17 : 12),
             border: Border.all(color: borderColor, width: 1),
           ),
           child: Row(
@@ -36,17 +36,24 @@ class NoteSection extends StatelessWidget {
               SizedBox(width: screenWidth * 0.02),
               CircleAvatar(
                 backgroundColor: iconColor,
-                radius: screenWidth * 0.05,
+                radius: isTablet ? screenWidth * 0.03 : screenWidth * 0.05,
                 child: sectionName == 'All Notes'
                     ? Image.asset(
                         'assets/images/allNotesSection.png',
-                        width: screenWidth * 0.06,
-                        height: screenWidth * 0.06,
+                        width: isTablet
+                            ? screenWidth * 0.03
+                            : screenWidth * 0.05,
+                        height: isTablet
+                            ? screenWidth * 0.03
+                            : screenWidth * 0.05,
+                        fit: BoxFit.contain,
                       )
                     : Icon(
                         sectionIcon,
                         color: Colors.white,
-                        size: screenWidth * 0.045,
+                        size: isTablet
+                            ? screenWidth * 0.03
+                            : screenWidth * 0.05,
                       ),
               ),
               SizedBox(width: screenWidth * 0.03),

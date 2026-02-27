@@ -40,6 +40,15 @@ class _AddNewEventsState extends State<AddNewEvents> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final isTablet = screenWidth > 600;
+    final fabBgColor = Theme.of(
+      context,
+    ).floatingActionButtonTheme.backgroundColor;
+    final fabFgColor = Theme.of(
+      context,
+    ).floatingActionButtonTheme.foregroundColor;
+
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
@@ -50,37 +59,46 @@ class _AddNewEventsState extends State<AddNewEvents> {
           S.of(context).newEvent,
           style: Theme.of(context).textTheme.headlineLarge,
         ),
+        leadingWidth: isTablet ? 80 : 56,
         leading: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(isTablet ? 8 : 4),
           child: Container(
+            width: isTablet ? 60 : 40,
+            height: isTablet ? 60 : 40,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: Theme.of(
-                context,
-              ).floatingActionButtonTheme.backgroundColor,
+              shape: BoxShape.circle,
+              color: fabBgColor,
             ),
             child: IconButton(
+              constraints: const BoxConstraints(),
+              padding: EdgeInsets.zero,
               onPressed: () => Navigator.pop(context),
               icon: Icon(
                 Icons.close_rounded,
-                color: Theme.of(
-                  context,
-                ).floatingActionButtonTheme.foregroundColor,
+                size: isTablet ? 28 : 24,
+                color: fabFgColor,
               ),
             ),
           ),
         ),
         actions: [
           Padding(
-            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
+            padding: EdgeInsets.all(isTablet ? 8 : 4),
             child: Container(
+              width: isTablet ? 60 : 40,
+              height: isTablet ? 60 : 40,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Theme.of(
-                  context,
-                ).floatingActionButtonTheme.backgroundColor,
+                color: fabBgColor,
               ),
               child: IconButton(
+                constraints: const BoxConstraints(),
+                padding: EdgeInsets.zero,
+                icon: Icon(
+                  Icons.done_rounded,
+                  size: isTablet ? 28 : 24,
+                  color: fabFgColor,
+                ),
                 onPressed: () async {
                   if (titleController.text.trim().isEmpty ||
                       noteController.text.trim().isEmpty ||
@@ -100,12 +118,8 @@ class _AddNewEventsState extends State<AddNewEvents> {
                   }
 
                   try {
-                    final selectedDate =
-                        datePickerController.text; // dd-MM-yyyy
-                    final selectedTime = timePickerController.text; // HH:mm
-
-                    final formattedDateTime = '$selectedDate $selectedTime';
-
+                    final formattedDateTime =
+                        '${datePickerController.text} ${timePickerController.text}';
                     final DateTime dateTime = DateFormat(
                       'dd-MM-yyyy HH:mm',
                       'en_US',
@@ -129,13 +143,6 @@ class _AddNewEventsState extends State<AddNewEvents> {
                     );
                   }
                 },
-                icon: Icon(
-                  Icons.done_rounded,
-                  color: Theme.of(
-                    context,
-                  ).floatingActionButtonTheme.foregroundColor,
-                ),
-                iconSize: MediaQuery.of(context).size.width * 0.06,
               ),
             ),
           ),
@@ -151,7 +158,7 @@ class _AddNewEventsState extends State<AddNewEvents> {
                 return Center(
                   child: LoadingAnimationWidget.threeRotatingDots(
                     color: const Color.fromARGB(255, 67, 143, 224),
-                    size: 90,
+                    size: isTablet ? 100 : 60,
                   ),
                 );
               },
@@ -162,7 +169,9 @@ class _AddNewEventsState extends State<AddNewEvents> {
           }
         },
         child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: isTablet ? 8 : 4),
           children: [
+            isTablet ? const SizedBox(height: 12) : const SizedBox(height: 8),
             EventTextField(
               controller: titleController,
               hintText: S.of(context).TitleHint,
@@ -176,7 +185,7 @@ class _AddNewEventsState extends State<AddNewEvents> {
               fieldTitle: S.of(context).Event,
               readOnly: false,
             ),
-            // 🗓️ Date Picker Field
+            // 🗓️ Date Picker
             EventTextField(
               readOnly: true,
               controller: datePickerController,
@@ -191,20 +200,22 @@ class _AddNewEventsState extends State<AddNewEvents> {
                     initialDate: DateTime.now(),
                   );
                   if (date != null) {
-                    final formattedDate = DateFormat(
-                      'dd-MM-yyyy',
-                      'en_US',
-                    ).format(date);
-                    setState(() => datePickerController.text = formattedDate);
+                    setState(
+                      () => datePickerController.text = DateFormat(
+                        'dd-MM-yyyy',
+                        'en_US',
+                      ).format(date),
+                    );
                   }
                 },
                 icon: FaIcon(
                   FontAwesomeIcons.solidCalendarDays,
+                  size: isTablet ? 28 : 20,
                   color: Colors.grey[500],
                 ),
               ),
             ),
-            // ⏰ Time Picker Field
+            // ⏰ Time Picker
             EventTextField(
               readOnly: true,
               controller: timePickerController,
@@ -217,13 +228,15 @@ class _AddNewEventsState extends State<AddNewEvents> {
                     initialTime: TimeOfDay.now(),
                   );
                   if (time != null) {
-                    final formattedTime =
-                        '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
-                    setState(() => timePickerController.text = formattedTime);
+                    setState(
+                      () => timePickerController.text =
+                          '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}',
+                    );
                   }
                 },
                 icon: FaIcon(
                   FontAwesomeIcons.solidClock,
+                  size: isTablet ? 28 : 20,
                   color: Colors.grey[500],
                 ),
               ),

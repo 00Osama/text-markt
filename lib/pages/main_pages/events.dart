@@ -54,10 +54,12 @@ class Events extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
     final screenHeight = MediaQuery.sizeOf(context).height;
+    final isTablet = screenWidth > 600;
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
+        toolbarHeight: isTablet ? 100 : kToolbarHeight,
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         surfaceTintColor: Theme.of(context).appBarTheme.surfaceTintColor,
         foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
@@ -78,21 +80,26 @@ class Events extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(
-          context,
-        ).floatingActionButtonTheme.backgroundColor,
-        foregroundColor: Theme.of(
-          context,
-        ).floatingActionButtonTheme.foregroundColor,
-        onPressed: () {
-          Navigator.push(
+      floatingActionButton: SizedBox(
+        width: isTablet ? 90 : 55,
+        height: isTablet ? 90 : 55,
+        child: FloatingActionButton(
+          backgroundColor: Theme.of(
             context,
-            MaterialPageRoute(builder: (context) => const AddNewEvents()),
-          );
-        },
-        child: const Icon(Icons.add),
+          ).floatingActionButtonTheme.backgroundColor,
+          foregroundColor: Theme.of(
+            context,
+          ).floatingActionButtonTheme.foregroundColor,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const AddNewEvents()),
+            );
+          },
+          child: Icon(Icons.add_rounded, size: isTablet ? 45 : 24),
+        ),
       ),
+
       body: BlocConsumer<EventCubit, EventState>(
         listener: (context, state) {
           print('----------------- Consumer State: $state -----------------');

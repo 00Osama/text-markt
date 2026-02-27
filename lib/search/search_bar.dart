@@ -7,6 +7,8 @@ class MySearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.sizeOf(context).width;
+    final isTablet = screenWidth > 600;
     return GestureDetector(
       onTap: () {
         showSearch(context: context, delegate: Searchdelegate());
@@ -15,7 +17,7 @@ class MySearchBar extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 18),
         child: Container(
           width: double.infinity,
-          height: 44,
+          height: isTablet ? 62 : 44,
           decoration: BoxDecoration(
             color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.circular(12),
