@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:go_router/go_router.dart';
+import 'package:text_markt/core/routing/app_router.dart';
 import 'package:text_markt/features/events/presentation/cubits/event_cubit.dart';
 import 'package:text_markt/generated/l10n.dart';
 import 'package:text_markt/features/events/domain/entities/event.dart';
-import 'package:text_markt/features/events/presentation/widgets/event_preview.dart';
 import 'package:text_markt/features/notes/presentation/widgets/note_item.dart';
 import 'package:text_markt/core/widgets/swipe_item.dart';
 
@@ -47,22 +48,7 @@ class EventBuilder extends StatelessWidget {
                 ),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return EventPreview(
-                            title: TextEditingController(
-                              text: events[index].title,
-                            ),
-                            note: TextEditingController(
-                              text: events[index].note,
-                            ),
-                            dateTime: events[index].dateTime,
-                          );
-                        },
-                      ),
-                    );
+                    context.push(AppRoutes.eventPreview, extra: events[index]);
                   },
                   child: NoteItem(
                     note: events[index].note,

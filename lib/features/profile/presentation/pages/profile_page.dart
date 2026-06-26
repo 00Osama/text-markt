@@ -2,12 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:text_markt/core/routing/app_router.dart';
 import 'package:text_markt/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:text_markt/generated/l10n.dart';
 import 'package:text_markt/globals.dart';
 import 'package:text_markt/features/profile/domain/user_profile.dart';
-import 'package:text_markt/features/auth/presentation/pages/onboarding_page.dart';
 import 'package:text_markt/features/profile/presentation/widgets/pin_setup.dart';
 import 'package:text_markt/core/localization/language_switcher.dart';
 import 'package:text_markt/core/widgets/my_button.dart';
@@ -158,7 +159,7 @@ class ProfilePage extends StatelessWidget {
                             actions: <Widget>[
                               TextButton(
                                 onPressed: () {
-                                  Navigator.of(context).pop(false);
+                                  context.pop(false);
                                 },
                                 child: Text(
                                   S.of(context).cancel,
@@ -173,14 +174,8 @@ class ProfilePage extends StatelessWidget {
                               TextButton(
                                 onPressed: () async {
                                   await context.read<AuthCubit>().signOut();
-                                  Navigator.of(context).pop();
-
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const Onboarding(),
-                                    ),
-                                  );
+                                  context.pop();
+                                  context.go(AppRoutes.onboarding);
                                 },
                                 child: Text(
                                   S.of(context).signOut,

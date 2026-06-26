@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:text_markt/features/auth/presentation/pages/signin_page.dart';
+import 'package:go_router/go_router.dart';
+import 'package:text_markt/core/routing/app_router.dart';
 import 'package:text_markt/generated/l10n.dart';
 import 'package:text_markt/features/auth/presentation/widgets/onboarding_button.dart';
 import 'package:text_markt/features/auth/presentation/widgets/onboarding_indicator.dart';
@@ -16,10 +17,7 @@ class _OnboardingState extends State<Onboarding> {
   final controller = PageController();
 
   void goToAuth() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const SignInPage()),
-    );
+    context.go(AppRoutes.signIn);
   }
 
   @override

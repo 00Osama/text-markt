@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:text_markt/core/dependency_injection/service_locator.dart';
 import 'package:text_markt/generated/l10n.dart';
 import 'package:text_markt/globals.dart';
@@ -113,7 +114,7 @@ class Searchdelegate extends SearchDelegate<String?> {
         child: IconButton(
           onPressed: () {
             if (query == '') {
-              Navigator.pop(context);
+              context.pop();
             }
             query = '';
           },

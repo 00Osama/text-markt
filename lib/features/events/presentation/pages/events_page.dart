@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:text_markt/core/routing/app_router.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:text_markt/core/helpers/error_snackbar_helper.dart';
 import 'package:text_markt/core/helpers/success_snackbar_helper.dart';
 import 'package:text_markt/features/events/presentation/cubits/event_cubit.dart';
 import 'package:text_markt/generated/l10n.dart';
 import 'package:text_markt/features/events/domain/entities/event.dart';
-import 'package:text_markt/features/events/presentation/pages/add_new_event.dart';
 import 'package:text_markt/features/events/presentation/widgets/event_builder.dart';
 import 'package:text_markt/globals.dart';
 
@@ -84,10 +85,7 @@ class _EventsPageState extends State<EventsPage> {
             context,
           ).floatingActionButtonTheme.foregroundColor,
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const AddNewEvents()),
-            );
+            context.push(AppRoutes.addEvent);
           },
           child: Icon(Icons.add_rounded, size: isTablet ? 45 : 24),
         ),
@@ -108,7 +106,7 @@ class _EventsPageState extends State<EventsPage> {
             print('----------------- Consumer State: $state -----------------');
 
             if (state is EventAddSuccess) {
-              Navigator.pop(context);
+              context.pop();
               successSnackBar(
                 context: context,
                 title: S.of(context).eventAddedSuccessfully,

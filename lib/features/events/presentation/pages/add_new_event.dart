@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:text_markt/core/helpers/error_snackbar_helper.dart';
@@ -72,7 +73,7 @@ class _AddNewEventsState extends State<AddNewEvents> {
             child: IconButton(
               constraints: const BoxConstraints(),
               padding: EdgeInsets.zero,
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => context.pop(),
               icon: Icon(
                 Icons.close_rounded,
                 size: isTablet ? 28 : 24,
@@ -153,7 +154,7 @@ class _AddNewEventsState extends State<AddNewEvents> {
             );
           }
           if (state is EventAddSuccess) {
-            Navigator.pop(context);
+            context.pop();
           }
         },
         child: ListView(

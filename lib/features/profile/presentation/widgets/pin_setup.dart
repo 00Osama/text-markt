@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:text_markt/core/helpers/error_snackbar_helper.dart';
 import 'package:text_markt/core/helpers/success_snackbar_helper.dart';
@@ -30,13 +31,13 @@ class _PinSetupButtonState extends State<PinSetupButton> {
           .collection('Hidden')
           .doc('hiddenNotesPin')
           .set({'pin': pin});
-      if (mounted) Navigator.pop(context);
+      if (mounted) context.pop();
       successSnackBar(context: context, title: S().pinSuccessfullySet);
     } on Exception {
-      if (mounted) Navigator.pop(context);
+      if (mounted) context.pop();
       errorSnackBar(context: context, title: S().pinError);
     }
-    if (mounted) Navigator.pop(context);
+    if (mounted) context.pop();
     _pinController.clear();
     passwordController.clear();
   }
@@ -140,7 +141,7 @@ class _PinSetupButtonState extends State<PinSetupButton> {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.pop(context);
+                          context.pop();
                           errorSnackBar(
                             context: context,
                             title: S().signOutAndResetPassword,
@@ -221,7 +222,7 @@ class _PinSetupButtonState extends State<PinSetupButton> {
                                 passwordErrorText = S().wrongPassword;
                               });
                               if (mounted) {
-                                Navigator.pop(context);
+                                context.pop();
                               }
                               return;
                             }

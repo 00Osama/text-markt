@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:text_markt/core/helpers/error_snackbar_helper.dart';
 import 'package:text_markt/core/helpers/success_snackbar_helper.dart';
@@ -48,20 +49,20 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             ),
           );
         } else if (state is AuthResetPasswordSuccess) {
-          Navigator.pop(context);
-          Navigator.pop(context);
+          context.pop();
+          context.pop();
           successSnackBar(
             context: context,
             title: S().resetEmailSentSuccessfully,
           );
         } else if (state is AuthResetPasswordUserNotFound) {
-          Navigator.pop(context);
-          Navigator.pop(context);
+          context.pop();
+          context.pop();
           setState(() {
             emailErrorText = S().userNotFound;
           });
         } else if (state is AuthFail) {
-          Navigator.pop(context);
+          context.pop();
           errorSnackBar(context: context, title: state.error);
         }
       },
@@ -188,7 +189,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.pop(context);
+                          context.pop();
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,

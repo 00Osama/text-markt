@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:text_markt/core/helpers/error_snackbar_helper.dart';
 import 'package:text_markt/core/helpers/success_snackbar_helper.dart';
@@ -167,7 +168,7 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
             child: IconButton(
               constraints: const BoxConstraints(),
               padding: EdgeInsets.zero,
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => context.pop(),
               icon: Icon(
                 Icons.close_rounded,
                 size: isTablet ? 28 : 24,
@@ -403,8 +404,8 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
               ),
             );
 
-            Navigator.pop(context);
-            Navigator.pop(context);
+            context.pop();
+            context.pop();
 
             successSnackBar(
               context: context,
@@ -413,7 +414,7 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
           }
 
           if (state is NoteAddFail) {
-            Navigator.pop(context);
+            context.pop();
             errorSnackBar(
               context: context,
               title: S.of(context).failedToAddNote,
@@ -455,8 +456,8 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
               );
             }
 
-            Navigator.pop(context);
-            Navigator.pop(context);
+            context.pop();
+            context.pop();
 
             successSnackBar(
               context: context,
@@ -465,7 +466,7 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
           }
 
           if (state is NoteUpdateFail) {
-            Navigator.pop(context);
+            context.pop();
             errorSnackBar(
               context: context,
               title: S.of(context).failedToUpdateNote,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:text_markt/generated/l10n.dart';
 
@@ -43,7 +44,7 @@ class EventPreview extends StatelessWidget {
               ).floatingActionButtonTheme.backgroundColor,
             ),
             child: IconButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => context.pop(),
               icon: Icon(
                 Icons.close_rounded,
                 color: Theme.of(

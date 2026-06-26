@@ -1,14 +1,15 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:lottie/lottie.dart';
+import 'package:text_markt/core/routing/app_router.dart';
 import 'package:text_markt/core/helpers/error_snackbar_helper.dart';
 import 'package:text_markt/features/notes/presentation/cubits/note_cubit.dart';
 import 'package:text_markt/generated/l10n.dart';
 import 'package:text_markt/features/notes/domain/entities/note.dart';
-import 'package:text_markt/features/notes/presentation/pages/create_or_update_note_page.dart';
 import 'package:text_markt/features/notes/presentation/widgets/note_item.dart';
 import 'package:text_markt/core/widgets/swipe_item.dart';
 
@@ -359,15 +360,13 @@ class _NotesBuilderState extends State<NotesBuilder> {
                           final note = widget.notes[index];
                           return GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => CreateOrUpdateNote(
-                                    operation: 'update',
-                                    note: note,
-                                    collection: widget.currentCollection,
-                                    index: index,
-                                  ),
+                              context.push(
+                                AppRoutes.noteEditor,
+                                extra: NoteEditorRouteExtra(
+                                  operation: 'update',
+                                  note: note,
+                                  collection: widget.currentCollection,
+                                  index: index,
                                 ),
                               );
                             },
@@ -396,15 +395,13 @@ class _NotesBuilderState extends State<NotesBuilder> {
               final note = widget.notes[index];
               return GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CreateOrUpdateNote(
-                        operation: 'update',
-                        note: note,
-                        collection: widget.currentCollection,
-                        index: index,
-                      ),
+                  context.push(
+                    AppRoutes.noteEditor,
+                    extra: NoteEditorRouteExtra(
+                      operation: 'update',
+                      note: note,
+                      collection: widget.currentCollection,
+                      index: index,
                     ),
                   );
                 },

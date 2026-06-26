@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:text_markt/core/routing/app_router.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:text_markt/core/helpers/error_snackbar_helper.dart';
 import 'package:text_markt/core/helpers/success_snackbar_helper.dart';
@@ -10,7 +12,6 @@ import 'package:text_markt/features/notes/presentation/cubits/note_cubit.dart';
 import 'package:text_markt/generated/l10n.dart';
 import 'package:text_markt/globals.dart';
 import 'package:text_markt/features/notes/domain/entities/note.dart';
-import 'package:text_markt/features/notes/presentation/pages/create_or_update_note_page.dart';
 import 'package:text_markt/features/search/widgets/search_bar.dart';
 import 'package:text_markt/features/notes/presentation/widgets/note_section.dart';
 import 'package:text_markt/features/notes/presentation/widgets/notes_builder.dart';
@@ -108,12 +109,9 @@ class _NotesPageState extends State<NotesPage> {
             context,
           ).floatingActionButtonTheme.foregroundColor,
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    const CreateOrUpdateNote(operation: 'add'),
-              ),
+            context.push(
+              AppRoutes.noteEditor,
+              extra: const NoteEditorRouteExtra(operation: 'add'),
             );
           },
           child: Icon(Icons.add_rounded, size: isTablet ? 45 : 24),

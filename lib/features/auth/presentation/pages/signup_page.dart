@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:text_markt/core/routing/app_router.dart';
 import 'package:text_markt/core/helpers/error_snackbar_helper.dart';
 import 'package:text_markt/features/auth/presentation/cubits/auth_cubit.dart';
-import 'package:text_markt/features/auth/presentation/pages/signin_page.dart';
-import 'package:text_markt/features/auth/presentation/widgets/auth_gate.dart';
 import 'package:text_markt/features/auth/presentation/widgets/auth_service.dart';
 import 'package:text_markt/generated/l10n.dart';
 import 'package:text_markt/core/widgets/my_button.dart';
@@ -46,13 +46,10 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           );
         } else if (state is AuthSignUpSuccess) {
-          Navigator.pop(context);
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const AuthGate()),
-          );
+          context.pop();
+          context.go(AppRoutes.authGate);
         } else if (state is AuthFail) {
-          Navigator.pop(context);
+          context.pop();
           if (state.error.contains('email-already-in-use')) {
             errorSnackBar(
               context: context,
@@ -260,7 +257,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         confirmPasswordController: confirmPasswordController,
                       ) ==
                       'invalid signup') {
-                    Navigator.pop(context);
+                    context.pop();
                   }
 
                   if (await auth.checkSignUpCredential(
@@ -286,12 +283,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   Text(S().alreadyHaveAnAccount),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SignInPage(),
-                        ),
-                      );
+                      context.go(AppRoutes.signIn);
                     },
                     child: Text(
                       S().signIn,
