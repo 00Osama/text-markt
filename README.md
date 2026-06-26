@@ -1,11 +1,11 @@
 # text markt
-Text Markt is a Flutter productivity app for managing notes and events. It allows users to create, edit, organize, search, and delete notes, as well as add and track important events.
+- Text Markt is a Flutter productivity app for managing notes and events. It allows users to create, edit, organize, search, and delete notes, as well as add and track important events.
 
-app also includes favorites, hidden notes with PIN protection, trash management, dark and light themes, internet connection detection, and multilingual support for Arabic, English, and French. 
+- app also includes favorites, hidden notes with PIN protection, trash management, dark and light themes, internet connection detection, and multilingual support for Arabic, English, and French. 
 
-Text Markt supports note statuses to help users track their progress clearly. Each note can be marked as Pending, In Progress, or Done, making it easier to organize tasks, follow work progress, and separate unfinished notes from completed ones.
+- Text Markt supports note statuses to help users track their progress clearly. Each note can be marked as Pending, In Progress, or Done, making it easier to organize tasks, follow work progress, and separate unfinished notes from completed ones.
 
-The app uses Firebase Authentication and Cloud Firestore to provide user accounts, email verification, and cloud-based data storage. Users with unverified emails are stopped from accessing the app until their email is verified, and all user input is validated before being sent to the backend.
+- The app uses Firebase Authentication and Cloud Firestore to provide user accounts, email verification, and cloud-based data storage. Users with unverified emails are stopped from accessing the app until their email is verified, and all user input is validated before being sent to the backend.
 
 ---
 
@@ -44,13 +44,13 @@ Text Markt uses a set of Flutter packages to support authentication, cloud stora
 - **Cloud Firestore**: Stores users, notes, hidden notes, favorite notes, trash notes, and events in the cloud.
 - **Flutter Bloc**: Manages app state for authentication, notes, events, search, theme, and language settings.
 - **Go Router**: Handles app navigation between authentication pages, notes, events, profile, and other screens.
-- **Shared Preferences**: Saves local user preferences such as theme mode, selected language, and simple local settings.
+- **Shared Preferences**: Saves user preferences such as theme mode, selected language, simple local settings.
 - **Intl / Flutter Localizations**: Provides multilingual support for Arabic, English, and French.
-- **Connectivity Plus**: Detects internet connection status and shows offline feedback when the user has no connection.
+- **Connectivity Plus**: Monitors internet connection status and notifies users when they are offline.
 - **Lottie**: Displays animated assets, such as the no-internet and hidden-notes animations.
 - **Flutter Slidable**: Adds swipe actions for notes and events, such as delete, move to trash, hide, or favorite.
 - **Google Nav Bar**: Provides the bottom navigation bar used to move between main app sections.
-- **Loading Animation Widget**: Shows loading indicators during authentication, Firestore operations, and data fetching.
+- **Loading Animation Widget**: Displays a loading indicator while data is loading.
 - **Pull To Refresh**: Adds refresh behavior for notes and events lists.
 - **Flutter Native Splash**: Generates the app splash screen.
 - **Flutter Launcher Icons**: Generates custom launcher icons for Android and iOS.
