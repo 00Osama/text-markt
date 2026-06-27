@@ -7,6 +7,16 @@
 
 - The app uses Firebase Authentication and Cloud Firestore to provide user accounts, email verification, and cloud-based data storage. Users with unverified emails are stopped from accessing the app until their email is verified, and all user input is validated before being sent to the backend.
 
+
+---
+
+
+# Email Deliverability Notice
+
+- This project currently uses Firebase Authentication's default email domain for email verification and password reset emails. As a result, some email providers (including Gmail in certain cases) may classify these emails as spam due to the shared default "firebaseapp.com" domain.
+
+- For the production release, a dedicated custom domain will be configured for authentication emails to improve email deliverability, increase trust, and reduce the likelihood of messages being marked as spam.
+
 ---
 
 # SCREENSHOTS
