@@ -26,6 +26,11 @@ import 'package:text_markt/features/notes/domain/usecases/get_notes_usecase.dart
 import 'package:text_markt/features/notes/domain/usecases/move_note_usecase.dart';
 import 'package:text_markt/features/notes/domain/usecases/update_note_usecase.dart';
 import 'package:text_markt/features/notes/presentation/cubits/note_cubit.dart';
+import 'package:text_markt/features/profile/data/datasources/profile_remote_datasource.dart';
+import 'package:text_markt/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:text_markt/features/profile/domain/repositories/profile_repository.dart';
+import 'package:text_markt/features/profile/domain/usecases/get_user_profile_usecase.dart';
+import 'package:text_markt/features/profile/presentation/cubits/profile_cubit.dart';
 
 class ServiceLocator {
   static late final FirebaseAuth firebaseAuth;
@@ -53,6 +58,10 @@ class ServiceLocator {
   static late final AddEventUseCase addEventUseCase;
   static late final DeleteEventUseCase deleteEventUseCase;
   static late final GetEventsUseCase getEventsUseCase;
+
+  static late final ProfileRemoteDataSource profileRemoteDataSource;
+  static late final ProfileRepository profileRepository;
+  static late final GetUserProfileUseCase getUserProfileUseCase;
 
   static void setup() {
     firebaseAuth = FirebaseAuth.instance;
@@ -99,6 +108,17 @@ class ServiceLocator {
     addEventUseCase = AddEventUseCase(repository: eventsRepository);
     deleteEventUseCase = DeleteEventUseCase(repository: eventsRepository);
     getEventsUseCase = GetEventsUseCase(repository: eventsRepository);
+
+    profileRemoteDataSource = ProfileRemoteDataSource(
+      auth: firebaseAuth,
+      firestore: firebaseFirestore,
+    );
+    profileRepository = ProfileRepositoryImpl(
+      remoteDataSource: profileRemoteDataSource,
+    );
+    getUserProfileUseCase = GetUserProfileUseCase(
+      repository: profileRepository,
+    );
   }
 
   static AuthCubit createAuthCubit() {
@@ -128,5 +148,9 @@ class ServiceLocator {
       deleteEventUseCase: deleteEventUseCase,
       getEventsUseCase: getEventsUseCase,
     );
+  }
+
+  static ProfileCubit createProfileCubit() {
+    return ProfileCubit(getUserProfileUseCase: getUserProfileUseCase);
   }
 }

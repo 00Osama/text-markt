@@ -1,33 +1,28 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:text_markt/core/routing/app_router.dart';
 import 'package:text_markt/features/auth/presentation/cubits/auth_cubit.dart';
+import 'package:text_markt/features/profile/presentation/cubits/profile_cubit.dart';
 import 'package:text_markt/generated/l10n.dart';
-import 'package:text_markt/globals.dart';
-import 'package:text_markt/features/profile/domain/user_profile.dart';
 import 'package:text_markt/features/profile/presentation/widgets/pin_setup.dart';
 import 'package:text_markt/core/localization/language_switcher.dart';
 import 'package:text_markt/core/widgets/my_button.dart';
 import 'package:text_markt/core/theme/theme_switcher.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
-  Future<UserProfile> getUserProfile() async {
-    if (user == null) {
-      DocumentSnapshot response = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.email)
-          .get();
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
 
-      user = UserProfile.fromJson(response);
-      return user!;
-    }
-    return user!;
+class _ProfilePageState extends State<ProfilePage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProfileCubit>().getUserProfile();
   }
 
   @override
@@ -47,40 +42,56 @@ class ProfilePage extends StatelessWidget {
           style: Theme.of(context).textTheme.headlineLarge,
         ),
       ),
-      body: FutureBuilder<UserProfile>(
-        future: getUserProfile(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
+      body: BlocBuilder<ProfileCubit, ProfileState>(
+        builder: (context, state) {
+          if (state is ProfileLoading || state is ProfileInitial) {
             return Center(
               child: LoadingAnimationWidget.threeRotatingDots(
                 color: const Color.fromARGB(255, 67, 143, 224),
                 size: 90,
               ),
             );
-          } else {
+          }
+
+          if (state is ProfileFail) {
+            return Center(
+              child: Text(
+                S.of(context).error,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            );
+          }
+
+          if (state is ProfileLoaded) {
+            final userProfile = state.userProfile;
+
             return Column(
               children: [
                 // user image
                 SizedBox(height: isTablet ? 15 : 3),
                 CircleAvatar(
                   radius: isTablet ? 150 : 75,
-                  backgroundImage: AssetImage(user!.image),
+                  backgroundImage: AssetImage(userProfile.image),
                   backgroundColor: Colors.grey[200],
                 ),
                 const SizedBox(height: 5),
 
                 // User Name and Email
                 Text(
-                  user!.name,
+                  userProfile.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    fontSize: isTablet ? 75 : 24,
+                    fontSize: isTablet ? 32 : 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 Text(
-                  user!.email,
+                  userProfile.email,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    fontSize: isTablet ? 45 : 16,
+                    fontSize: isTablet ? 20 : 16,
                     color: Colors.grey[600],
                   ),
                 ),
@@ -150,7 +161,7 @@ class ProfilePage extends StatelessWidget {
                                       color: isDark
                                           ? Colors.white70
                                           : Colors.black87,
-                                      fontSize: isTablet ? 50 : 16,
+                                      fontSize: isTablet ? 20 : 16,
                                     ),
                                   ),
                                 ),
@@ -167,7 +178,7 @@ class ProfilePage extends StatelessWidget {
                                     color: isDark
                                         ? Colors.blue[200]
                                         : Colors.blue,
-                                    fontSize: isTablet ? 35 : 16,
+                                    fontSize: isTablet ? 18 : 16,
                                   ),
                                 ),
                               ),
@@ -184,7 +195,7 @@ class ProfilePage extends StatelessWidget {
                                         ? Colors.red[300]
                                         : Colors.red,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: isTablet ? 35 : 16,
+                                    fontSize: isTablet ? 18 : 16,
                                   ),
                                 ),
                               ),
@@ -200,6 +211,8 @@ class ProfilePage extends StatelessWidget {
               ],
             );
           }
+
+          return const SizedBox();
         },
       ),
     );

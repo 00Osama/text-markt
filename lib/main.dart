@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,18 +20,21 @@ void main() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
 
   runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) =>
-              ThemeCubit(sharedPreferences: prefs)..loadThemePreference(),
-        ),
-        BlocProvider(
-          create: (_) =>
-              LanguageCubit(sharedPreferences: prefs)..loadLanguagePreference(),
-        ),
-      ],
-      child: const MyApp(),
+    DevicePreview(
+      builder: (context) => MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) =>
+                ThemeCubit(sharedPreferences: prefs)..loadThemePreference(),
+          ),
+          BlocProvider(
+            create: (_) =>
+                LanguageCubit(sharedPreferences: prefs)
+                  ..loadLanguagePreference(),
+          ),
+        ],
+        child: const MyApp(),
+      ),
     ),
   );
 }
@@ -51,6 +55,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (context) => SearchCubit()),
         BlocProvider(create: (context) => ServiceLocator.createEventCubit()),
         BlocProvider(create: (context) => ServiceLocator.createAuthCubit()),
+        BlocProvider(create: (context) => ServiceLocator.createProfileCubit()),
       ],
       child: BlocBuilder<LanguageCubit, LanguageState>(
         builder: (context, langState) {
@@ -78,4 +83,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
