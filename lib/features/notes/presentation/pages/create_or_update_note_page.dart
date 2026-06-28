@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:text_markt/core/helpers/error_snackbar_helper.dart';
+import 'package:text_markt/core/helpers/responsive.dart';
 import 'package:text_markt/core/helpers/success_snackbar_helper.dart';
 import 'package:text_markt/features/notes/presentation/cubits/note_cubit.dart';
 import 'package:text_markt/generated/l10n.dart';
@@ -135,8 +136,7 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.sizeOf(context).width;
-    final isTablet = screenWidth > 600;
+    final isTablet = Responsive.isTablet(context);
     final fabBgColor = Theme.of(
       context,
     ).floatingActionButtonTheme.backgroundColor;
@@ -247,7 +247,7 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
                   context,
                 ).floatingActionButtonTheme.foregroundColor,
               ),
-              iconSize: MediaQuery.of(context).size.width * 0.06,
+              iconSize: isTablet ? 28 : 24,
             ),
           ),
         ),

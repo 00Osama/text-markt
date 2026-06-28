@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:text_markt/core/helpers/responsive.dart';
 
 class MyTextField extends StatefulWidget {
   const MyTextField({
@@ -31,9 +32,9 @@ class _MyTextFieldState extends State<MyTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isMobile = screenWidth < 600;
+    final isMobile = Responsive.isMobile(context);
     final horizontalPadding = isMobile ? 0.0 : 16.0;
+    final suffixIconSize = isMobile ? 20.0 : 26.0;
 
     return Padding(
       padding: EdgeInsets.only(
@@ -54,7 +55,7 @@ class _MyTextFieldState extends State<MyTextField> {
                   icon: Icon(
                     _obscureText ? Icons.visibility_off : Icons.visibility,
                     color: Colors.grey.shade600,
-                    size: isMobile ? 20 : 50,
+                    size: suffixIconSize,
                   ),
                   onPressed: () {
                     setState(() {

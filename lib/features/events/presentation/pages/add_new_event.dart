@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:text_markt/core/helpers/error_snackbar_helper.dart';
+import 'package:text_markt/core/helpers/responsive.dart';
 import 'package:text_markt/features/events/presentation/cubits/event_cubit.dart';
 import 'package:text_markt/generated/l10n.dart';
 import 'package:text_markt/features/events/presentation/widgets/event_text_field.dart';
@@ -41,8 +42,7 @@ class _AddNewEventsState extends State<AddNewEvents> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.sizeOf(context).width;
-    final isTablet = screenWidth > 600;
+    final isTablet = Responsive.isTablet(context);
     final fabBgColor = Theme.of(
       context,
     ).floatingActionButtonTheme.backgroundColor;

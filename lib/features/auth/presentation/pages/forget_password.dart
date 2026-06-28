@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:text_markt/core/helpers/error_snackbar_helper.dart';
+import 'package:text_markt/core/helpers/responsive.dart';
 import 'package:text_markt/core/helpers/success_snackbar_helper.dart';
 import 'package:text_markt/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:text_markt/generated/l10n.dart';
@@ -31,9 +32,12 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.sizeOf(context).width;
     final screenHeight = MediaQuery.sizeOf(context).height;
-    final isTablet = screenWidth > 600;
+    final isTablet = Responsive.isTablet(context);
+    final contentWidth = isTablet
+        ? Responsive.tabletContentWidth
+        : double.infinity;
+    final buttonFontSize = isTablet ? 22.0 : 18.0;
 
     return BlocListener<AuthCubit, AuthState>(
       listenWhen: (previous, current) =>
@@ -75,7 +79,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               S().resetPasswordTitle,
               style: TextStyle(
                 fontFamily: 'Ubuntu',
-                fontSize: isTablet ? 55 : 18,
+                fontSize: isTablet ? 24 : 18,
               ),
             ),
             backgroundColor: Theme.of(context).primaryColor,
@@ -87,7 +91,9 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Column(
+                child: SizedBox(
+                  width: contentWidth,
+                  child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
@@ -108,7 +114,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     const SizedBox(height: 40),
                     Padding(
                       padding: EdgeInsets.symmetric(
-                        horizontal: isTablet ? 40.0 : 10,
+                        horizontal: isTablet ? 0.0 : 10,
                       ),
                       child: Row(
                         children: [
@@ -140,6 +146,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     const SizedBox(height: 45),
                     SizedBox(
                       height: screenHeight * 7 / 100,
+                      width: double.infinity,
                       child: ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor: WidgetStatePropertyAll(
@@ -170,9 +177,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                               ' ${S().sendLink}',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: MediaQuery.sizeOf(context).width < 600
-                                    ? 18
-                                    : 40,
+                                fontSize: buttonFontSize,
                               ),
                             ),
                           ],
@@ -182,6 +187,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                     const SizedBox(height: 10),
                     SizedBox(
                       height: screenHeight * 7 / 100,
+                      width: double.infinity,
                       child: ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor: WidgetStatePropertyAll(
@@ -199,9 +205,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white,
-                                fontSize: MediaQuery.sizeOf(context).width < 600
-                                    ? 18
-                                    : 40,
+                                fontSize: buttonFontSize,
                               ),
                             ),
                           ],
@@ -209,6 +213,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       ),
                     ),
                   ],
+                  ),
                 ),
               ),
             ),

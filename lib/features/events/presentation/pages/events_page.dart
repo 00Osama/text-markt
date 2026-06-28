@@ -6,6 +6,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:text_markt/core/routing/app_router.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:text_markt/core/helpers/error_snackbar_helper.dart';
+import 'package:text_markt/core/helpers/responsive.dart';
 import 'package:text_markt/core/helpers/success_snackbar_helper.dart';
 import 'package:text_markt/features/events/presentation/cubits/event_cubit.dart';
 import 'package:text_markt/generated/l10n.dart';
@@ -48,7 +49,7 @@ class _EventsPageState extends State<EventsPage> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
     final screenHeight = MediaQuery.sizeOf(context).height;
-    final isTablet = screenWidth > 600;
+    final isTablet = Responsive.isTablet(context);
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -178,7 +179,7 @@ class _EventsPageState extends State<EventsPage> {
                         S.of(context).noEvents,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: screenWidth * 0.05,
+                          fontSize: isTablet ? 24 : screenWidth * 0.05,
                         ),
                       ),
                       const Spacer(flex: 1),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:text_markt/core/helpers/error_snackbar_helper.dart';
+import 'package:text_markt/core/helpers/responsive.dart';
 import 'package:text_markt/core/helpers/success_snackbar_helper.dart';
 import 'package:text_markt/generated/l10n.dart';
 
@@ -50,8 +51,7 @@ class _PinSetupButtonState extends State<PinSetupButton> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.sizeOf(context).width;
-    final isTablet = screenWidth > 600;
+    final isTablet = Responsive.isTablet(context);
 
     void showPinBottomSheet() {
       showModalBottomSheet(
@@ -87,7 +87,7 @@ class _PinSetupButtonState extends State<PinSetupButton> {
                       Text(
                         S().setPin,
                         style: TextStyle(
-                          fontSize: isTablet ? 50.0 : 14.0,
+                          fontSize: isTablet ? 24.0 : 14.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -102,7 +102,7 @@ class _PinSetupButtonState extends State<PinSetupButton> {
 
                         decoration: InputDecoration(
                           hintStyle: TextStyle(
-                            fontSize: isTablet ? 50.0 : 14.0,
+                            fontSize: isTablet ? 22.0 : 14.0,
                           ),
                           counterText: "",
                           hintText: S().Enter4DigitsPIN,
@@ -124,7 +124,7 @@ class _PinSetupButtonState extends State<PinSetupButton> {
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           hintStyle: TextStyle(
-                            fontSize: isTablet ? 50.0 : 14.0,
+                            fontSize: isTablet ? 22.0 : 14.0,
                           ),
                           errorText: passwordErrorText,
                           hintText: S().password,
@@ -150,7 +150,7 @@ class _PinSetupButtonState extends State<PinSetupButton> {
                         child: Text(
                           S().forgotPassword,
                           style: TextStyle(
-                            fontSize: isTablet ? 34 : 14,
+                            fontSize: isTablet ? 18 : 14,
                             color: Colors.blue,
                           ),
                         ),
@@ -230,7 +230,7 @@ class _PinSetupButtonState extends State<PinSetupButton> {
                           },
                           child: Text(
                             S().Done,
-                            style: TextStyle(fontSize: isTablet ? 30 : 14),
+                            style: TextStyle(fontSize: isTablet ? 18 : 14),
                           ),
                         ),
                       ),

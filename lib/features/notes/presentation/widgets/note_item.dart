@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:text_markt/core/helpers/responsive.dart';
 import 'package:text_markt/generated/l10n.dart';
 
 class NoteItem extends StatelessWidget {
@@ -106,7 +107,7 @@ class NoteItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
-    final isTablet = screenWidth > 600;
+    final isTablet = Responsive.isTablet(context);
 
     final containerHeight = isTablet ? screenWidth * 0.24 : 145.0;
     final borderRadius = isTablet ? 20.0 : 12.0;

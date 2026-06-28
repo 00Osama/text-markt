@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:text_markt/core/helpers/responsive.dart';
 import 'package:text_markt/core/localization/language_cubit.dart';
 import 'package:text_markt/generated/l10n.dart';
 
@@ -8,7 +9,7 @@ class LanguageSwitcher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isTablet = MediaQuery.sizeOf(context).width > 600;
+    final isTablet = Responsive.isTablet(context);
 
     return BlocBuilder<LanguageCubit, LanguageState>(
       builder: (context, state) {
@@ -63,7 +64,7 @@ class _SettingsPillSwitcher<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final isTablet = MediaQuery.sizeOf(context).width > 600;
+    final isTablet = Responsive.isTablet(context);
 
     return Container(
       height: isTablet ? 72 : 48,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:text_markt/core/helpers/responsive.dart';
 import 'package:text_markt/generated/l10n.dart';
 
 class EventPreview extends StatelessWidget {
@@ -23,6 +24,7 @@ class EventPreview extends StatelessWidget {
         '${dateTime.minute.toString().padLeft(2, '0')} '
         '${DateFormat('a').format(dateTime)}';
     final isExpired = dateTime.isBefore(DateTime.now());
+    final isTablet = Responsive.isTablet(context);
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -71,7 +73,7 @@ class EventPreview extends StatelessWidget {
                 formattedDate,
                 style: TextStyle(
                   color: isExpired ? Colors.red : null,
-                  fontSize: MediaQuery.of(context).size.width * 0.04,
+                  fontSize: isTablet ? 22 : 16,
                 ),
               ),
               const SizedBox(height: 20),

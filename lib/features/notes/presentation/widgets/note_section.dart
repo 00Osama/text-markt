@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:text_markt/core/helpers/responsive.dart';
 import 'package:text_markt/generated/l10n.dart';
 
 class NoteSection extends StatelessWidget {
@@ -20,7 +21,7 @@ class NoteSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
-    final isTablet = screenWidth > 600;
+    final isTablet = Responsive.isTablet(context);
     return Expanded(
       child: GestureDetector(
         onTap: onPressed,
@@ -57,11 +58,15 @@ class NoteSection extends StatelessWidget {
                       ),
               ),
               SizedBox(width: screenWidth * 0.03),
-              Text(
-                sectionName == 'All Notes'
-                    ? S.of(context).allNotes
-                    : sectionName,
-                style: Theme.of(context).textTheme.bodySmall,
+              Expanded(
+                child: Text(
+                  sectionName == 'All Notes'
+                      ? S.of(context).allNotes
+                      : sectionName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
               ),
             ],
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:text_markt/core/helpers/responsive.dart';
 import 'package:text_markt/generated/l10n.dart';
 
 class Swipeitem extends StatelessWidget {
@@ -6,8 +7,7 @@ class Swipeitem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.sizeOf(context).width;
-    final isTablet = screenWidth > 600;
+    final isTablet = Responsive.isTablet(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -24,7 +24,7 @@ class Swipeitem extends StatelessWidget {
         Text(
           S.of(context).swipeForMoreOptions,
           style: TextStyle(
-            fontSize: isTablet ? 45 : 15,
+            fontSize: isTablet ? 18 : 15,
             color:
                 Theme.of(context).textTheme.bodySmall?.color ??
                 Colors.black.withOpacity(0.5),

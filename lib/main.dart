@@ -1,4 +1,3 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,21 +19,18 @@ void main() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
 
   runApp(
-    DevicePreview(
-      builder: (context) => MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (_) =>
-                ThemeCubit(sharedPreferences: prefs)..loadThemePreference(),
-          ),
-          BlocProvider(
-            create: (_) =>
-                LanguageCubit(sharedPreferences: prefs)
-                  ..loadLanguagePreference(),
-          ),
-        ],
-        child: const MyApp(),
-      ),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) =>
+              ThemeCubit(sharedPreferences: prefs)..loadThemePreference(),
+        ),
+        BlocProvider(
+          create: (_) =>
+              LanguageCubit(sharedPreferences: prefs)..loadLanguagePreference(),
+        ),
+      ],
+      child: const MyApp(),
     ),
   );
 }

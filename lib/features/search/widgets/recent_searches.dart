@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:text_markt/core/helpers/responsive.dart';
 import 'package:text_markt/generated/l10n.dart';
 import 'package:text_markt/features/search/cubits/search_cubit.dart';
 
@@ -26,8 +27,7 @@ class _RecentSearchesState extends State<RecentSearches> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.sizeOf(context).width;
-    final isTablet = screenWidth > 600;
+    final isTablet = Responsive.isTablet(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18),
       child: Column(

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:text_markt/core/helpers/responsive.dart';
 
 class AppTheme {
   static ThemeData lightTheme(BuildContext context) {
+    final isTablet = Responsive.isTablet(context);
+
     return ThemeData(
       brightness: Brightness.light,
       primaryColor: Colors.white,
@@ -12,25 +15,25 @@ class AppTheme {
       scaffoldBackgroundColor: const Color(0xffF2F2F6),
       textTheme: TextTheme(
         headlineMedium: TextStyle(
-          fontSize: MediaQuery.of(context).size.width * 0.05,
+          fontSize: isTablet ? 20 : 18,
           color: Colors.grey[700],
         ),
         headlineLarge: TextStyle(
-          fontSize: MediaQuery.of(context).size.width * 0.07,
+          fontSize: isTablet ? 32 : 26,
           fontWeight: FontWeight.bold,
           color: Colors.black,
         ),
         bodySmall: TextStyle(
-          fontSize: MediaQuery.of(context).size.width * 0.04,
+          fontSize: isTablet ? 18 : 15,
           color: Colors.black,
         ),
         bodyMedium: TextStyle(
-          fontSize: MediaQuery.of(context).size.width * 0.05,
+          fontSize: isTablet ? 20 : 18,
           color: Colors.black,
           fontWeight: FontWeight.bold,
         ),
         bodyLarge: TextStyle(
-          fontSize: MediaQuery.of(context).size.width * 0.06,
+          fontSize: isTablet ? 24 : 22,
           color: Colors.black,
           fontWeight: FontWeight.bold,
         ),
@@ -54,6 +57,8 @@ class AppTheme {
   }
 
   static ThemeData darkTheme(BuildContext context) {
+    final isTablet = Responsive.isTablet(context);
+
     return ThemeData(
       brightness: Brightness.dark,
       primaryColor: const Color(0xFF1C1C1E),
@@ -64,25 +69,25 @@ class AppTheme {
       ),
       textTheme: TextTheme(
         headlineMedium: TextStyle(
-          fontSize: MediaQuery.of(context).size.width * 0.05,
+          fontSize: isTablet ? 20 : 18,
           color: Colors.white70,
         ),
         headlineLarge: TextStyle(
-          fontSize: MediaQuery.of(context).size.width * 0.07,
+          fontSize: isTablet ? 32 : 26,
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
         bodySmall: TextStyle(
-          fontSize: MediaQuery.of(context).size.width * 0.04,
+          fontSize: isTablet ? 18 : 15,
           color: Colors.white,
         ),
         bodyMedium: TextStyle(
-          fontSize: MediaQuery.of(context).size.width * 0.05,
+          fontSize: isTablet ? 20 : 18,
           color: Colors.white,
           fontWeight: FontWeight.bold,
         ),
         bodyLarge: TextStyle(
-          fontSize: MediaQuery.of(context).size.width * 0.06,
+          fontSize: isTablet ? 24 : 22,
           color: Colors.white,
           fontWeight: FontWeight.bold,
         ),

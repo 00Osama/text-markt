@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:text_markt/core/helpers/responsive.dart';
 import 'package:text_markt/generated/l10n.dart';
 
 class OnboardingButton extends StatelessWidget {
@@ -15,7 +16,7 @@ class OnboardingButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.sizeOf(context).width;
     final screenHeight = MediaQuery.sizeOf(context).height;
-    final isMobile = screenWidth < 600;
+    final isMobile = Responsive.isMobile(context);
 
     // Responsive dimensions
     final buttonWidth = isMobile ? screenWidth * 0.90 : screenWidth * 0.85;
@@ -23,7 +24,7 @@ class OnboardingButton extends StatelessWidget {
     final buttonPadding = isMobile
         ? const EdgeInsets.symmetric(vertical: 12, horizontal: 16)
         : EdgeInsets.symmetric(vertical: screenHeight * 0.015, horizontal: 20);
-    final textSize = isMobile ? 20.0 : 55.0;
+    final textSize = isMobile ? 20.0 : 24.0;
 
     return SizedBox(
       width: buttonWidth,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:text_markt/core/dependency_injection/service_locator.dart';
+import 'package:text_markt/core/helpers/responsive.dart';
 import 'package:text_markt/features/auth/presentation/pages/verify_email_checker.dart';
 import 'package:text_markt/generated/l10n.dart';
 import 'package:text_markt/features/auth/presentation/pages/onboarding_page.dart';
@@ -45,7 +46,8 @@ class _AuthGateState extends State<AuthGate> {
               },
               child: LayoutBuilder(
                 builder: (context, constraints) {
-                  final isTablet = constraints.maxWidth > 600;
+                  final isTablet =
+                      constraints.maxWidth >= Responsive.tabletBreakpoint;
                   return Center(
                     child: Padding(
                       padding: EdgeInsets.symmetric(

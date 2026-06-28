@@ -14,8 +14,9 @@ class InternetConnectivity extends StatelessWidget {
         (results) => results.isEmpty ? ConnectivityResult.none : results.first,
       ),
       builder: (context, snapshot) {
+        // Assume connected until the first connectivity event arrives.
         final hasConnection =
-            snapshot.data != null && snapshot.data != ConnectivityResult.none;
+            snapshot.data == null || snapshot.data != ConnectivityResult.none;
 
         if (hasConnection) {
           return const AuthGate();

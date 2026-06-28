@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:text_markt/core/helpers/responsive.dart';
 import 'package:text_markt/features/search/pages/search_page.dart';
 import 'package:text_markt/generated/l10n.dart';
 import 'package:text_markt/features/events/presentation/pages/events_page.dart';
@@ -49,7 +50,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
+    final isTablet = Responsive.isTablet(context);
     bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     // Colors fixed for both mobile and tablet
@@ -60,11 +61,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
     Color activeColor = isDark ? Colors.grey[100]! : Colors.grey[800]!;
     Color tabBorderColor = isDark ? Colors.grey : Colors.white;
 
-    // Responsive sizes
-    double navPadding = screenWidth < 600 ? 15 : 30; // bigger on tablet
-    double tabBorderRadius = screenWidth < 600 ? 20 : 35; // bigger on tablet
-    double textFontSize = screenWidth < 600 ? 14 : 37; // bigger on tablet
-    double iconSize = screenWidth < 600 ? 24 : 33; // bigger on tablet
+    double navPadding = isTablet ? 18 : 12;
+    double tabBorderRadius = isTablet ? 28 : 20;
+    double textFontSize = isTablet ? 16 : 13;
+    double iconSize = isTablet ? 28 : 23;
 
     return Scaffold(
       backgroundColor: backgroundColor,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:text_markt/core/dependency_injection/service_locator.dart';
 import 'package:text_markt/core/helpers/error_snackbar_helper.dart';
+import 'package:text_markt/core/helpers/responsive.dart';
 import 'package:text_markt/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:text_markt/generated/l10n.dart';
 import 'package:text_markt/core/widgets/bottom_nav_bar.dart';
@@ -79,9 +80,10 @@ class _VerifyEmailCheckerState extends State<VerifyEmailChecker> {
 
   @override
   Widget build(BuildContext context) {
-    final isTablet = MediaQuery.sizeOf(context).width > 600;
+    final isTablet = Responsive.isTablet(context);
     final screenHeight = MediaQuery.sizeOf(context).height;
-    final fontSize = isTablet ? 50.0 : 14.0;
+    final fontSize = isTablet ? 22.0 : 14.0;
+    final imageSize = isTablet ? 360.0 : 280.0;
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthEmailVerified) {
@@ -105,19 +107,25 @@ class _VerifyEmailCheckerState extends State<VerifyEmailChecker> {
                 child: AppBar(
                   title: Text(
                     S().verifyEmailTitle,
-                    style: TextStyle(fontSize: isTablet ? 55 : 18),
+                    style: TextStyle(fontSize: isTablet ? 24 : 18),
                   ),
                   backgroundColor: Theme.of(context).primaryColor,
                 ),
               ),
-              body: Center(
-                child: Column(
+              body: SafeArea(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isTablet ? 60 : 20,
+                    ),
+                    child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
                       'assets/images/verifyEmail.png',
-                      width: isTablet ? 700 : 400,
-                      height: isTablet ? 700 : 400,
+                      width: imageSize,
+                      height: imageSize,
+                      fit: BoxFit.contain,
                     ),
                     Text(
                       S().checkYourEmail,
@@ -132,7 +140,6 @@ class _VerifyEmailCheckerState extends State<VerifyEmailChecker> {
                         S().verificationHint,
                         textAlign: TextAlign.center,
                         softWrap: true,
-                        maxLines: 1,
                         style: TextStyle(
                           fontFamily: 'Ubuntu',
                           color: Theme.of(context).textTheme.bodyMedium?.color,
@@ -140,10 +147,9 @@ class _VerifyEmailCheckerState extends State<VerifyEmailChecker> {
                       ),
                     ),
                     const SizedBox(height: 15),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: SizedBox(
+                    SizedBox(
                         height: screenHeight * 0.07,
+                        width: double.infinity,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context).primaryColor,
@@ -176,13 +182,11 @@ class _VerifyEmailCheckerState extends State<VerifyEmailChecker> {
                             ],
                           ),
                         ),
-                      ),
                     ),
                     const SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: SizedBox(
+                    SizedBox(
                         height: screenHeight * 0.07,
+                        width: double.infinity,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(
@@ -206,9 +210,10 @@ class _VerifyEmailCheckerState extends State<VerifyEmailChecker> {
                             ],
                           ),
                         ),
-                      ),
                     ),
                   ],
+                    ),
+                  ),
                 ),
               ),
             ),

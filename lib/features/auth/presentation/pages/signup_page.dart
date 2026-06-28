@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:text_markt/core/helpers/responsive.dart';
 import 'package:text_markt/core/routing/app_router.dart';
 import 'package:text_markt/core/helpers/error_snackbar_helper.dart';
 import 'package:text_markt/features/auth/presentation/cubits/auth_cubit.dart';
@@ -31,9 +32,12 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.sizeOf(context).width;
     final screenHeight = MediaQuery.sizeOf(context).height;
-    final isTablet = screenWidth > 600;
+    final isTablet = Responsive.isTablet(context);
+    final contentWidth = isTablet
+        ? Responsive.tabletContentWidth
+        : double.infinity;
+    final iconSize = isTablet ? 52.0 : 40.0;
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is AuthLoading) {
@@ -79,124 +83,159 @@ class _SignUpPageState extends State<SignUpPage> {
                 height: isTablet ? screenHeight * 0.35 : screenHeight * 0.25,
                 fit: BoxFit.contain,
               ),
-              Row(
-                children: [
-                  const Spacer(flex: 1),
-                  Text(
+              Center(
+                child: SizedBox(
+                  width: contentWidth,
+                  child: Text(
                     S().signUp,
                     style: Theme.of(
                       context,
                     ).textTheme.headlineLarge?.copyWith(),
                   ),
-                  const Spacer(flex: 20),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: isTablet ? 40.0 : 10),
-                child: Row(
-                  children: [
-                    Container(
-                      width: isTablet ? 60 : 40,
-                      height: isTablet ? 60 : 40,
-                      padding: EdgeInsets.all(8),
-                      child: Image.asset(
-                        'assets/images/name.png',
-                        color: Theme.of(context).textTheme.bodyMedium?.color,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    SizedBox(width: isTablet ? 20.0 : 0),
-                    Expanded(
-                      child: MyTextField(
-                        readOnly: false,
-                        controller: fullNameController,
-                        hintText: S().fullName,
-                        obscureText: false,
-                        errorText: fullNameErrorText,
-                      ),
-                    ),
-                  ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: isTablet ? 40.0 : 10),
-                child: Row(
-                  children: [
-                    Container(
-                      width: isTablet ? 60 : 40,
-                      height: isTablet ? 60 : 40,
-                      padding: EdgeInsets.all(8),
-                      child: Image.asset(
-                        'assets/images/email.png',
-                        color: Theme.of(context).textTheme.bodyMedium?.color,
-                        fit: BoxFit.contain,
-                      ),
+              Center(
+                child: SizedBox(
+                  width: contentWidth,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isTablet ? 0 : 10,
                     ),
-                    SizedBox(width: isTablet ? 20.0 : 0),
-                    Expanded(
-                      child: MyTextField(
-                        readOnly: false,
-                        controller: emailController,
-                        hintText: S().emailAddress,
-                        obscureText: false,
-                        errorText: emailErrorText,
-                      ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: iconSize,
+                          height: iconSize,
+                          padding: const EdgeInsets.all(8),
+                          child: Image.asset(
+                            'assets/images/name.png',
+                            color: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium?.color,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        SizedBox(width: isTablet ? 20.0 : 0),
+                        Expanded(
+                          child: MyTextField(
+                            readOnly: false,
+                            controller: fullNameController,
+                            hintText: S().fullName,
+                            obscureText: false,
+                            errorText: fullNameErrorText,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: isTablet ? 40.0 : 10),
-                child: Row(
-                  children: [
-                    Container(
-                      width: isTablet ? 60 : 40,
-                      height: isTablet ? 60 : 40,
-                      padding: EdgeInsets.all(8),
-                      child: Image.asset(
-                        'assets/images/password.png',
-                        color: Theme.of(context).textTheme.bodyMedium?.color,
-                        fit: BoxFit.contain,
-                      ),
+              Center(
+                child: SizedBox(
+                  width: contentWidth,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isTablet ? 0 : 10,
                     ),
-                    SizedBox(width: isTablet ? 20.0 : 0),
-                    Expanded(
-                      child: MyTextField(
-                        readOnly: false,
-                        controller: passwordController,
-                        hintText: S().password,
-                        obscureText: true,
-                        errorText: passwordErrorText,
-                      ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: iconSize,
+                          height: iconSize,
+                          padding: const EdgeInsets.all(8),
+                          child: Image.asset(
+                            'assets/images/email.png',
+                            color: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium?.color,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        SizedBox(width: isTablet ? 20.0 : 0),
+                        Expanded(
+                          child: MyTextField(
+                            readOnly: false,
+                            controller: emailController,
+                            hintText: S().emailAddress,
+                            obscureText: false,
+                            errorText: emailErrorText,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: isTablet ? 40.0 : 10),
-                child: Row(
-                  children: [
-                    Container(
-                      width: isTablet ? 60 : 40,
-                      height: isTablet ? 60 : 40,
-                      padding: EdgeInsets.all(8),
-                      child: Image.asset(
-                        'assets/images/password.png',
-                        color: Theme.of(context).textTheme.bodyMedium?.color,
-                        fit: BoxFit.contain,
-                      ),
+              Center(
+                child: SizedBox(
+                  width: contentWidth,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isTablet ? 0 : 10,
                     ),
-                    SizedBox(width: isTablet ? 20.0 : 0),
-                    Expanded(
-                      child: MyTextField(
-                        readOnly: false,
-                        controller: confirmPasswordController,
-                        hintText: S().confirmPassword,
-                        obscureText: true,
-                        errorText: confirmPasswordErrorText,
-                      ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: iconSize,
+                          height: iconSize,
+                          padding: const EdgeInsets.all(8),
+                          child: Image.asset(
+                            'assets/images/password.png',
+                            color: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium?.color,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        SizedBox(width: isTablet ? 20.0 : 0),
+                        Expanded(
+                          child: MyTextField(
+                            readOnly: false,
+                            controller: passwordController,
+                            hintText: S().password,
+                            obscureText: true,
+                            errorText: passwordErrorText,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
+                ),
+              ),
+              Center(
+                child: SizedBox(
+                  width: contentWidth,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isTablet ? 0 : 10,
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: iconSize,
+                          height: iconSize,
+                          padding: const EdgeInsets.all(8),
+                          child: Image.asset(
+                            'assets/images/password.png',
+                            color: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium?.color,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        SizedBox(width: isTablet ? 20.0 : 0),
+                        Expanded(
+                          child: MyTextField(
+                            readOnly: false,
+                            controller: confirmPasswordController,
+                            hintText: S().confirmPassword,
+                            obscureText: true,
+                            errorText: confirmPasswordErrorText,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 40),
@@ -277,8 +316,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 },
               ),
               const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Wrap(
                 children: [
                   Text(S().alreadyHaveAnAccount),
                   GestureDetector(

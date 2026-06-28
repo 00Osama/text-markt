@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:text_markt/core/helpers/responsive.dart';
 import 'package:text_markt/core/routing/app_router.dart';
 import 'package:text_markt/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:text_markt/features/profile/presentation/cubits/profile_cubit.dart';
@@ -27,8 +28,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.sizeOf(context).width;
-    final isTablet = screenWidth > 600;
+    final isTablet = Responsive.isTablet(context);
 
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -70,7 +70,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 // user image
                 SizedBox(height: isTablet ? 15 : 3),
                 CircleAvatar(
-                  radius: isTablet ? 150 : 75,
+                  radius: isTablet ? 110 : 75,
                   backgroundImage: AssetImage(userProfile.image),
                   backgroundColor: Colors.grey[200],
                 ),

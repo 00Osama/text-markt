@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:text_markt/core/helpers/responsive.dart';
 import 'package:text_markt/core/routing/app_router.dart';
 import 'package:text_markt/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:text_markt/features/auth/presentation/widgets/auth_service.dart';
@@ -26,15 +27,13 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.sizeOf(context).width;
     final screenHeight = MediaQuery.sizeOf(context).height;
-    final isTablet = screenWidth > 600;
-    final isLandscape = screenWidth > screenHeight;
-
-    final forgetPasswordFontSize = isTablet ? 50.0 : 19.0;
-    final signUpTextFontSize = isTablet ? 50.0 : 19.0;
-    final topPadding = isLandscape ? 10.0 : 30.0;
-    final spaceBetweenElements = isLandscape ? 15.0 : 25.0;
+    final isTablet = Responsive.isTablet(context);
+    final contentWidth = isTablet
+        ? Responsive.tabletContentWidth
+        : double.infinity;
+    final authLinkFontSize = isTablet ? 22.0 : 19.0;
+    final iconSize = isTablet ? 52.0 : 40.0;
 
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
@@ -70,100 +69,122 @@ class _SignInPageState extends State<SignInPage> {
         body: SafeArea(
           child: ListView(
             children: [
-              SizedBox(height: topPadding),
+              const SizedBox(height: 30),
               Image.asset(
                 'assets/images/login_ill.png',
                 width: double.infinity,
                 height: isTablet ? screenHeight * 0.35 : screenHeight * 0.25,
                 fit: BoxFit.contain,
               ),
-              SizedBox(height: spaceBetweenElements),
-              Row(
-                children: [
-                  const Spacer(flex: 1),
-                  Text(
+              const SizedBox(height: 25),
+              Center(
+                child: SizedBox(
+                  width: contentWidth,
+                  child: Text(
                     S.of(context).signIn,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  const Spacer(flex: 20),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: isTablet ? 40.0 : 10),
-                child: Row(
-                  children: [
-                    Container(
-                      width: isTablet ? 60 : 40,
-                      height: isTablet ? 60 : 40,
-                      padding: EdgeInsets.all(8),
-                      child: Image.asset(
-                        'assets/images/email.png',
-                        color: Theme.of(context).textTheme.bodyMedium?.color,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    SizedBox(width: isTablet ? 20.0 : 0),
-                    Expanded(
-                      child: MyTextField(
-                        readOnly: false,
-                        controller: emailController,
-                        hintText: S().emailAddress,
-                        obscureText: false,
-                        errorText: emailErrorText,
-                      ),
-                    ),
-                  ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: isTablet ? 40.0 : 10),
-                child: Row(
-                  children: [
-                    Container(
-                      width: isTablet ? 60 : 40,
-                      height: isTablet ? 60 : 40,
-                      padding: EdgeInsets.all(8),
-                      child: Image.asset(
-                        'assets/images/password.png',
-                        color: Theme.of(context).textTheme.bodyMedium?.color,
-                        fit: BoxFit.contain,
-                      ),
+              Center(
+                child: SizedBox(
+                  width: contentWidth,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isTablet ? 0 : 10,
                     ),
-                    SizedBox(width: isTablet ? 20.0 : 0),
-                    Expanded(
-                      child: MyTextField(
-                        readOnly: false,
-                        controller: passwordController,
-                        hintText: S().password,
-                        obscureText: true,
-                        errorText: passwordErrorText,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: isLandscape ? 20.0 : 40.0),
-              Row(
-                children: [
-                  GestureDetector(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: isTablet ? 50.0 : 15.0,
-                      ),
-                      child: Text(
-                        S().forgotPassword,
-                        style: TextStyle(
-                          color: const Color(0xff007AFF),
-                          fontWeight: FontWeight.bold,
-                          fontSize: forgetPasswordFontSize,
+                    child: Row(
+                      children: [
+                        Container(
+                          width: iconSize,
+                          height: iconSize,
+                          padding: const EdgeInsets.all(8),
+                          child: Image.asset(
+                            'assets/images/email.png',
+                            color: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium?.color,
+                            fit: BoxFit.contain,
+                          ),
                         ),
-                      ),
+                        SizedBox(width: isTablet ? 20.0 : 0),
+                        Expanded(
+                          child: MyTextField(
+                            readOnly: false,
+                            controller: emailController,
+                            hintText: S().emailAddress,
+                            obscureText: false,
+                            errorText: emailErrorText,
+                          ),
+                        ),
+                      ],
                     ),
-                    onTap: () {
-                      context.push(AppRoutes.forgetPassword);
-                    },
                   ),
-                ],
+                ),
+              ),
+              Center(
+                child: SizedBox(
+                  width: contentWidth,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: isTablet ? 0 : 10,
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: iconSize,
+                          height: iconSize,
+                          padding: const EdgeInsets.all(8),
+                          child: Image.asset(
+                            'assets/images/password.png',
+                            color: Theme.of(
+                              context,
+                            ).textTheme.bodyMedium?.color,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        SizedBox(width: isTablet ? 20.0 : 0),
+                        Expanded(
+                          child: MyTextField(
+                            readOnly: false,
+                            controller: passwordController,
+                            hintText: S().password,
+                            obscureText: true,
+                            errorText: passwordErrorText,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 40),
+              Center(
+                child: SizedBox(
+                  width: contentWidth,
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: isTablet ? 0.0 : 15.0,
+                          ),
+                          child: Text(
+                            S().forgotPassword,
+                            style: TextStyle(
+                              color: const Color(0xff007AFF),
+                              fontWeight: FontWeight.bold,
+                              fontSize: authLinkFontSize,
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          context.push(AppRoutes.forgetPassword);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
               const SizedBox(height: 10),
               MyButton(
@@ -198,12 +219,11 @@ class _SignInPageState extends State<SignInPage> {
                 },
               ),
               const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Wrap(
                 children: [
                   Text(
                     S.of(context).dontHaveAnAccount,
-                    style: TextStyle(fontSize: signUpTextFontSize),
+                    style: TextStyle(fontSize: authLinkFontSize),
                   ),
                   GestureDetector(
                     onTap: () {
@@ -213,7 +233,7 @@ class _SignInPageState extends State<SignInPage> {
                       S.of(context).signUp,
                       style: TextStyle(
                         color: const Color(0xff007AFF),
-                        fontSize: signUpTextFontSize,
+                        fontSize: authLinkFontSize,
                       ),
                     ),
                   ),
