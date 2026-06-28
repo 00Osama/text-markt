@@ -161,78 +161,20 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
           child: Container(
             width: isTablet ? 60 : 40,
             height: isTablet ? 60 : 40,
+
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: fabBgColor,
+              color: Theme.of(
+                context,
+              ).floatingActionButtonTheme.backgroundColor,
             ),
             child: IconButton(
-              constraints: const BoxConstraints(),
-              padding: EdgeInsets.zero,
-              onPressed: () => context.pop(),
-              icon: Icon(
-                Icons.close_rounded,
-                size: isTablet ? 28 : 24,
-                color: fabFgColor,
-              ),
-            ),
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: EdgeInsets.all(isTablet ? 8 : 4),
-            child: Container(
-              width: isTablet ? 60 : 40,
-              height: isTablet ? 60 : 40,
-
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Theme.of(
-                  context,
-                ).floatingActionButtonTheme.backgroundColor,
-              ),
-              child: IconButton(
-                onPressed:
-                    widget.operation == 'add' || widget.operation == 'newEvent'
-                    ? () async {
-                        if (widget.operation == 'add') {
-                          if (titleController.text.trim().isEmpty &&
-                              noteController.text.trim().isEmpty) {
-                            errorSnackBar(
-                              context: context,
-                              title: S.of(context).enterAtLeastNoteTitle,
-                            );
-                          } else {
-                            showDialog(
-                              barrierDismissible: false,
-                              context: context,
-                              builder: (context) {
-                                return Center(
-                                  child:
-                                      LoadingAnimationWidget.threeRotatingDots(
-                                        color: const Color.fromARGB(
-                                          255,
-                                          67,
-                                          143,
-                                          224,
-                                        ),
-                                        size: 90,
-                                      ),
-                                );
-                              },
-                            );
-
-                            context.read<NoteCubit>().addNewNote(
-                              noteController.text.trim(),
-                              titleController.text.trim(),
-                              noteStatusToValue(selectedStatus),
-                            );
-                          }
-                        } else {
-                          ///////// add new event here
-                        }
-                      }
-                    : () {
-                        if (newTitle.trim().isEmpty && newNote.trim().isEmpty) {
+              onPressed:
+                  widget.operation == 'add' || widget.operation == 'newEvent'
+                  ? () async {
+                      if (widget.operation == 'add') {
+                        if (titleController.text.trim().isEmpty &&
+                            noteController.text.trim().isEmpty) {
                           errorSnackBar(
                             context: context,
                             title: S.of(context).enterAtLeastNoteTitle,
@@ -255,27 +197,79 @@ class _CreateNoteState extends State<CreateOrUpdateNote> {
                               );
                             },
                           );
-                          updatedTitle = newTitle;
-                          updatedNote = newNote;
-                          String? id = widget.note?.id;
-                          context.read<NoteCubit>().updateNote(
-                            newNote,
-                            newTitle,
-                            widget.collection!,
-                            id,
-                            widget.note!.time,
+
+                          context.read<NoteCubit>().addNewNote(
+                            noteController.text.trim(),
+                            titleController.text.trim(),
                             noteStatusToValue(selectedStatus),
                           );
                         }
-                      },
+                      } else {
+                        ///////// add new event here
+                      }
+                    }
+                  : () {
+                      if (newTitle.trim().isEmpty && newNote.trim().isEmpty) {
+                        errorSnackBar(
+                          context: context,
+                          title: S.of(context).enterAtLeastNoteTitle,
+                        );
+                      } else {
+                        showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (context) {
+                            return Center(
+                              child: LoadingAnimationWidget.threeRotatingDots(
+                                color: const Color.fromARGB(255, 67, 143, 224),
+                                size: 90,
+                              ),
+                            );
+                          },
+                        );
+                        updatedTitle = newTitle;
+                        updatedNote = newNote;
+                        String? id = widget.note?.id;
+                        context.read<NoteCubit>().updateNote(
+                          newNote,
+                          newTitle,
+                          widget.collection!,
+                          id,
+                          widget.note!.time,
+                          noteStatusToValue(selectedStatus),
+                        );
+                      }
+                    },
+              icon: Icon(
+                Icons.done_rounded,
+                size: isTablet ? 28 : 24,
+                color: Theme.of(
+                  context,
+                ).floatingActionButtonTheme.foregroundColor,
+              ),
+              iconSize: MediaQuery.of(context).size.width * 0.06,
+            ),
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.all(isTablet ? 8 : 4),
+            child: Container(
+              width: isTablet ? 60 : 40,
+              height: isTablet ? 60 : 40,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: fabBgColor,
+              ),
+              child: IconButton(
+                constraints: const BoxConstraints(),
+                padding: EdgeInsets.zero,
+                onPressed: () => context.pop(),
                 icon: Icon(
-                  Icons.done_rounded,
+                  Icons.close_rounded,
                   size: isTablet ? 28 : 24,
-                  color: Theme.of(
-                    context,
-                  ).floatingActionButtonTheme.foregroundColor,
+                  color: fabFgColor,
                 ),
-                iconSize: MediaQuery.of(context).size.width * 0.06,
               ),
             ),
           ),
