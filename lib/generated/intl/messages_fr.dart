@@ -246,11 +246,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "setPin": MessageLookupByLibrary.simpleMessage("Définir le code PIN"),
     "settings": MessageLookupByLibrary.simpleMessage("Paramètres"),
     "signIn": MessageLookupByLibrary.simpleMessage("Se connecter"),
+    "signInBlockedFor": MessageLookupByLibrary.simpleMessage(
+      "Connexion bloquée pendant ",
+    ),
     "signOut": MessageLookupByLibrary.simpleMessage("Se déconnecter"),
     "signOutAndResetPassword": MessageLookupByLibrary.simpleMessage(
       "Veuillez vous déconnecter et réinitialiser votre mot de passe",
     ),
     "signUp": MessageLookupByLibrary.simpleMessage("S\'inscrire"),
+    "signUpBlockedFor": MessageLookupByLibrary.simpleMessage(
+      "Création de compte bloquée pendant ",
+    ),
     "skip": MessageLookupByLibrary.simpleMessage("Ignorer"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Une erreur s\'est produite, actualisez pour recharger",
@@ -262,6 +268,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "systemMode": MessageLookupByLibrary.simpleMessage("Système"),
     "themeMode": MessageLookupByLibrary.simpleMessage("Thème"),
     "title": MessageLookupByLibrary.simpleMessage("Titre"),
+    "tooManyRequests": MessageLookupByLibrary.simpleMessage(
+      "Trop de requêtes. Veuillez réessayer plus tard.",
+    ),
     "trash": MessageLookupByLibrary.simpleMessage("Corbeille"),
     "tryAgain": MessageLookupByLibrary.simpleMessage("Réessayer"),
     "tryAgainLater": MessageLookupByLibrary.simpleMessage(

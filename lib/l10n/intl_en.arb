@@ -148,7 +148,13 @@
       "resetEmailSentSuccessfully": "Password reset email sent successfully", 
     "noteSuccessfullyMovedTo": "Note successfully moved to", 
       "saveQueryToSearchHistory": "Save query to search history",
-  "clearQueryAndExit": "Clear query and exit"
+  "clearQueryAndExit": "Clear query and exit", 
+    "tooManyRequests": "Too many requests. Please try again later.",
+      "signInBlockedFor": "Sign in blocked for ", 
+        "signUpBlockedFor": "Sign up blocked for "
+
+
+
 
 
 

@@ -230,11 +230,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "setPin": MessageLookupByLibrary.simpleMessage("تعيين الرقم السري"),
     "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
     "signIn": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
+    "signInBlockedFor": MessageLookupByLibrary.simpleMessage(
+      "تم حظر تسجيل الدخول لمدة ",
+    ),
     "signOut": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
     "signOutAndResetPassword": MessageLookupByLibrary.simpleMessage(
       "يرجي تسجيل الخروج وإعادة تعيين كلمة المرور",
     ),
     "signUp": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
+    "signUpBlockedFor": MessageLookupByLibrary.simpleMessage(
+      "تم حظر إنشاء الحساب لمدة ",
+    ),
     "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "حدث خطأ ما، قم بالتحديث لإعادة التحميل",
@@ -246,6 +252,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "systemMode": MessageLookupByLibrary.simpleMessage("النظام"),
     "themeMode": MessageLookupByLibrary.simpleMessage("السمة"),
     "title": MessageLookupByLibrary.simpleMessage("العنوان"),
+    "tooManyRequests": MessageLookupByLibrary.simpleMessage(
+      "عدد الطلبات كبير جدًا. حاول مرة أخرى لاحقًا.",
+    ),
     "trash": MessageLookupByLibrary.simpleMessage("المحذوفات"),
     "tryAgain": MessageLookupByLibrary.simpleMessage("حاول مرة أخرى"),
     "tryAgainLater": MessageLookupByLibrary.simpleMessage(

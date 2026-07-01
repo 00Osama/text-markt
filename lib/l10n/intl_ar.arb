@@ -147,7 +147,13 @@
       "resetEmailSentSuccessfully": "تم إرسال رسالة إعادة تعيين كلمة المرور بنجاح", 
           "noteSuccessfullyMovedTo": "تم نقل الملاحظة بنجاح إلى", 
            "saveQueryToSearchHistory": "حفظ الاستعلام في سجل البحث",
-  "clearQueryAndExit": "مسح الاستعلام والخروج"
+  "clearQueryAndExit": "مسح الاستعلام والخروج", 
+    "tooManyRequests": "عدد الطلبات كبير جدًا. حاول مرة أخرى لاحقًا.", 
+      "signInBlockedFor": "تم حظر تسجيل الدخول لمدة ", 
+        "signUpBlockedFor": "تم حظر إنشاء الحساب لمدة "
+
+
+
 
 
 

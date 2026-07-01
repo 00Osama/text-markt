@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -29,6 +30,46 @@ class _SignUpPageState extends State<SignUpPage> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final auth = AuthService();
+  Timer? tooManyRequestsTimer;
+  int tooManyRequestsSeconds = 0;
+  bool get isTooManyRequestsBlocked => tooManyRequestsSeconds > 0;
+
+  String get tooManyRequestsButtonText {
+    final minutes = tooManyRequestsSeconds ~/ 60;
+    final seconds = tooManyRequestsSeconds % 60;
+    final secondsText = seconds.toString().padLeft(2, '0');
+    return '${S().signInBlockedFor}$minutes:$secondsText';
+  }
+
+  void startTooManyRequestsTimer() {
+    tooManyRequestsTimer?.cancel();
+    setState(() {
+      tooManyRequestsSeconds = 180;
+    });
+
+    tooManyRequestsTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (tooManyRequestsSeconds == 1) {
+        timer.cancel();
+        setState(() {
+          tooManyRequestsSeconds = 0;
+        });
+      } else {
+        setState(() {
+          tooManyRequestsSeconds--;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    tooManyRequestsTimer?.cancel();
+    fullNameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +103,9 @@ class _SignUpPageState extends State<SignUpPage> {
             setState(() {
               emailErrorText = S.of(context).emailAlreadyInUse;
             });
+          } else if (state.error.contains('too-many-requests')) {
+            startTooManyRequestsTimer();
+            errorSnackBar(context: context, title: S().tooManyRequests);
           } else {
             errorSnackBar(context: context, title: state.error);
           }
@@ -240,95 +284,108 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               const SizedBox(height: 40),
               MyButton(
-                buttonText: S().signUp,
-                onPressed: () async {
-                  if (await auth.checkSignUpCredential(
-                        credential: 'signup',
-                        fullNameController: fullNameController,
-                        emailController: emailController,
-                        passwordController: passwordController,
-                        confirmPasswordController: confirmPasswordController,
-                      ) ==
-                      'invalid signup') {
-                    showDialog(
-                      context: context,
-                      builder: (context) => const Center(
-                        child: CircularProgressIndicator(color: Colors.black),
-                      ),
-                    );
-                  }
-                  fullNameErrorText = await auth.checkSignUpCredential(
-                    credential: 'fullname',
-                    fullNameController: fullNameController,
-                    emailController: emailController,
-                    passwordController: passwordController,
-                    confirmPasswordController: confirmPasswordController,
-                  );
+                buttonText: isTooManyRequestsBlocked
+                    ? tooManyRequestsButtonText
+                    : S().signUp,
+                onPressed: isTooManyRequestsBlocked
+                    ? null
+                    : () async {
+                        if (await auth.checkSignUpCredential(
+                              credential: 'signup',
+                              fullNameController: fullNameController,
+                              emailController: emailController,
+                              passwordController: passwordController,
+                              confirmPasswordController:
+                                  confirmPasswordController,
+                            ) ==
+                            'invalid signup') {
+                          showDialog(
+                            context: context,
+                            builder: (context) => const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.black,
+                              ),
+                            ),
+                          );
+                        }
+                        fullNameErrorText = await auth.checkSignUpCredential(
+                          credential: 'fullname',
+                          fullNameController: fullNameController,
+                          emailController: emailController,
+                          passwordController: passwordController,
+                          confirmPasswordController: confirmPasswordController,
+                        );
 
-                  emailErrorText = await auth.checkSignUpCredential(
-                    credential: 'email',
-                    fullNameController: fullNameController,
-                    emailController: emailController,
-                    passwordController: passwordController,
-                    confirmPasswordController: confirmPasswordController,
-                  );
-                  passwordErrorText = await auth.checkSignUpCredential(
-                    credential: 'password',
-                    fullNameController: fullNameController,
-                    emailController: emailController,
-                    passwordController: passwordController,
-                    confirmPasswordController: confirmPasswordController,
-                  );
+                        emailErrorText = await auth.checkSignUpCredential(
+                          credential: 'email',
+                          fullNameController: fullNameController,
+                          emailController: emailController,
+                          passwordController: passwordController,
+                          confirmPasswordController: confirmPasswordController,
+                        );
+                        passwordErrorText = await auth.checkSignUpCredential(
+                          credential: 'password',
+                          fullNameController: fullNameController,
+                          emailController: emailController,
+                          passwordController: passwordController,
+                          confirmPasswordController: confirmPasswordController,
+                        );
 
-                  confirmPasswordErrorText = await auth.checkSignUpCredential(
-                    credential: 'confirmPassword',
-                    fullNameController: fullNameController,
-                    emailController: emailController,
-                    passwordController: passwordController,
-                    confirmPasswordController: confirmPasswordController,
-                  );
-                  setState(() {});
-                  if (await auth.checkSignUpCredential(
-                        credential: 'signup',
-                        fullNameController: fullNameController,
-                        emailController: emailController,
-                        passwordController: passwordController,
-                        confirmPasswordController: confirmPasswordController,
-                      ) ==
-                      'invalid signup') {
-                    context.pop();
-                  }
+                        confirmPasswordErrorText = await auth
+                            .checkSignUpCredential(
+                              credential: 'confirmPassword',
+                              fullNameController: fullNameController,
+                              emailController: emailController,
+                              passwordController: passwordController,
+                              confirmPasswordController:
+                                  confirmPasswordController,
+                            );
+                        setState(() {});
+                        if (await auth.checkSignUpCredential(
+                              credential: 'signup',
+                              fullNameController: fullNameController,
+                              emailController: emailController,
+                              passwordController: passwordController,
+                              confirmPasswordController:
+                                  confirmPasswordController,
+                            ) ==
+                            'invalid signup') {
+                          context.pop();
+                        }
 
-                  if (await auth.checkSignUpCredential(
-                        credential: 'signup',
-                        fullNameController: fullNameController,
-                        emailController: emailController,
-                        passwordController: passwordController,
-                        confirmPasswordController: confirmPasswordController,
-                      ) ==
-                      'valid signup') {
-                    context.read<AuthCubit>().signUp(
-                      emailController.text,
-                      passwordController.text,
-                      fullNameController.text,
-                    );
-                  }
-                },
+                        if (await auth.checkSignUpCredential(
+                              credential: 'signup',
+                              fullNameController: fullNameController,
+                              emailController: emailController,
+                              passwordController: passwordController,
+                              confirmPasswordController:
+                                  confirmPasswordController,
+                            ) ==
+                            'valid signup') {
+                          context.read<AuthCubit>().signUp(
+                            emailController.text,
+                            passwordController.text,
+                            fullNameController.text,
+                          );
+                        }
+                      },
               ),
               const SizedBox(height: 10),
-              Wrap(
-                children: [
-                  Text(S().alreadyHaveAnAccount),
-                  GestureDetector(
-                    onTap: () {
-                      context.go(AppRoutes.signIn);
-                    },
-                    child: Text(
-                      S().signIn,
-                      style: TextStyle(color: Color(0xff007AFF)),
+              Center(
+                child: Wrap(
+                  children: [
+                    Text(S().alreadyHaveAnAccount),
+                    GestureDetector(
+                      onTap: () {
+                        context.go(AppRoutes.signIn);
+                      },
+                      child: Text(
+                        S().signIn,
+                        style: TextStyle(color: Color(0xff007AFF)),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               const SizedBox(height: 20),
             ],

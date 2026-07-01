@@ -1108,6 +1108,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Too many requests. Please try again later.`
+  String get tooManyRequests {
+    return Intl.message(
+      'Too many requests. Please try again later.',
+      name: 'tooManyRequests',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in blocked for `
+  String get signInBlockedFor {
+    return Intl.message(
+      'Sign in blocked for ',
+      name: 'signInBlockedFor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign up blocked for `
+  String get signUpBlockedFor {
+    return Intl.message(
+      'Sign up blocked for ',
+      name: 'signUpBlockedFor',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

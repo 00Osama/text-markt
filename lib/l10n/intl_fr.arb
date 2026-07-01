@@ -148,7 +148,13 @@
           "noteSuccessfullyMovedTo": "La note a été déplacée avec succès vers", 
         
    "saveQueryToSearchHistory": "Enregistrer la recherche dans l'historique",
-  "clearQueryAndExit": "Effacer la recherche et quitter"
+  "clearQueryAndExit": "Effacer la recherche et quitter", 
+    "tooManyRequests": "Trop de requêtes. Veuillez réessayer plus tard.", 
+      "signInBlockedFor": "Connexion bloquée pendant ", 
+        "signUpBlockedFor": "Création de compte bloquée pendant "
+
+
+
 
 
 

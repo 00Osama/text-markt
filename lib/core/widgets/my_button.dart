@@ -10,7 +10,7 @@ class MyButton extends StatelessWidget {
     this.icon,
   });
 
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final String buttonText;
   final String? operation;
   final IconData? icon;

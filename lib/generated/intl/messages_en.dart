@@ -222,11 +222,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "setPin": MessageLookupByLibrary.simpleMessage("Set PIN"),
     "settings": MessageLookupByLibrary.simpleMessage("Settings"),
     "signIn": MessageLookupByLibrary.simpleMessage("Sign In"),
+    "signInBlockedFor": MessageLookupByLibrary.simpleMessage(
+      "Sign in blocked for ",
+    ),
     "signOut": MessageLookupByLibrary.simpleMessage("Sign Out"),
     "signOutAndResetPassword": MessageLookupByLibrary.simpleMessage(
       "Please sign out and reset your Password",
     ),
     "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
+    "signUpBlockedFor": MessageLookupByLibrary.simpleMessage(
+      "Sign up blocked for ",
+    ),
     "skip": MessageLookupByLibrary.simpleMessage("Skip"),
     "somethingWentWrong": MessageLookupByLibrary.simpleMessage(
       "Something went wrong, refresh to reload",
@@ -238,6 +244,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "systemMode": MessageLookupByLibrary.simpleMessage("System"),
     "themeMode": MessageLookupByLibrary.simpleMessage("Theme Mode"),
     "title": MessageLookupByLibrary.simpleMessage("Title"),
+    "tooManyRequests": MessageLookupByLibrary.simpleMessage(
+      "Too many requests. Please try again later.",
+    ),
     "trash": MessageLookupByLibrary.simpleMessage("Trash"),
     "tryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
     "tryAgainLater": MessageLookupByLibrary.simpleMessage("Try again later"),

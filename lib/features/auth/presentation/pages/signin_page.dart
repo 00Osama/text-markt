@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -24,6 +26,45 @@ class _SignInPageState extends State<SignInPage> {
   String? emailErrorText;
   String? passwordErrorText;
   final auth = AuthService();
+  Timer? tooManyRequestsTimer;
+  int tooManyRequestsSeconds = 0;
+
+  bool get isTooManyRequestsBlocked => tooManyRequestsSeconds > 0;
+
+  String get tooManyRequestsButtonText {
+    final minutes = tooManyRequestsSeconds ~/ 60;
+    final seconds = tooManyRequestsSeconds % 60;
+    final secondsText = seconds.toString().padLeft(2, '0');
+    return '${S().signInBlockedFor}$minutes:$secondsText';
+  }
+
+  void startTooManyRequestsTimer() {
+    tooManyRequestsTimer?.cancel();
+    setState(() {
+      tooManyRequestsSeconds = 180;
+    });
+
+    tooManyRequestsTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (tooManyRequestsSeconds == 1) {
+        timer.cancel();
+        setState(() {
+          tooManyRequestsSeconds = 0;
+        });
+      } else {
+        setState(() {
+          tooManyRequestsSeconds--;
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    tooManyRequestsTimer?.cancel();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +100,9 @@ class _SignInPageState extends State<SignInPage> {
             });
           } else if (state.error.contains('wrong-password')) {
             errorSnackBar(context: context, title: S().wrongUsernameOrPassword);
+          } else if (state.error.contains('too-many-requests')) {
+            startTooManyRequestsTimer();
+            errorSnackBar(context: context, title: S().tooManyRequests);
           } else {
             errorSnackBar(context: context, title: S().error);
           }
@@ -167,7 +211,7 @@ class _SignInPageState extends State<SignInPage> {
                       GestureDetector(
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                            horizontal: isTablet ? 0.0 : 15.0,
+                            horizontal: isTablet ? 0.0 : 25.0,
                           ),
                           child: Text(
                             S().forgotPassword,
@@ -188,56 +232,62 @@ class _SignInPageState extends State<SignInPage> {
               ),
               const SizedBox(height: 10),
               MyButton(
-                buttonText: S.of(context).signIn,
-                onPressed: () {
-                  setState(() {
-                    emailErrorText = auth.checkSigninCredential(
-                      context: context,
-                      credential: 'email',
-                      emailController: emailController,
-                      passwordController: passwordController,
-                    );
-                    passwordErrorText = auth.checkSigninCredential(
-                      context: context,
-                      credential: 'password',
-                      emailController: emailController,
-                      passwordController: passwordController,
-                    );
-                  });
-                  if (auth.checkSigninCredential(
-                        context: context,
-                        credential: 'signin',
-                        emailController: emailController,
-                        passwordController: passwordController,
-                      ) ==
-                      'valid signin') {
-                    context.read<AuthCubit>().signIn(
-                      emailController.text,
-                      passwordController.text,
-                    );
-                  }
-                },
+                buttonText: isTooManyRequestsBlocked
+                    ? tooManyRequestsButtonText
+                    : S.of(context).signIn,
+                onPressed: isTooManyRequestsBlocked
+                    ? null
+                    : () {
+                        setState(() {
+                          emailErrorText = auth.checkSigninCredential(
+                            context: context,
+                            credential: 'email',
+                            emailController: emailController,
+                            passwordController: passwordController,
+                          );
+                          passwordErrorText = auth.checkSigninCredential(
+                            context: context,
+                            credential: 'password',
+                            emailController: emailController,
+                            passwordController: passwordController,
+                          );
+                        });
+                        if (auth.checkSigninCredential(
+                              context: context,
+                              credential: 'signin',
+                              emailController: emailController,
+                              passwordController: passwordController,
+                            ) ==
+                            'valid signin') {
+                          context.read<AuthCubit>().signIn(
+                            emailController.text,
+                            passwordController.text,
+                          );
+                        }
+                      },
               ),
               const SizedBox(height: 10),
-              Wrap(
-                children: [
-                  Text(
-                    S.of(context).dontHaveAnAccount,
-                    style: TextStyle(fontSize: authLinkFontSize),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      context.go(AppRoutes.signUp);
-                    },
-                    child: Text(
-                      S.of(context).signUp,
-                      style: TextStyle(
-                        color: const Color(0xff007AFF),
-                        fontSize: authLinkFontSize,
+              Center(
+                child: Wrap(
+                  children: [
+                    Text(
+                      S.of(context).dontHaveAnAccount,
+                      style: TextStyle(fontSize: authLinkFontSize),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        context.go(AppRoutes.signUp);
+                      },
+                      child: Text(
+                        S.of(context).signUp,
+                        style: TextStyle(
+                          color: const Color(0xff007AFF),
+                          fontSize: authLinkFontSize,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
